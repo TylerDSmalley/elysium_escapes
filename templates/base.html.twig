@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link
+		rel="stylesheet" href="styles/styles.css">
+		<!--<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>-->
+
+		{% block head %}
+			<title>
+				{% block title %}{% endblock %}
+				- The Fire Sale</title>
+		{% endblock %}
+	</head>
+
+	<body>
+
+		<header class="header">
+			<nav class="navWrapper">
+				<ul class="navList">
+					<li class="logoBox">
+						<h1>
+							<strong>The Fire Sale</strong>
+						</h1>
+					</li>
+					<li class="navItems">
+						<a href="http://day06slimauction:8888/listitems">Home</a>
+					</li>
+					<li class="navItems">
+						<a href="http://day06slimauction:8888/newauction">Submit Item</a>
+					</li>
+				</ul>
+
+			</nav>
+		</header>
+
+		<div class="contentWrapper"> 
+            {% block content %}{% endblock %}
+		</div>
+
+	</body>
+
+</html>

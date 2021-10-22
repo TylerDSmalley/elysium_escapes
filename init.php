@@ -49,3 +49,4 @@ $container['view'] = function ($c) {
     $view->addExtension(new \Slim\Views\TwigExtension($router, $uri));
     return $view;
 };
+
