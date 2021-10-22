@@ -5,18 +5,30 @@
 
 <<Daily Scrum - 2021-10-22 >>
 --Tyler--
-ToDo:
+1. What I have done / not done since last Scrum
+-N/A
+2. What I plan to do from this scrum to the next
 -migrate travel right layouts into twig templates
 -develope todo's for backlog cards
+3. Where do I need assistance? What do I need to figure out?
+-none
 
 --Stefan--
-ToDo
+1. What I have done / not done since last Scrum
+-N/A
+2. What I plan to do from this scrum to the next
 -Research APIs - (skyscanner/booking.com)
 -learning/testing endpoints
 -generating functions to retrieve data for flight/ hotel locations
 -generating test page to test data
+3. Where do I need assistance? What do I need to figure out?
+-none
 
 --Ileana--
-ToDo
+1. What I have done / not done since last Scrum
+-N/A
+2. What I plan to do from this scrum to the next
 -Look into CRUD videos
 -make skeleton working copy for admin page
+3. Where do I need assistance? What do I need to figure out?
+-none
