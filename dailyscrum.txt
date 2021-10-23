@@ -9,7 +9,7 @@
 -N/A
 2. What I plan to do from this scrum to the next
 -migrate travel right layouts into twig templates
--develope todo's for backlog cards
+-develop todo's for backlog cards
 3. Where do I need assistance? What do I need to figure out?
 -none
 

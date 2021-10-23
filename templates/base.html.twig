@@ -5,42 +5,81 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link
-		rel="stylesheet" href="styles/styles.css">
-		<!--<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>-->
+		<meta name="description" content="Travel Right is a premier travel agency with the intention of making travel available to all"/>
+		<meta
+		name="keywords" content="Travel Right, travel, booking, vacation, travel agency, jungle, urban, tropical"/>
+
+		<!--HTML Document for the travel site page
+		     Developed by: Tyler Smalley
+		    Script Date: August 26, 2021-->
+		<link rel="icon" type="image/png" href="images/favicon.png">
+		<link rel="stylesheet" href="styles/navigation.css">
+		<script src="scripts/nav.js"></script>
 
 		{% block head %}
 			<title>
 				{% block title %}{% endblock %}
-				- The Fire Sale</title>
+				 | Travel Right</title>
 		{% endblock %}
 	</head>
 
-	<body>
-
+	<body class="body">
 		<header class="header">
-			<nav class="navWrapper">
-				<ul class="navList">
-					<li class="logoBox">
-						<h1>
-							<strong>The Fire Sale</strong>
-						</h1>
+			<img src="images/hamburger.png" id="mobile-nav-button" alt="nav menu icon" onclick="openNav()"/>
+			<nav class="nav">
+				<ul class="navigation">
+					<li><img src="images/Logo.png" alt="Travel Right Logo" title="Travel Right Logo"></li>
+					<li>
+						<a href="http://lifes_a_beach_team_sit:8888/index">Home</a>
 					</li>
-					<li class="navItems">
-						<a href="http://day06slimauction:8888/listitems">Home</a>
+					<li>
+						<a href="http://lifes_a_beach_team_sit:8888/blog">Why Travel Right</a>
 					</li>
-					<li class="navItems">
-						<a href="http://day06slimauction:8888/newauction">Submit Item</a>
+					<li>
+						<a href="http://lifes_a_beach_team_sit:8888/destinations">Destinations</a>
+					</li>
+					<li>
+						<a href="http://lifes_a_beach_team_sit:8888/pricing">Pricing</a>
+					</li>
+					<li>
+						<a href="http://lifes_a_beach_team_sit:8888/trcalendar">Calendar</a>
+					</li>
+					<li>
+						<a href="http://lifes_a_beach_team_sit:8888/booking">Book Now</a>
+					</li>
+					<li>
+						<a href="http://lifes_a_beach_team_sit:8888/contactus">Contact Us</a>
+					</li>
+					<li>
+						<a href="travel_right_index_fr.html">Fr</a>
 					</li>
 				</ul>
-
 			</nav>
 		</header>
 
-		<div class="contentWrapper"> 
-            {% block content %}{% endblock %}
-		</div>
+		{% block content %}{% endblock %}
 
+		<footer class="footer">
+        <div class="logo_wrapper">
+            <img src="images/Logo.png" alt="Travel Right Logo" title="Travel Right Logo">
+        </div>
+        <ul class=address_container>
+            <li><strong>Address</strong></li>
+            <li>1234 Ste. Catherine Ouest</li>
+            <li>Montreal, Qc, Canada</li>
+            <li>H2K 3H2</li>
+        </ul>
+        <ul class="hours_container">
+            <li><strong>Hours of Operation</strong></li>
+            <li>Mon-Friday: 9am-4:30pm</li>
+            <li>Saturday: 11am - 4:30pm</li>
+            <li>Sunday: Closed</li>
+        </ul>
+
+    </footer>
+
+	{% block scripts %}{% endblock %}
+	
 	</body>
 
 </html>

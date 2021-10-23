@@ -1,0 +1,133 @@
+{% extends "base.html.twig" %}
+{% block title %}Pricing
+{% endblock %}
+{% block head %}
+	<link rel="stylesheet" href="styles/newPricing.css">
+	<script src="scripts/trPricing.js"></script>
+	{{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+	<div class="parallax-1">
+		<div class="caption">
+			<span class="border">Are You Ready To..</span>
+		</div>
+	</div>
+
+	<section id="choose_container">
+		<h2 id="h2_choose">Find the Right price</h2>
+		<form name="priceCalculator" id="priceCalculator" method="GET" action="booking.html" onsubmit="return validateForm();" onreset="location.reload();">
+			<fieldset id="tableWrapper">
+				<table class="flexTable">
+					<tr>
+						<td class="inputcell">
+							<select name="destinationOption" id="destinationOption" onchange="calculateDestinationPrice();">
+								<option value="0">Destinations</option>
+								<option value="200.00">Bermuda ($200.00)</option>
+								<option value="275.00">Berlin ($275.00)</option>
+								<option value="250.00">Costa Rica ($250.00)</option>
+								<option value="350.00">Fiji ($350.00)</option>
+								<option value="300.00">Great Barrier Reef ($300.00)</option>
+								<option value="300.00">Mauritus ($300.00)</option>
+								<option value="200.00">Mexico City ($200.00)</option>
+								<option value="350.00">Shanghai ($350.00)</option>
+								<option value="325.00">The Amazon ($325.00)</option>
+							</select>
+
+							<select name="nightQuantity" id="nightQuantity" onchange="calculateDestinationPrice();">
+								<option value="0">Nights</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								<option value="10">10</option>
+							</select>
+						</td>
+					</tr>
+
+					<tr>
+						<td id="packageOptions">
+							<p>
+								<input type="radio" name="packageOption" id="default" value="0"/>
+								<label for="optionC">No package</label>
+							</p>
+							<p>
+								<input type="radio" name="packageOption" id="optionA" value="15.50" onchange="addPackageOption(this);"/>
+								<label for="optionA">Meal Package: $15.50/night</label>
+							</p>
+							<p>
+								<input type="radio" name="packageOption" id="optionB" value="24.99" onchange="addPackageOption(this);"/>
+								<label for="optionB">Transportation Package: $24.99/night</label>
+							</p>
+							<p>
+								<input type="radio" name="packageOption" id="optionC" value="10.00" onchange="addPackageOption(this);"/>
+								<label for="optionC">Open Bar Package: $10.00/night</label>
+							</p>
+							<p>
+								<input type="radio" name="packageOption" id="optionD" value="50.00" onchange="addPackageOption(this);"/>
+								<label for="optionC">All-inclusive: $50/night</label>
+							</p>
+						</td>
+					</tr>
+				</table>
+				<table class="flexTable">
+					<tr>
+						<td class="currencyDescription">Destination price</td>
+						<td class="currencyCell">
+							<input class="num" name="basePrice" id="basePrice" size="4" value="0.00" readonly="readonly"/>
+						</td>
+					</tr>
+					<tr>
+						<td class="currencyDescription">Package price</td>
+						<td class="currencyCell">
+							<input class="num" name="packageOptionResult" id="packageOptionResult" size="4" value="0.00" readonly="readonly"/>
+						</td>
+					</tr>
+
+					<tr>
+						<td class="currencyDescription">Subtotal</td>
+						<td class="currencyCell">
+							<input class="num" name="subtotal" id="subtotal" size="4" value="0.00" readonly="readonly"/>
+						</td>
+					</tr>
+
+					<tr>
+						<td class="currencyDescription">Tax (GST/QST)</td>
+						<td class="currencyCell">
+							<input class="num" name="tax" id="tax" size="4" value="0.00" readonly="readonly"/>
+						</td>
+					</tr>
+
+					<tr>
+						<td class="currencyDescription">TOTAL:</td>
+						<td class="currencyCell">
+							<input class="num" name="totalPrice" id="totalPrice" size="4" value="0.00" readonly="readonly"/>
+						</td>
+					</tr>
+				</table>
+
+			</fieldset>
+			<div id="buttonWrapper">
+				<p id="formbuttons">
+					<input type="reset" name="btnCancel" id="btnCancel" value="Clear Form"/>
+					<input type="submit" name="btnNext" id="btnNext" value="Book Now!"/>
+				</p>
+			</div>
+
+
+		</form>
+	</section>
+
+	<div class="parallax-1">
+		<div class="caption">
+			<span class="border">...Travel Right</span>
+		</div>
+	</div>
+
+{% endblock %}

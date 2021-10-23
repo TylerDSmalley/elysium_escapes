@@ -1,0 +1,49 @@
+{% extends "base.html.twig" %}
+{% block title %}Testemonials
+{% endblock %}
+{% block head %}
+	<link rel="stylesheet" href="styles/blog.css"/>
+	{{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+<div id="main_image">
+	<img src="./images/family.jpg" title="family" alt="family"/>
+	<div>
+		<h1>Travel Journals</h1>
+	</div>
+</div>
+
+<h4>Our informative articles will give you valuable insights and ideas</h4>
+
+<div class="responsive-grid" id="articles">
+	<div class="article-preview">
+		<img src="./images/santorini.jpg" title="santorini" alt="santorini"/>
+		<div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et expedita ipsa blanditiis praesentium quo quia explicabo error voluptatibus dolores voluptatum deserunt, quasi consequatur non molestiae, quam minima repellat sit ratione.<br>
+
+			<a class="read-more">read more</a>
+		</div>
+	</div>
+	<div class="article-preview">
+		<img src="./images/paris.jpg" title="paris" alt="paris"/>
+		<div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et expedita ipsa blanditiis praesentium quo quia explicabo error voluptatibus dolores voluptatum deserunt, quasi consequatur non molestiae, quam minima repellat sit ratione.<br>
+			<a class="read-more">read more</a>
+		</div>
+	</div>
+	<div class="article-preview">
+		<img src="./images/veniz.jpg" title="veniz" alt="veniz"/>
+		<div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et expedita ipsa blanditiis praesentium quo quia explicabo error voluptatibus dolores voluptatum deserunt, quasi consequatur non molestiae, quam minima repellat sit ratione.<br>
+			<a class="read-more">read more</a>
+		</div>
+	</div>
+	<div class="article-preview">
+		<img src="./images/negombo.jpg" title="negombo" alt="negombo"/>
+		<div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et expedita ipsa blanditiis praesentium quo quia explicabo error voluptatibus dolores voluptatum deserunt, quasi consequatur non molestiae, quam minima repellat sit ratione.<br>
+			<a class="read-more">read more</a>
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}

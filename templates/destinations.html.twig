@@ -1,0 +1,99 @@
+{% extends "base.html.twig" %}
+{% block title %}Destinations
+{% endblock %}
+{% block head %}
+	<link rel="stylesheet" href="styles/destinations.css">
+	<script src="scripts/nav.js"></script>
+	{{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+	<main>
+		<section class="fullwidth_flex" id="discover">
+			<img src="images/Bermuda.jpg" alt="Bermuda">
+			<img src="images/Reef.jpg" alt="Great Barrier Reef">
+			<img src="images/Fiji.jpg" alt="Fiji">
+			<img src="images/Shanghai.jpg" alt="Shanghai">
+			<h1>Discover Your Dream Destination</h1>
+		</section>
+		<section id="sunsand">
+			<div class="flex dest_category_header">
+				<h2>Sun &amp; Sand</h2>
+				<p>Find the exclusive beach resort that's perfect for you, whether it's a honeymoon, a family vacation, or just some time away from the kids.</p>
+			</div>
+			<div class="flex dest_category">
+				<a href="">
+					<figure>
+						<figcaption>Bermuda</figcaption>
+						<img src="images/Bermuda.jpg" alt="Bermuda">
+					</figure>
+				</a>
+				<a href="">
+					<figure>
+						<figcaption>Fiji</figcaption><img src="images/Fiji.jpg" alt="Fiji">
+					</figure>
+				</a>
+				<a href="">
+					<figure>
+						<figcaption>Mauritius</figcaption><img src="images/Mauritius.jpg" alt="Mauritius">
+					</figure>
+				</a>
+			</div>
+		</section>
+		<section id="adventure">
+			<div class="flex dest_category_header">
+				<p>Your adrenaline will soar on these treks through unparalleled wilderness and nautical excursions.</p>
+				<h2>An Adventure of a Lifetime</h2>
+			</div>
+			<div class="flex dest_category">
+				<a href="">
+					<figure>
+						<figcaption>The Amazon</figcaption>
+						<img src="images/Amazon.jpg" alt="Amazon">
+					</figure>
+				</a>
+				<a href="">
+					<figure>
+						<figcaption>Costa Rica</figcaption><img src="images/Costa_Rica.jpg" alt="Costa Rica">
+					</figure>
+				</a>
+				<a href="">
+					<figure>
+						<figcaption>Great Barrier Reef</figcaption><img src="images/Reef.jpg" alt="Barrier Reef">
+					</figure>
+				</a>
+			</div>
+		</section>
+		<section id="urban">
+			<div class="flex dest_category_header">
+				<h2>Urban Playgrounds</h2>
+				<p>World-class cuisine, entertainment and culture await you in a bustling metropolis.</p>
+			</div>
+			<div class="flex dest_category">
+				<a href="">
+					<figure>
+						<figcaption>Berlin</figcaption>
+						<img src="images/Berlin.jpg" alt="Berlin">
+					</figure>
+				</a>
+				<a href="">
+					<figure>
+						<figcaption>Mexico City</figcaption><img src="images/MexicoCity.jpg" alt="Mexico City">
+					</figure>
+				</a>
+				<a href="">
+					<figure>
+						<figcaption>Shanghai</figcaption><img src="images/Shanghai.jpg" alt="Shanghai">
+					</figure>
+				</a>
+			</div>
+		</section>
+		<section id="plantrip">
+			<a href="bookings.html">
+				Plan Your Trip Now &#187;
+			</a>
+		</section>
+	</main>
+
+{% endblock %}

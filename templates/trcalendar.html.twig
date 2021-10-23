@@ -1,0 +1,33 @@
+{% extends "base.html.twig" %}
+{% block title %}Fire Sale Deals
+{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="styles/trCalendar.css">
+<script src="scripts/trEvents.js" defer></script>
+<script src="scripts/trCalendar.js" defer></script>
+	{{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+<div class="parallax-1">
+        <div class="caption">
+            <span class="border">Are You Ready To..</span>
+        </div>
+    </div>
+
+    <section id="calendar_container">
+        <h2 id="h2_calendar">Travel Spontaneously</h2>
+        <div id="calendar">calendar</div>
+        <div class="button_wrapper">
+            <a class="button" href="booking.html">Book Now!</a>
+        </div>
+    </section>
+
+    <div class="parallax-1">
+        <div class="caption">
+            <span class="border">...Travel Right</span>
+        </div>
+    </div>
+	
+{% endblock %}

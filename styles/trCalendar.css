@@ -1,0 +1,246 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap%27');
+
+/* CSS Document for the Calendar page */
+
+
+/* Developed by:  Tyler Smalley */
+
+
+/* Script Date: 2021-09-14 */
+
+.body,
+html {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 14pt;
+    text-shadow: #ee9b57 3px 0 6px;
+    background-image: url("../images/calendar.jpg");
+    color: #26a1b1;
+    position: relative;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+h1 {
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+h2 {
+    font-family: 'Source Sans Pro', sans-serif;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #07616b;
+}
+
+h3 {
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    font: 20px "Lato", sans-serif;
+    color: #111;
+}
+
+#calendar_container {
+    border-top: thin solid #AB8A72;
+    border-bottom: thin solid #AB8A72;
+    box-shadow: 0 4px 2px -2px rgb(37, 36, 36);
+    position: relative;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+    padding: 0 0 5% 0;
+    background-image: linear-gradient(to right, #f1dbc7, #f3ceb6);
+    opacity: .97;
+}
+
+#h2_calendar {
+    font-family: 'Caveat', cursive;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    font-size: 24pt;
+    font-weight: 900;
+    text-shadow: 1px 1px white, #07616b -1px -1px;
+    text-align: center;
+    color: #fff;
+    margin: 5% 25% 0 25%;
+}
+
+div#calendar {
+    width: 80%;
+    margin: 30px auto 10px;
+}
+
+div#calendar {
+    width: 80%;
+    margin: 30px auto 10px;
+}
+
+#calendar_table {
+    background-color: rgb(231, 231, 231);
+    font-size: 14pt;
+    font-family: 'Source Sans Pro', sans-serif;
+    width: 100%;
+    height: auto;
+    box-shadow: 0px 2px 1px -1px rgb(37, 36, 36), 0px 0px 3px rgb(37, 36, 36), 0px 0px 8px rgb(37, 36, 36), 0px 0px 18px rgb(37, 36, 36);
+}
+
+#calendar_table caption {
+    caption-side: top;
+    text-align: center;
+    padding-bottom: 20px;
+    font-size: 16pt;
+    letter-spacing: 0.2em;
+}
+
+.calendar_weekdays {
+    background-color: rgb(236, 236, 231);
+    width: 14.28%;
+    font-size: 1em;
+    border-bottom: 3px solid gray;
+}
+
+.calendar_dates {
+    text-align: left;
+    vertical-align: top;
+    font-size: 0.8em;
+    padding: 3px;
+    border: 1px dotted #26a1b1;
+    background-color: white;
+    height: 60px;
+}
+
+#calendar_today {
+    font-weight: bold;
+    color: rgb(46, 42, 42);
+    background-color: #f3ceb6;
+    border: 1px solid black;
+}
+
+.footer {
+    border-top: thick solid #AB8A72;
+    z-index: 5;
+    opacity: .95;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+    align-items: flex-end;
+    list-style: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-image: linear-gradient(to right, #f1dbc7, #f3ceb6);
+}
+
+.address_container {
+    flex: auto;
+    list-style: none;
+    margin: 1%;
+    padding: 1%;
+}
+
+.hours_container {
+    flex: auto;
+    list-style: none;
+    margin: 1%;
+    padding: 1%;
+}
+
+.logo_wrapper {
+    flex: auto;
+    margin: 1%;
+    padding: 1%;
+}
+
+.button_wrapper {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    margin: 5% 25% 0 25%;
+}
+
+.button {
+    flex: auto;
+    text-decoration: none;
+    text-align: center;
+    text-shadow: -2px -2px #444;
+    font-weight: 900;
+    font-size: 14pt;
+    letter-spacing: 4px;
+    color: white;
+    background-color: #07616b;
+    height: auto;
+    border: thin solid black;
+    border-radius: 10px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07), 0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07), 0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
+    padding: 1em;
+}
+
+.button:hover {
+    background-color: #26a1b1;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07), 0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07), 0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
+}
+
+.button:active {
+    background-color: #5acaa9;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.07), inset 0 2px 4px rgba(0, 0, 0, 0.07), inset 0 4px 8px rgba(0, 0, 0, 0.07), inset 0 8px 16px rgba(0, 0, 0, 0.07), inset 0 16px 32px rgba(0, 0, 0, 0.07), inset 0 32px 64px rgba(0, 0, 0, 0.07);
+}
+
+.parallax-1 {
+    position: relative;
+    opacity: 0.9;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.parallax-1 {
+    background-image: url("../images/calendar.jpg");
+    min-height: 50%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.caption {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: auto;
+    text-align: center;
+    color: #000;
+}
+
+.caption span.border {
+    opacity: .7;
+    background-color: #111;
+    border-radius: 5px;
+    color: #fff;
+    width: 100%;
+    height: auto;
+    padding: 18px;
+    font-size: 16pt;
+    font-family: 'Caveat', cursive;
+    letter-spacing: 10px;
+}
+
+
+/* Turn off parallax scrolling for tablets and phones */
+
+@media only screen and (max-width: 1024px) {
+    .bgimg-1,
+    .bgimg-2,
+    .bgimg-3 {
+        background-attachment: scroll;
+    }
+}

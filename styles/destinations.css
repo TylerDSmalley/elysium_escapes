@@ -1,0 +1,220 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap%27');
+
+/* CSS Document for the Destinations page */
+
+
+/* Developed by:  Kevin Paul */
+
+
+/* Script Date: August 31, 2021 */
+
+body {
+    /* max-width: 1400px; */
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 14pt;
+    text-shadow: #ee9b57 3px 0 6px;
+    background-image: linear-gradient(to right, #f1dbc7, #f3ceb6);
+    color: #26a1b1;
+}
+
+h1,
+h2 {
+    font-family: 'Source Sans Pro';
+}
+
+.fullwidth_flex {
+    display: flex;
+    flex-wrap: nowrap;
+    height: 350px;
+}
+
+.fullwidth_flex img {
+    width: 25%;
+    object-fit: cover;
+}
+
+.flex {
+    display: flex;
+}
+
+@media only screen and (max-width: 668px) {
+    .flex {
+        flex-direction: column;
+        justify-content: center;
+    }
+    #adventure .flex {
+        flex-direction: column-reverse;
+    }
+    .dest_category a {
+        max-width: 100% !important;
+        width: 60%;
+    }
+    .dest_category_header h2,
+    .dest_category_header p {
+        width: 90% !important;
+        padding: 0 5% !important;
+    }
+    .dest_category_header p {
+        margin-top: 0 !important;
+        text-align: left;
+        padding-left: 7% !important;
+    }
+    .dest_category figcaption {
+        font-size: 1.25em !important;
+    }
+}
+
+.dest_category {
+    align-items: center;
+}
+
+.dest_category_header h2,
+.dest_category_header p {
+    width: 50%;
+    padding: 0 2em;
+    margin-top: 3%;
+    margin-bottom: 1%;
+}
+
+.dest_category_header h2 {
+    font-size: 5.0vw;
+    text-align: center;
+    color: #07616b;
+    letter-spacing: 3px;
+    text-shadow: 2px 2px 1px #ffffff;
+}
+
+#adventure h2,
+#urban h2 {
+    font-size: 3.5vw;
+}
+
+#adventure h2 {
+    width: 60%;
+}
+
+.dest_category_header p {
+    font-style: italic;
+    padding: 1% 4% 0 1%;
+    font-size: 14px;
+    font-weight: bold !important;
+}
+
+#adventure p {
+    width: 40%;
+    padding: 1% 0 1% 4%;
+}
+
+.dest_category a {
+    max-width: 25%;
+    margin: 0 3%;
+}
+
+div.dest_category a:hover figcaption {
+    background-color: rgba(7, 97, 107, 0.75);
+}
+
+.dest_category figure {
+    width: 100%;
+    text-align: left;
+}
+
+.dest_category img {
+    width: 100%;
+    height: calc(125px + 4vw);
+    object-fit: cover;
+}
+
+#discover h1 {
+    position: absolute;
+    top: calc(7.0vw + 100px);
+    left: 8%;
+    font-size: 4.0vw;
+    font-style: italic;
+    padding: 0.1em 0.2em;
+    border-radius: 3px;
+    color: #03045E;
+    background-color: rgba(202, 240, 248, 0.7);
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 1px rgba(255, 255, 255, 0.7);
+}
+
+.dest_category figcaption {
+    color: white;
+    width: auto;
+    position: absolute;
+    margin-top: 2%;
+    margin-left: -18px;
+    padding: 0.5% 2% 0.5% 1%;
+    font-weight: bold;
+    font-size: 2em;
+    background-color: rgba(202, 240, 248, 0.7);
+    text-shadow: 1px 1px 1px #03045E;
+}
+
+#adventure {
+    background-color: #CAF0F8;
+}
+
+#urban {
+    background-color: lightgrey;
+}
+
+#plantrip {
+    width: 100%;
+    height: 12vw;
+    border: none;
+    text-align: center;
+}
+
+#plantrip a {
+    line-height: 12vw;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-size: 6vw;
+    font-style: italic;
+    font-weight: bold;
+}
+
+#plantrip a:hover {
+    color: #03045E;
+}
+
+.footer {
+    border-top: thick solid #AB8A72;
+    z-index: 5;
+    opacity: .8;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+    align-items: flex-end;
+    list-style: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-image: linear-gradient(to right, #F3CBA8, #F5C1A0);
+}
+
+.address_container {
+    flex: auto;
+    list-style: none;
+    margin: 1%;
+    padding: 1%;
+}
+
+.hours_container {
+    flex: auto;
+    list-style: none;
+    margin: 1%;
+    padding: 1%;
+}
+
+.logo_wrapper {
+    flex: auto;
+    margin: 1%;
+    padding: 1%;
+}

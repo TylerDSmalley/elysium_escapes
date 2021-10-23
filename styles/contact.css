@@ -1,0 +1,195 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+
+/* CSS Document for the Contact page */
+
+
+/* Developed by:  Div/Tyler Smalley */
+
+
+/* Script Date: August 31, 2021, updated 2021-09-17 */
+
+body,
+html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 14pt;
+    text-shadow: #ee9b57 3px 0 6px;
+    background-image: linear-gradient(to right, #f1dbc7, #f3ceb6);
+    color: #26a1b1;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+input[type=text],
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
+
+address p {
+    margin: 0px;
+    text-align: left;
+}
+
+.footer {
+    border-top: thick solid #AB8A72;
+    z-index: 5;
+    opacity: .95;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+    align-items: flex-end;
+    list-style: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-image: linear-gradient(to right, #f1dbc7, #f3ceb6);
+}
+
+.address_container {
+    flex: auto;
+    list-style: none;
+    margin: 1%;
+    padding: 1%;
+}
+
+.hours_container {
+    flex: auto;
+    list-style: none;
+    margin: 1%;
+    padding: 1%;
+}
+
+.logo_wrapper {
+    flex: auto;
+    margin: 1%;
+    padding: 1%;
+}
+
+.flex-container {
+    display: flex;
+    opacity: 0.9;
+    margin-top: 10px;
+}
+
+.flex-container>div {
+    background-color: #f1f1f1;
+    margin: 10px;
+    padding: 30px;
+    font-size: 15px;
+    border-radius: 20px;
+}
+
+#destination_container {
+    border-top: thin solid #AB8A72;
+    border-bottom: thin solid #AB8A72;
+    box-shadow: 0 4px 2px -2px rgb(37, 36, 36);
+    background-image: linear-gradient(to right, #f1dbc7, #f3ceb6);
+    position: relative;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+    padding: 0 5% 5% 5%;
+}
+
+#h2_Destinations {
+    font-family: 'Caveat', cursive;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    font-size: 24pt;
+    font-weight: 900;
+    text-shadow: 1px 1px white, #07616b -1px -1px;
+    text-align: center;
+    color: #fff;
+    margin: 5% 25% 1% 25%;
+}
+
+#destination_list_wrapper {
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    width: 100%;
+    height: inherit;
+    margin: 0;
+    align-self: auto;
+}
+
+.destinaton_flexbox {
+    flex: auto;
+    padding: 10px;
+    max-width: 538px;
+    min-width: 0;
+    margin: 3%;
+}
+
+.destination_heading {
+    flex: auto;
+    width: 100%;
+    max-width: 538px;
+    min-width: 0;
+    height: auto;
+}
+
+.destination_description {
+    flex: auto;
+    text-justify: auto;
+    width: 80%;
+    max-width: 538px;
+    min-width: 80%;
+    height: auto;
+}
+
+.destination_image_box {
+    flex: auto;
+    width: 100%;
+    max-width: 538px;
+    min-width: 80%;
+    max-width: 10800%;
+    height: auto;
+}
+
+.parallax-1 {
+    position: relative;
+    opacity: 0.9;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.parallax-1 {
+    background-image: url("../images/contact.jpg");
+    min-height: 50%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Turn off parallax scrolling for tablets and phones */
+
+@media only screen and (max-width: 1024px) {
+    .parallax-1 {
+        background-attachment: scroll;
+    }
+}
+
+#confirmMessage {
+    font-weight: bold;
+}
