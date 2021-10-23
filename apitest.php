@@ -1,5 +1,22 @@
 <?php
 
+// PlaceId
+$montreal = "YMQA-sky";
+
+$bahamas = "BS-sky";
+$fiji = "FJ-sky";
+$maldives = "MV-sky";
+$aruba = "AW-sky";
+$borabora = "BOB-sky";
+$hawaii = "HNL-sky"; // Honolulu
+$frenchPolynesia = "PF-sky";
+
+echo "Flight Data" . "<br><br>";
+
+
+// Swap out location variables to change search results
+displayResults($montreal, $bahamas);
+
 function callAPI($url) {
 	$curl = curl_init($url);
 
@@ -63,20 +80,3 @@ function displayResults($departLocation, $destination) {
     }
 
 }
-
-// PlaceId
-$montreal = "YMQA-sky";
-
-$bahamas = "BS-sky";
-$fiji = "FJ-sky";
-$maldives = "MV-sky";
-$aruba = "AW-sky";
-$borabora = "BOB-sky";
-$hawaii = "HNL-sky"; // Honolulu
-$frenchPolynesia = "PF-sky";
-
-echo "Flight Data" . "<br><br>";
-
-
-// Swap out location variables to change search results
-displayResults($montreal, $bahamas);
