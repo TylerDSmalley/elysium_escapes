@@ -5,17 +5,19 @@ $montreal = "YMQA-sky";
 
 $bahamas = "BS-sky";
 $fiji = "FJ-sky";
-$maldives = "MV-sky";
-$aruba = "AW-sky";
-$borabora = "BOB-sky";
+// $maldives = "MV-sky";
+// $aruba = "AW-sky";
+// $borabora = "BOB-sky";
 $hawaii = "HNL-sky"; // Honolulu
-$frenchPolynesia = "PF-sky";
+// $frenchPolynesia = "PF-sky";
 
-echo "Flight Data" . "<br><br>";
 
 
 // Swap out location variables to change search results
 displayResults($montreal, $bahamas);
+
+$skyscannerApiHost = "x-rapidapi-host: skyscanner-skyscanner-flight-search-v1.p.rapidapi.com";
+$skyscannerApiKey = "x-rapidapi-key: ddadb2b982msh2f5bdc8948a96e5p1d52b9jsn9d517fe644de";
 
 function callAPI($url) {
 	$curl = curl_init($url);
@@ -56,6 +58,8 @@ function displayResults($departLocation, $destination) {
 
     $quotes = $data->Quotes;
     $places = $data->Places;
+        
+    echo "Flight Data" . "<br><br>";
 
     foreach($quotes as $Quote) {
         $OriginId = $Quote->OutboundLeg->OriginId;
@@ -76,7 +80,7 @@ function displayResults($departLocation, $destination) {
         echo "Depart from: " . $departurePlaceName . "<br>";
         echo "Arrive at: " . $destinationPlaceName . "<br>";
         echo "Departure Date: " . $Quote->OutboundLeg->DepartureDate . "<br>";
-        echo "MinPrice: " . $Quote->MinPrice . "<br><br><br>";
+        echo "MinPrice: " . $Quote->MinPrice . "<br><br>";
     }
 
 }
