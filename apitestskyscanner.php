@@ -43,17 +43,6 @@ function callAPI($url) {
 	return $data;
 }
 
-function getPlaces($location) {
-    $baseURL = "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/CA/CAD/en-CA/?query=";
-    return callAPI($baseURL . $location);
-}
-
-function getQuotes($departureLocation, $arrivalLocation, $date) {
-    $baseURL = "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/CA/CAD/en-CA/";
-    $apiLink = $baseURL . $departureLocation . "/" . $arrivalLocation . "/" . $date . "/anytime";
-    return callAPI($apiLink);
-}
-
 function displayResults($departLocation, $destination) {
     $data = getQuotes($departLocation, $destination, "anytime");
 
@@ -91,3 +80,16 @@ function displayResults($departLocation, $destination) {
     }
 
 }
+
+
+function getPlaces($location) {
+    $baseURL = "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/CA/CAD/en-CA/?query=";
+    return callAPI($baseURL . $location);
+}
+
+function getQuotes($departureLocation, $arrivalLocation, $date) {
+    $baseURL = "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/CA/CAD/en-CA/";
+    $apiLink = $baseURL . $departureLocation . "/" . $arrivalLocation . "/" . $date . "/anytime";
+    return callAPI($apiLink);
+}
+
