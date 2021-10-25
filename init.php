@@ -18,7 +18,7 @@ $log->pushHandler(new StreamHandler('logs/errors.log', Logger::ERROR));
 if (strpos($_SERVER['HTTP_HOST'], "fsd01.ca") !== false) {
     //hosting config
     DB::$dbName = 'cp5016_travel';
-    DB::$user = 'cp5016_travel';
+    DB::$user = 'cp5016_travelXXXXX';
     DB::$password = 'ece5SnjfRDZE';
 } else {
     //local machine CHANGE TO LIFES A BEACH
@@ -29,11 +29,11 @@ if (strpos($_SERVER['HTTP_HOST'], "fsd01.ca") !== false) {
     DB::$port = 3333;
 }
 
-//user/db: cp5016_travel
-//pass:ece5SnjfRDZE
+//error handler test
+//DB::query("SELECT * FROM auctions");
 
-DB::$error_handler = 'db_error_handler';
-DB:: $nonsql_error_handler = 'db_error_handler';
+DB::$error_handler = 'db_error_handler'; // runs on mysql query errors
+DB::$nonsql_error_handler = 'db_error_handler'; // runs on library errors (bad syntax, etc)
 
 function db_error_handler($params) {
     global $log, $container;
