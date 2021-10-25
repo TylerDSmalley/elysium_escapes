@@ -64,16 +64,47 @@ function searchLocations($location) {
         }
     }
 }
+/*
+    include_adjacency
+    units
+    filter_by_currency
+    locale
+    page_number
+    categories_filter_ids
+*/
 
 function searchHotels($locationId) {
-    $apiUrl = "https://booking-com.p.rapidapi.com/v1/hotels/search?dest_type=city&checkin_date=2022-07-24&room_number=1&checkout_date=2022-07-25&order_by=popularity&dest_id=" . $locationId . "&adults_number=2&units=metric&filter_by_currency=AED&locale=en-gb&children_ages=5%2C0&include_adjacency=true&page_number=0&categories_filter_ids=class%3A%3A2%2Cclass%3A%3A4%2Cfree_cancellation%3A%3A1&children_number=2";
+    $destinationType = "city"; // get list
+    $checkInDate = "2022-07-24";
+    $checkOutDate = "2022-07-25";
+    $orderBy = "popularity"; // get list
+    $numberOfRooms = 1;
+    $numberOfAdults = 2;
+    $numberOfChildren = 1;
+    $childrenAges = "5%2C0"; // %2C == ,
+
+    $apiUrl = 
+    "https://booking-com.p.rapidapi.com/v1/hotels/search?"
+     . "dest_type=" . $destinationType
+     . "&checkin_date=" . $checkInDate
+     . "&room_number=" . $numberOfRooms
+     . "&checkout_date=" . $checkOutDate
+     . "&order_by=" . $orderBy
+     . "&dest_id=" . $locationId
+     . "&adults_number=" . $numberOfAdults
+     . "&units=metric&filter_by_currency=CAD&locale=en-us"
+     . "&children_ages=" . $childrenAges
+     . "&include_adjacency=true"
+     . "&page_number=0"
+     . "&categories_filter_ids=class%3A%3A2%2Cclass%3A%3A4%2Cfree_cancellation%3A%3A1"
+     . "&children_number=" . $numberOfChildren;
     
     return callAPI($apiUrl);
 }
 
 function getHotelData($location) {
     $hotelData = searchHotels(searchLocations($location));
-
+    // print_r($hotelData);
     echo "Hotel Data" . "<br><br>";
 
     echo "Search results for \"" . $location . "\"" . "<br><br><br>";
