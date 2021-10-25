@@ -15,14 +15,39 @@ $log = new Logger('main');
 $log->pushHandler(new StreamHandler('logs/everything.log', Logger::DEBUG));
 $log->pushHandler(new StreamHandler('logs/errors.log', Logger::ERROR));
 
-DB::$dbName = 'day06slimauction';
-DB::$user = 'day06slimauction';
-DB::$password = 'DeyCQ.xXyiBO8D7y';
-DB::$host = 'localhost';
-DB::$port = 3333;
+if (strpos($_SERVER['HTTP_HOST'], "fsd01.ca") !== false) {
+    //hosting config
+    DB::$dbName = 'cp5016_travel';
+    DB::$user = 'cp5016_travel';
+    DB::$password = 'ece5SnjfRDZE';
+} else {
+    //local machine CHANGE TO LIFES A BEACH
+    DB::$dbName = 'day06slimauction';
+    DB::$user = 'day06slimauction';
+    DB::$password = 'DeyCQ.xXyiBO8D7y';
+    DB::$host = 'localhost';
+    DB::$port = 3333;
+}
+
+//user/db: cp5016_travel
+//pass:ece5SnjfRDZE
 
 DB::$error_handler = 'db_error_handler';
 DB:: $nonsql_error_handler = 'db_error_handler';
+
+function db_error_handler($params) {
+    global $log, $container;
+    $log->error("Database error: " . $params['error']);
+    if (isset($params['query'])) {
+        $log->error("SQL query: " . $params['query']);
+    }
+    // this was tricky to find - getting access to twig rendering directly, without PHP Slim
+    http_response_code(500); // internal server error
+    $twig = $container['view']->getEnvironment();
+    die($twig->render('error_internal.html.twig'));
+    // Note: the above trick may also be useful to render a template into an email body
+    //header("Location: /internalerror"); // another possibility, not my favourite
+}
 
 // Create and configure Slim app
 $config = ['settings' => [
