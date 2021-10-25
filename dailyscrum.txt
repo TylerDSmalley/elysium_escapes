@@ -32,3 +32,39 @@
 -make skeleton working copy for admin page
 3. Where do I need assistance? What do I need to figure out?
 -none
+
+
+<<Daily Scrum - 2021-10-25 >>
+--Tyler--
+1. What I have done / not done since last Scrum
+-migrated travel right layouts into twig templates
+-developed todo's for backlog cards
+2. What I plan to do from this scrum to the next
+-finalize design and create DB
+-research and implement calendar library e.g. https://fullcalendar.io/demos
+3. Where do I need assistance? What do I need to figure out?
+-how to link foreign keys in myAdmin
+
+--Stefan--
+1. What I have done / not done since last Scrum
+-Researched APIs - (skyscanner/booking.com)
+-learned/tested endpoints
+-generated functions to retrieve data for flight/ hotel locations
+-generated test page to test data
+2. What I plan to do from this scrum to the next
+-finalize design and create DB
+-get APIs working together to generate unified list. 
+3. Where do I need assistance? What do I need to figure out?
+-api crashes. Sometimes they require a page reload to display results...may be something to do with limits for free account
+
+--Ileana--
+1. What I have done / not done since last Scrum
+-Watched portion of adminCRUD video
+-Created master template for admin
+-Created base template for user list and edit.
+2. What I plan to do from this scrum to the next
+-Continuing creating templates and testing functionality on admin folder
+-Create/adjust admin to do list
+-finalize design and create DB
+3. Where do I need assistance? What do I need to figure out?
+-none
