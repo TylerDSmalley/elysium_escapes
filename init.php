@@ -15,10 +15,16 @@ $log = new Logger('main');
 $log->pushHandler(new StreamHandler('logs/everything.log', Logger::DEBUG));
 $log->pushHandler(new StreamHandler('logs/errors.log', Logger::ERROR));
 
+$log->pushProcessor(function ($record) {
+    // $record['extra']['user'] = isset($_SESSION['user']) ? $_SESSION['user']['username'] : '=anonymous=';
+    $record['extra']['ip'] = $_SERVER['REMOTE_ADDR'];
+    return $record;
+});
+
 if (strpos($_SERVER['HTTP_HOST'], "fsd01.ca") !== false) {
     //hosting config
     DB::$dbName = 'cp5016_travel';
-    DB::$user = 'cp5016_travelXXXXX';
+    DB::$user = 'cp5016_travel';
     DB::$password = 'ece5SnjfRDZE';
 } else {
     //local machine CHANGE TO LIFES A BEACH
@@ -30,7 +36,7 @@ if (strpos($_SERVER['HTTP_HOST'], "fsd01.ca") !== false) {
 }
 
 //error handler test
-//DB::query("SELECT * FROM auctions");
+//$discard = DB::query("SELECT * FROM auctions");
 
 DB::$error_handler = 'db_error_handler'; // runs on mysql query errors
 DB::$nonsql_error_handler = 'db_error_handler'; // runs on library errors (bad syntax, etc)
