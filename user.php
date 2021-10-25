@@ -5,7 +5,7 @@ require_once 'vendor/autoload.php';
 require_once 'init.php';
 
 //display home page
-$app->get('/index', function ($request, $response, $args) {
+$app->get('/', function ($request, $response, $args) {
     return $this->view->render($response, 'index.html.twig');
 });
 
@@ -35,6 +35,10 @@ $app->get('/pricing', function ($request, $response, $args) {
 
 $app->get('/trcalendar', function ($request, $response, $args) {
     return $this->view->render($response, 'trcalendar.html.twig');
+});
+
+$app->get('/error_internal', function ($request, $response, $args) {
+    return $this->view->render($response, 'error_internal.html.twig');
 });
 
 // $app->get('/register', function .....);
