@@ -17,3 +17,12 @@ $app->get('/admin/users/{id:[0-9]+}/edit',function($request,$response,$args){
  }
    return $this->view->render($response,'admin/users_edit.html.twig',['user'=> $user]);
 });
+
+$app->get('/error_internal', function ($request, $response, $args) {
+  return $this->view->render($response, 'error_internal.html.twig');
+});
+
+
+$app->get('/admin/destinations', function($request,$response,$args){
+  return $this->view->render($response,'admin/destinations_add.html.twig');
+});
