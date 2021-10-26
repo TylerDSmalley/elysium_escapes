@@ -4,6 +4,40 @@ require_once 'vendor/autoload.php';
 
 require_once 'init.php';
 
+function validatePhone($phone){
+    $valid_number = filter_var($phone, FILTER_SANITIZE_NUMBER_INT);
+    $valid_number = str_replace("-", "", $valid_number);
+    if (strlen($valid_number) < 10 || strlen($valid_number) > 14) {
+        return FALSE;
+    }else{
+        return TRUE;
+    }
+    }
+
+function validatePassword($password1,$password2){
+    if(!empty($password1) && ($password1 == $password2)) {
+        
+        if (strlen($password1) < 4 || strlen($password1) > 100) {
+            return $errorList[] = "Your Password Must Contain At Least 8 Characters!";
+        }
+        elseif(!preg_match("#[0-9]+#",$password1)) {
+           return $errorList[] = "Your Password Must Contain At Least 1 Number!";
+        }
+        elseif(!preg_match("#[A-Z]+#",$password1)) {
+            return $errorList[] = "Your Password Must Contain At Least 1 Capital Letter!";
+        }
+        elseif(!preg_match("#[a-z]+#",$password1)) {
+            return $errorList[] = "Your Password Must Contain At Least 1 Lowercase Letter!";
+        }
+        elseif(!empty($password1)) {
+            return $errorList[] = "Please Check You've Entered Or Confirmed Your Password!";
+        } 
+    }else {
+        return $errorList[] = "Please enter password";
+        }
+    return TRUE;
+}
+
 // $app->get('/admin/user/list', function .....);
 function verifyUploadedPhoto(&$newFilePath, $photo)
 {
