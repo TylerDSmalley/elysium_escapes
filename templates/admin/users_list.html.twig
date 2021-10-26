@@ -9,6 +9,6 @@
     <tr><td>{{u.id}}</td><td>{{u.first_name}}</td><td>{{u.last_name}}</td><td>{{u.email}}</td>
     <td>{{u.phone_number}}</td><td>{{u.account_type}}</td><td><a href="/admin/users/{{u.id}}/edit">Edit</a></td>
     <td><a href="/admin/users/{{u.id}}/delete">Delete</a></td></tr>
-{% endblock %}    
+{% endfor %}    
 </table>
 {% endblock %}

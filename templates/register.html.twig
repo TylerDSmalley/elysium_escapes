@@ -1,0 +1,27 @@
+{% block stylesheets %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+{% endblock %}
+<h3>New Auction</h3>
+
+{% if errorList %}
+    <ul>
+    {% for error in errorList %}
+        <li>{{ error }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+<form method="POST">
+<div class="card z-depth-0">
+    <div class="card-content">
+    First Name: <input type="text" name="firstName"/><br/>
+    Last Name: <input type="text" name="lastName" /><br/>
+    Email: <input type="text" name="email" value="{{ v.email }}"><br>
+    Phone: <input type="text" name="phone" value="{{v.phone_number}}"><br/>
+    Password: <input type="password" name="password1"><br>
+    Password (Repeated): <input type="password" name="password2"><br>
+    <p>Password must be at least 6 characters long and must contain at least one uppercase letter, one lower case letter, and one number or special character.</p>
+        <br/>
+        <input type="submit" value="Register!">
+    </div></div>
+</form>
