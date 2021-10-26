@@ -8,9 +8,6 @@
 
 /* Developed by:  Tyler Smalley */
 
-
-/* Script Date: 2021-09-14 */
-
 .body,
 html {
     height: 100%;
@@ -20,13 +17,8 @@ html {
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 14pt;
     text-shadow: #ee9b57 3px 0 6px;
-    background-image: url("../images/calendar.jpg");
+    background-image: linear-gradient(to right, #f1dbc7, #f3ceb6);
     color: #26a1b1;
-    position: relative;
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
 }
 
 h1 {

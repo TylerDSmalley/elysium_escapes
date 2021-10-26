@@ -6,13 +6,14 @@
 /* CSS Document for the Destinations page */
 
 
-/* Developed by:  Kevin Paul */
+/* Developed by:  Tyler Smalley */
 
-
-/* Script Date: August 31, 2021 */
-
-body {
-    /* max-width: 1400px; */
+.body,
+html {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 14pt;
     text-shadow: #ee9b57 3px 0 6px;
@@ -20,168 +21,98 @@ body {
     color: #26a1b1;
 }
 
-h1,
+h1 {
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
 h2 {
-    font-family: 'Source Sans Pro';
-}
-
-.fullwidth_flex {
-    display: flex;
-    flex-wrap: nowrap;
-    height: 350px;
-}
-
-.fullwidth_flex img {
-    width: 25%;
-    object-fit: cover;
-}
-
-.flex {
-    display: flex;
-}
-
-@media only screen and (max-width: 668px) {
-    .flex {
-        flex-direction: column;
-        justify-content: center;
-    }
-    #adventure .flex {
-        flex-direction: column-reverse;
-    }
-    .dest_category a {
-        max-width: 100% !important;
-        width: 60%;
-    }
-    .dest_category_header h2,
-    .dest_category_header p {
-        width: 90% !important;
-        padding: 0 5% !important;
-    }
-    .dest_category_header p {
-        margin-top: 0 !important;
-        text-align: left;
-        padding-left: 7% !important;
-    }
-    .dest_category figcaption {
-        font-size: 1.25em !important;
-    }
-}
-
-.dest_category {
-    align-items: center;
-}
-
-.dest_category_header h2,
-.dest_category_header p {
-    width: 50%;
-    padding: 0 2em;
-    margin-top: 3%;
-    margin-bottom: 1%;
-}
-
-.dest_category_header h2 {
-    font-size: 5.0vw;
-    text-align: center;
-    color: #07616b;
-    letter-spacing: 3px;
-    text-shadow: 2px 2px 1px #ffffff;
-}
-
-#adventure h2,
-#urban h2 {
-    font-size: 3.5vw;
-}
-
-#adventure h2 {
-    width: 60%;
-}
-
-.dest_category_header p {
-    font-style: italic;
-    padding: 1% 4% 0 1%;
-    font-size: 14px;
-    font-weight: bold !important;
-}
-
-#adventure p {
-    width: 40%;
-    padding: 1% 0 1% 4%;
-}
-
-.dest_category a {
-    max-width: 25%;
-    margin: 0 3%;
-}
-
-div.dest_category a:hover figcaption {
-    background-color: rgba(7, 97, 107, 0.75);
-}
-
-.dest_category figure {
-    width: 100%;
-    text-align: left;
-}
-
-.dest_category img {
-    width: 100%;
-    height: calc(125px + 4vw);
-    object-fit: cover;
-}
-
-#discover h1 {
-    position: absolute;
-    top: calc(7.0vw + 100px);
-    left: 8%;
-    font-size: 4.0vw;
-    font-style: italic;
-    padding: 0.1em 0.2em;
-    border-radius: 3px;
-    color: #03045E;
-    background-color: rgba(202, 240, 248, 0.7);
-    letter-spacing: 2px;
-    text-shadow: 2px 2px 1px rgba(255, 255, 255, 0.7);
-}
-
-.dest_category figcaption {
-    color: white;
-    width: auto;
-    position: absolute;
-    margin-top: 2%;
-    margin-left: -18px;
-    padding: 0.5% 2% 0.5% 1%;
-    font-weight: bold;
-    font-size: 2em;
-    background-color: rgba(202, 240, 248, 0.7);
-    text-shadow: 1px 1px 1px #03045E;
-}
-
-#adventure {
-    background-color: #CAF0F8;
-}
-
-#urban {
-    background-color: lightgrey;
-}
-
-#plantrip {
-    width: 100%;
-    height: 12vw;
-    border: none;
-    text-align: center;
-}
-
-#plantrip a {
-    line-height: 12vw;
+    font-family: 'Source Sans Pro', sans-serif;
+    letter-spacing: 5px;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.7);
-    text-decoration: none;
-    font-size: 6vw;
-    font-style: italic;
-    font-weight: bold;
+    color: #07616b;
 }
 
-#plantrip a:hover {
-    color: #03045E;
+h3 {
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    font: 20px "Lato", sans-serif;
+    color: #111;
+}
+
+#calendar_container {
+    border-top: thin solid #AB8A72;
+    border-bottom: thin solid #AB8A72;
+    box-shadow: 0 4px 2px -2px rgb(37, 36, 36);
+    position: relative;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+    padding: 0 0 5% 0;
+    background-image: linear-gradient(to right, #f1dbc7, #f3ceb6);
+    opacity: .97;
+}
+
+#h2_calendar {
+    font-family: 'Caveat', cursive;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    font-size: 24pt;
+    font-weight: 900;
+    text-shadow: 1px 1px white, #07616b -1px -1px;
+    text-align: center;
+    color: #fff;
+    margin: 5% 25% 0 25%;
+}
+
+div#calendar {
+    width: 80%;
+    margin: 30px auto 10px;
+}
+
+div#calendar {
+    width: 80%;
+    margin: 30px auto 10px;
+}
+
+#calendar_table {
+    background-color: rgb(231, 231, 231);
+    font-size: 14pt;
+    font-family: 'Source Sans Pro', sans-serif;
+    width: 100%;
+    height: auto;
+    box-shadow: 0px 2px 1px -1px rgb(37, 36, 36), 0px 0px 3px rgb(37, 36, 36), 0px 0px 8px rgb(37, 36, 36), 0px 0px 18px rgb(37, 36, 36);
+}
+
+#calendar_table caption {
+    caption-side: top;
+    text-align: center;
+    padding-bottom: 20px;
+    font-size: 16pt;
+    letter-spacing: 0.2em;
+}
+
+.calendar_weekdays {
+    background-color: rgb(236, 236, 231);
+    width: 14.28%;
+    font-size: 1em;
+    border-bottom: 3px solid gray;
+}
+
+.calendar_dates {
+    text-align: left;
+    vertical-align: top;
+    font-size: 0.8em;
+    padding: 3px;
+    border: 1px dotted #26a1b1;
+    background-color: white;
+    height: 60px;
+}
+
+#calendar_today {
+    font-weight: bold;
+    color: rgb(46, 42, 42);
+    background-color: #f3ceb6;
+    border: 1px solid black;
 }
 
 .footer {
@@ -196,7 +127,7 @@ div.dest_category a:hover figcaption {
     width: 100%;
     margin: 0;
     padding: 0;
-    background-image: linear-gradient(to right, #F3CBA8, #F5C1A0);
+    background-image: linear-gradient(to right, #f1dbc7, #f3ceb6);
 }
 
 .address_container {
@@ -217,4 +148,91 @@ div.dest_category a:hover figcaption {
     flex: auto;
     margin: 1%;
     padding: 1%;
+}
+
+.button_wrapper {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    margin: 5% 25% 0 25%;
+}
+
+.button {
+    flex: auto;
+    text-decoration: none;
+    text-align: center;
+    text-shadow: -2px -2px #444;
+    font-weight: 900;
+    font-size: 14pt;
+    letter-spacing: 4px;
+    color: white;
+    background-color: #07616b;
+    height: auto;
+    border: thin solid black;
+    border-radius: 10px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07), 0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07), 0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
+    padding: 1em;
+}
+
+.button:hover {
+    background-color: #26a1b1;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07), 0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07), 0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
+}
+
+.button:active {
+    background-color: #5acaa9;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.07), inset 0 2px 4px rgba(0, 0, 0, 0.07), inset 0 4px 8px rgba(0, 0, 0, 0.07), inset 0 8px 16px rgba(0, 0, 0, 0.07), inset 0 16px 32px rgba(0, 0, 0, 0.07), inset 0 32px 64px rgba(0, 0, 0, 0.07);
+}
+
+.parallax-1 {
+    position: relative;
+    opacity: 0.9;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.parallax-1 {
+    background-image: url("../images/phuket.jpg");
+    min-height: 50%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.caption {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: auto;
+    text-align: center;
+    color: #000;
+}
+
+.caption span.border {
+    opacity: .7;
+    background-color: #111;
+    border-radius: 5px;
+    color: #fff;
+    width: 100%;
+    height: auto;
+    padding: 18px;
+    font-size: 16pt;
+    font-family: 'Caveat', cursive;
+    letter-spacing: 10px;
+}
+
+
+/* Turn off parallax scrolling for tablets and phones */
+
+@media only screen and (max-width: 1024px) {
+    .bgimg-1,
+    .bgimg-2,
+    .bgimg-3 {
+        background-attachment: scroll;
+    }
 }

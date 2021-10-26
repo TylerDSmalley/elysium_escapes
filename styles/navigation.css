@@ -81,7 +81,7 @@
         width: 100%;
         margin: 0;
         padding: 0;
-        background-image: linear-gradient(to right, #F3CBA8, #F5C1A0);
+        background-image: linear-gradient(to right, #eee7e1, #ebe1dc);
     }
     .navigation a {
         display: block;

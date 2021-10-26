@@ -6,10 +6,7 @@
 /* CSS Document for the Home page */
 
 
-/* Developed by:  Tyler Smalley/ Phil Arceno */
-
-
-/* Script Date: August 30, 2021 */
+/* Developed by:  Tyler Smalley*/
 
 .body,
 html {
@@ -20,13 +17,8 @@ html {
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 14pt;
     text-shadow: #ee9b57 3px 0 6px;
-    background-image: url("../images/resort.jpg");
+    background-image: linear-gradient(to right, #f1dbc7, #f3ceb6);
     color: #26a1b1;
-    position: relative;
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
 }
 
 #choose_container {
