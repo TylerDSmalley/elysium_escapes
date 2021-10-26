@@ -2,7 +2,7 @@
 1. What I have done / not done since last Scrum
 2. What I plan to do from this scrum to the next
 3. Where do I need assistance? What do I need to figure out?
-
+------------------------------------------------------------------------------------
 <<Daily Scrum - 2021-10-22 >>
 --Tyler--
 1. What I have done / not done since last Scrum
@@ -33,7 +33,7 @@
 3. Where do I need assistance? What do I need to figure out?
 -none
 
-
+-----------------------------------------------------------------------------------
 <<Daily Scrum - 2021-10-25 >>
 --Tyler--
 1. What I have done / not done since last Scrum
@@ -68,3 +68,48 @@
 -finalize design and create DB
 3. Where do I need assistance? What do I need to figure out?
 -none
+---------------------------------------------------------------------------
+<<Daily Scrum - 2021-10-26 >>
+--Tyler--
+1. What I have done / not done since last Scrum
+-finalized design and created DB with relations
+-created destinations template
+-implemented bootstrap classes in main
+
+2. What I plan to do from this scrum to the next
+-update blog template to match site  
+-finish reseaching fullcalendar and implement
+-create add destination template/logic
+-create destination page logic to pull destinations from DB. 
+
+3. Where do I need assistance? What do I need to figure out?
+-how to link foreign keys in myAdmin
+
+--Stefan--
+1. What I have done / not done since last Scrum
+-ran into flightscanner API issues 
+-booking api works great and is fully usable
+
+2. What I plan to do from this scrum to the next
+-create function to pull available flights for a location and use the average price * to be used for monthly deals
+-make search for hotel booking for booking page.
+
+3. Where do I need assistance? What do I need to figure out?
+-api crashes. Sometimes they require a page reload to display results...may be something to do with limits for free account
+
+--Ileana--
+1. What I have done / not done since last Scrum
+-created register template
+-added validation functions to utils--password,phone number
+-changed DB default to customer account type
+-created user list template
+-created registration form to populate user table 
+
+2. What I plan to do from this scrum to the next
+-test registration form
+-test user list template 
+-create user edit template
+-create user delete template
+
+3. Where do I need assistance? What do I need to figure out?
+*ask Gregory about user deletion from tables 
