@@ -1,5 +1,4 @@
 //  Author: Tyler Smalley
-//  Script Date: 2021-09-16
 //  filename: trPricing.js 
 
 function calculateDestinationPrice() {

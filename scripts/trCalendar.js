@@ -2,7 +2,6 @@
 
 /*
    Author:     Tyler Smalley
-   Date:       2021-09-14
    Filename:   trCalendar.js  
 */
 
