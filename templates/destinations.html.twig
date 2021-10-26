@@ -18,64 +18,38 @@
 
 	<section class="section p-5">
 
-        <div class="container">
-            <div class="row text-center g-4">
-                <div class="div col-md">
-                    <div class="card bg-secondary text-light">
-                        <div class="card-body text-center">
-                            <div class="h1 mb-3">
-                                <i class="fas fa-umbrella-beach"></i>
-                            </div>
-                            <h3 class="h3 card-title">Bahamas</h3>
-                            <p class="card-text">
-                                For those discerning travelers looking for tranquil beaches, endless sunshine, and unlimited relaxation cross this bridge to find your tropical paradise.
-                            </p>
-                            <img class="img-fluid" src="img/Bermuda.jpg" alt="">
-                            <a href="#" class="btn btn-info mt-3">Explore</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="div col-md">
-                    <div class="card bg-secondary text-light">
-                        <div class="card-body text-center">
-                            <div class="h1 mb-3">
-                                <i class="fas fa-utensils"></i>
-                            </div>
-                            <h3 class="h3 card-title">Bora Bora</h3>
-                            <p class="card-text">
-                                If you're looking for ultra exclusive, then this is the destination for you. Private beaches as far as you can see and 5 star chefs in every private villa on the water.
-                            </p>
-                            <img class="img-fluid" src="img/sunset.jpg" alt="">
-                            <a href="#" class="btn btn-info mt-3">Explore</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="div col-md">
-                    <div class="card bg-secondary text-light">
-                        <div class="card-body text-center">
-                            <div class="h1 mb-3">
-                                <i class="fas fa-water"></i>
-                            </div>
-                            <h3 class="h3 card-title">Phuket</h3>
-                            <p class="card-text">
-                                For the adventurers, look no further than Phuket. You'll find SCUBA, jungle excursions, rock climbing, street markets and more, you will never be bored.
-                            </p>
-                            <img class="img-fluid" src="img/footer_marquee_index.jpg" alt="">
-                            <a href="#" class="btn btn-info mt-3">Explore</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
+		<div class="container">
+			<div class="row text-center g-4">
+			
+				{% if destinations %}
+					{% for destination in destinations %}
+						<div class="div col-md">
+							<div class="card .bg-light.bg-gradient text-dark">
+								<div class="card-body text-center">
+									<div class="h1 mb-3">
+										<h3 class="h3 card-title">{{ destination.destination_name }}</h3>
+									</div>
+									<p class="card-text">
+										{{ destination.destination_description }}
+									</p>
+									<img class="img-fluid" src="{{ destination.destination_imagepath }}" alt="{{ destination.destination_name }} photo">
+									<div class="submitButtonBox">
+										<a class="submitButton" href="placebid/{{ destination.id }}" class="btn btn-info mt-3">Explore</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				{% endif %}
 
-    </section>
-
-	<div class="parallax-1">
-		<div class="caption">
-			<span class="border">...Travel Right</span>
+			</div>
 		</div>
 	</div>
 
+</section>
 
-{% endblock %}
+<div class="parallax-1">
+	<div class="caption">
+		<span class="border">...Travel Right</span>
+	</div>
+</div>{% endblock %}
