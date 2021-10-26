@@ -56,7 +56,7 @@ if(preg_match('/^[\.a-zA-Z0-9,!? ]*$/',$firstName) != 1 || strlen($firstName) < 
        $valuesList = ['firstName' => $firstName, 'lastName' => $lastName,'email'=>$email,'phone'=>$phoneNumber];
        return $this->view->render($response,'register.html.twig',['errorList' => $errorList, 'v' => $valuesList]);
    }else{
-        $hash = password_hash($password1,PASSWORD_DEFAULT);
+       $hash = password_hash($password1,PASSWORD_DEFAULT);
        DB::insert('users',['first_name'=> $firstName,'last_name'=>$lastName,'email'=>$email,'phone_number'=>$phoneNumber,'password'=>$hash]);
        return $this->view->render($response,'register_success.html.twig');
    }

@@ -13,7 +13,7 @@ function validatePhone($phone){
         return TRUE;
     }
     }
-
+//Need to probably test and fix
 function validatePassword($password1,$password2){
     if(!empty($password1) && ($password1 == $password2)) {
         
