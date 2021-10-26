@@ -3,7 +3,9 @@
 {% block title %}User List{% endblock %}
 
 {% block content %}
+
 <table border="1">
+<br/><br/><br/><br/><br/>
 <tr><th>ID</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Phone Number</th><th>User Type</th><th>Actions</th></tr>
 {% for u in usersList %}
     <tr><td>{{u.id}}</td><td>{{u.first_name}}</td><td>{{u.last_name}}</td><td>{{u.email}}</td>

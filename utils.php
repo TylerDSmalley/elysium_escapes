@@ -18,22 +18,22 @@ function validatePassword($password1,$password2){
     if(!empty($password1) && ($password1 == $password2)) {
         
         if (strlen($password1) < 4 || strlen($password1) > 100) {
-            return $errorList[] = "Your Password Must Contain At Least 8 Characters!";
+            return  "Your Password Must Contain At Least 8 Characters!";
         }
         elseif(!preg_match("#[0-9]+#",$password1)) {
-           return $errorList[] = "Your Password Must Contain At Least 1 Number!";
+           return  "Your Password Must Contain At Least 1 Number!";
         }
         elseif(!preg_match("#[A-Z]+#",$password1)) {
-            return $errorList[] = "Your Password Must Contain At Least 1 Capital Letter!";
+            return "Your Password Must Contain At Least 1 Capital Letter!";
         }
         elseif(!preg_match("#[a-z]+#",$password1)) {
-            return $errorList[] = "Your Password Must Contain At Least 1 Lowercase Letter!";
+            return "Your Password Must Contain At Least 1 Lowercase Letter!";
         }
         elseif(!empty($password1)) {
-            return $errorList[] = "Please Check You've Entered Or Confirmed Your Password!";
+            return "Please Check You've Entered Or Confirmed Your Password!";
         } 
     }else {
-        return $errorList[] = "Please enter password";
+        return "Please enter password";
         }
     return TRUE;
 }

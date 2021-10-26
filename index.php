@@ -46,9 +46,9 @@ if(preg_match('/^[\.a-zA-Z0-9,!? ]*$/',$firstName) != 1 || strlen($firstName) < 
         $phoneNumber ="";
       }
 
-      if (!validatePassword($password1,$password2)) {
-        $errorList[] = "Invalid Password";
-        $phoneNumber ="";
+      $valPass = validatePassword($password1,$password2);
+      if (!$valPass) {
+        $errorList[] = $valPass;
       }
        
     
