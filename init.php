@@ -35,9 +35,6 @@ if (strpos($_SERVER['HTTP_HOST'], "fsd01.ca") !== false) {
     DB::$port = 3333;
 }
 
-//error handler test
-//$discard = DB::query("SELECT * FROM auctions");
-
 DB::$error_handler = 'db_error_handler'; // runs on mysql query errors
 DB::$nonsql_error_handler = 'db_error_handler'; // runs on library errors (bad syntax, etc)
 
@@ -54,6 +51,9 @@ function db_error_handler($params) {
     // Note: the above trick may also be useful to render a template into an email body
     //header("Location: /internalerror"); // another possibility, not my favourite
 }
+
+//error handler test
+//$discard = DB::query("SELECT * FROM auctions");
 
 // Create and configure Slim app
 $config = ['settings' => [
