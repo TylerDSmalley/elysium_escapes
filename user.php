@@ -37,13 +37,11 @@ $app->get('/trcalendar', function ($request, $response, $args) {
     return $this->view->render($response, 'trcalendar.html.twig');
 });
 
-$app->get('/error_internal', function ($request, $response, $args) {
-    return $this->view->render($response, 'error_internal.html.twig');
-});
-
 $app->get('/register',function($request,$response,$args){
     return $this->view->render($response,'register.html.twig');
  });
+
+
 // $app->get('/register', function .....);
 
 // $app->get('/login', function .....);
