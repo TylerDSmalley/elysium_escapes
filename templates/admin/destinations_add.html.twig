@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block head %}
-	<link rel="stylesheet" href="styles/destinations.css">
+	<link rel="stylesheet" href="/styles/addDestinations.css">
 	<script src="scripts/nav.js"></script>
 	{{ parent() }}
 {% endblock %}
@@ -26,12 +26,12 @@
 				<h3>Add Destination</h3>
 				<div class="formContainer">
 					<label>Destination Name</label>
-					<input class="title" type="text" name="sellerName" value="{{ v.sellerName }}">
-					<div class="redText">{{errors.sellerName}}</div>
+					<input class="title" type="text" name="destination_name" value="{{ v.destination_name }}">
+					<div class="redText">{{errors.destination_name}}</div>
 
 					<label>Destination Description</label>
-					<textarea id="textBody" name="itemDescription" value="{{ v.itemDescription }}"></textarea>
-					<div class="redText">{{errors.itemDescription}}</div>
+					<textarea id="textBody" name="destination_description" value="{{ v.destination_description }}"></textarea>
+					<div class="redText">{{errors.destination_description}}</div>
 
 					<label>Add Photo:</label>
 					<input type="file" name="photo">
