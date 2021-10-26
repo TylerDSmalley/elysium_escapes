@@ -25,10 +25,6 @@ $app->get('/contactus', function ($request, $response, $args) {
     return $this->view->render($response, 'contactus.html.twig');
 });
 
-$app->get('/destinations', function ($request, $response, $args) {
-    return $this->view->render($response, 'destinations.html.twig');
-});
-
 $app->get('/pricing', function ($request, $response, $args) {
     return $this->view->render($response, 'pricing.html.twig');
 });
@@ -41,6 +37,11 @@ $app->get('/register',function($request,$response,$args){
     return $this->view->render($response,'register.html.twig');
  });
 
+// DESTINATIONS HANDLERS
+$app->get('/destinations', function ($request, $response, $args) {
+    $destinations = DB::query("SELECT * FROM destinations");
+    return $this->view->render($response, 'destinations.html.twig' , ['destinations' => $destinations]);
+});
 
 // $app->get('/register', function .....);
 
