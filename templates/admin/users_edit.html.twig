@@ -1,28 +1,51 @@
-{% extends "master.html.twig" %}
+{% extends "admin/master.html.twig" %}
 
-{% block title %}Edit User{% endblock %}
+{% block title %}Edit User
+{% endblock %}
+
+{% block head %}
+	<link rel="stylesheet" href="/styles/addDestinations.css">
+	<script src="scripts/nav.js"></script>
+	{{ parent() }}
+{% endblock %}
 
 {% block content %}
 
-    {% if errorList %}
-    <ul>
-    {% for error in errorList %}
-        <li>{{ error }}</li>
-    {% endfor %}
-    </ul>
-{% endif %}
+	{% if errorList %}
+		<ul>
+			{% for error in errorList %}
+				<li>{{ error }}</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+	<section class="section p-5">
+		<div class="container">
 
+			<form class="form" method="POST">
+				<h3>Edit User</h3>
+				<div class="formContainer">
+					User ID:
+					<input class="title" type="text" name="id" value="{{v.content}}"><br/>
+					User Name:
+					<input class="title" type="text" name="name" value="{{ v.name }}"/><br/>
+					User Email:
+					<input class="title" type="text" name="name" value="{{ v.email }}"/><br>
+					User Phone:
+					<input class="title" type="text" name="email" value="{{v.phone}}"/><br/>
+					<p>Only provide password if you are changing it for this user</p>
+					Password:
+					<input class="title" type="password" name="password1"/><br/>
+					Password (Confirmed):
+					<input class="title" type="password" name="password2"/>
+					<br/><br/>
+					<div class="submitButtonBox">
+						<input type="submit" value="Submit">
+					</div>
+				</div>
 
-<form method="POST">
-    User ID: <input type="text" name="id" value="{{v.content}}"><br/>
-    User Name: <input type="text" name="name"  value="{{ v.name }}"//><br/>
-    User Email: <input type="text" name="name" value="{{ v.email }}"/><br>
-    User Phone: <input type="text" name="email" value="{{v.phone}}"/><br/>
-    <p>Only provide password if you are changing it for this user</p>
-    Password: <input type="password" name="password1" /><br/>
-    Password (Confirmed): <input type="password" name="password2" />
-    <br/><br/>
-    <input type="submit" value="Submit">
-    </div></div>
-</form>
+			</form>
+
+		</div>
+
+	</section>
 {% endblock content %}
