@@ -17,13 +17,13 @@
 {% endblock %}
 
 {% block content %}
-
+<p><a href="/admin/users/add">Create a New User</a></p>
 <table class="center">
 <br/><br/><br/><br/><br/>
 <tr><th>ID</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Phone Number</th><th>User Type</th><th>Actions</th></tr>
 {% for u in usersList %}
     <tr><td>{{u.id}}</td><td>{{u.first_name}}</td><td>{{u.last_name}}</td><td>{{u.email}}</td>
-    <td>{{u.phone_number}}</td><td>{{u.account_type}}</td><td><a href="/admin/users/{{u.id}}/edit">Edit</a>&nbsp;
+    <td>{{u.phone_number}}</td><td>{{u.account_type}}</td><td><a href="/admin/users/edit/{{u.id}}">Edit</a>&nbsp;
     <a href="/admin/users/{{u.id}}/delete">Delete</a></td></tr>
 {% endfor %}    
 </table>

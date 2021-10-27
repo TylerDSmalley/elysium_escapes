@@ -9,13 +9,94 @@ require_once 'init.php';
     return $this->view->render($response,'admin/users_list.html.twig',['usersList'=> $userList]);
  });
 
-$app->get('/admin/users/{id:[0-9]+}/edit',function($request,$response,$args){
- $user = DB::queryFirstRow("SELECT * FROM users WHERE id=%i",$args['id']);
- if(!$user){
-   $response = $response->withStatus(404);
-   return $this->view->render($response,'admin/not_found.html.twig');
+ $app->get('/admin/users/{op:edit|add}[/{id:[0-9]+}]',function($request,$response,$args){
+//$app->get('/admin/users/{id:[0-9]+}/edit',function($request,$response,$args){
+   if(($args['op'] == 'add' && !empty($args['id']) || $args['op'] == 'edit' && empty($args['id']))){
+      $response = $response->withStatus(404);
+      return $this->view->render($response,'admin/not_found.html.twig');
+   }
+
+   if($args['op'] == 'edit'){
+      $user = DB::queryFirstRow("SELECT * FROM users WHERE id=%i",$args['id']);
+      if(!$user){
+         $response = $response->withStatus(404);
+         return $this->view->render($response,'admin/not_found.html.twig');
  }
-   return $this->view->render($response,'admin/users_edit.html.twig',['user'=> $user]);
+}else{
+   $user=[];
+}
+   return $this->view->render($response,'admin/users_addedit.html.twig',['user'=> $user,'op'=>$args['op']]);
+});
+
+$app->post('/admin/users/{id:[0-9]+}/edit',function($request,$response,$args){
+   if(($args['op'] == 'add' && !empty($args['id']) || $args['op'] == 'edit' && empty($args['id']))){
+      $response = $response->withStatus(404);
+      return $this->view->render($response,'admin/not_found.html.twig');
+   }
+
+  $firstName = $request->getParam('firstName');
+  $lastName = $request->getParam('lastName');
+  $email = $request->getParam('email');
+  $phoneNumber = $request->getParam('phone');
+  $type = $request->getParam('type');
+  $password1 = $request->getParam('password1');
+  $password2 = $request->getParam('password2');
+
+  $errorList = [];
+
+  $result = validateName($firstName);
+  if(!$result){
+     $errorList[] = $result;
+  }
+
+  $result = validateName($lastName);
+  if(!$result){
+     $errorList[] = $result;
+  }
+
+  //First check if you are need to validate password. Ex. Updating user info but not their password
+  if($password1 != "" || $args['op']=='add'){
+      $result = validatePassword($password1,$password2);
+   if(!$result){
+     $errorList[] = $result;
+  }
+  }
+  
+
+  if(filter_var($email,FILTER_VALIDATE_EMAIL)=== FALSE){
+     $errorList[] = "Email not valid";
+     $email="";
+  }else{
+     //is email already in use?
+     if($args['op']== 'edit'){
+      $record = DB::queryFirstRow("SELECT * FROM users where email=%s AND id != %d",$email,$args['id']);
+     }else{
+      $record = DB::queryFirstRow("SELECT * FROM users where email=%s",$email);
+     }
+      if($record){
+         $errorList[]= "This email is already registered";
+         $email="";
+      }
+   }
+
+   if($errorList){
+      return $this->view->render($response,'admin/users_addedit.html.twig',
+      ['errorList'=> $errorList, 'val'=> ['firstName'=> $firstName,'lastName'=>$lastName,'email'=>$email,'phone'=>$phoneNumber]]);
+   }else{
+      $hash = password_hash($password1,PASSWORD_DEFAULT);
+      if($args['op']=='add'){
+         DB::insert('users',['first_name'=>$firstName,'last_name'=>$lastName,'email'=>$email,'phone_number'=>$phoneNumber,'password'=>$hash,'account_type'=>$type]);
+         return $this->view->render($response,'admin/users_addit_success.html.twig',['op'=>$args['op']]);
+   }else{
+      $data = ['first_name'=>$firstName,'last_name'=>$lastName,'email'=>$email,'phone_number'=>$phoneNumber,'account_type'=>$type];
+         if($password1 != ""){
+               $data['password'] = $hash;
+         }
+
+         DB::update('users',"id=%d",$args['id']);
+         return $this->view->render($response,'admin/users_addit_success.html.twig',['op'=>$args['op']]);
+   }
+}
 });
 
 $app->get('/error_internal', function ($request, $response, $args) {

@@ -25,13 +25,22 @@
 				<h3>Edit User</h3>
 				<div class="formContainer">
 					User ID:
-					<input class="title" type="text" name="id" value="{{v.content}}"><br/>
-					User Name:
-					<input class="title" type="text" name="name" value="{{ v.name }}"/><br/>
+					<input class="title" type="text" name="id" value="{{user.id}}"><br/>
+					User First Name:
+					<input class="title" type="text" name="name" value="{{ user.firstName }}"/><br/>
+                    User Last Name:
+					<input class="title" type="text" name="name" value="{{ user.lastName }}"/><br/>
 					User Email:
-					<input class="title" type="text" name="name" value="{{ v.email }}"/><br>
+					<input class="title" type="text" name="name" value="{{ user.email }}"/><br>
 					User Phone:
-					<input class="title" type="text" name="email" value="{{v.phone}}"/><br/>
+					<input class="title" type="text" name="email" value="{{user.phone_number}}"/><br/>
+                    User Type:
+                    <select name="type" id="type" value="{{ user.account_type }}">
+                        <option>customer</option>
+                        <option>manager</option>
+                        <option>admin</option>
+					</select>
+                    <br>
 					<p>Only provide password if you are changing it for this user</p>
 					Password:
 					<input class="title" type="password" name="password1"/><br/>
