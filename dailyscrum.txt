@@ -113,11 +113,48 @@
 
 3. Where do I need assistance? What do I need to figure out?
 *ask Gregory about user deletion from tables 
+-------------------------------------------------------------
+<<Daily Scrum - 2021-10-26 >>
+--Tyler--
+1. What I have done / not done since last Scrum
+-update blog template to match site  
+-finished reseaching fullcalendar but did not implement yet.
+-create add destination template/logic
+-create destination page logic to pull destinations from DB. 
 
-Ileana  Oct. 26th work
+2. What I plan to do from this scrum to the next
+-add active flag to user table
+-add fullcalendar to last minute deal page
+-add pop out windows for individual destination cards
+-migrate add destination validation to utils
+
+3. Where do I need assistance? What do I need to figure out?
+-ask about blob/bulk photo saving
+
+
+--Stefan--
+1. What I have done / not done since last Scrum
+-improved api logic for booking(hotel)
+
+2. What I plan to do from this scrum to the next
+-create hotel selection template
+-bring hotel data to booking page
+
+3. Where do I need assistance? What do I need to figure out?
+-issues with flight data - putting on hold
+
+
+--Ileana--
+1. What I have done / not done since last Scrum
 -Added new validation function to utils for names
 -Turned user edit into hybrid user edit/user add template (Gregory does it in his video)
 -Created template for edit/add success. 
 -Added full functionality to admin.php for User Edit and User Add
 
--Haven't tested code yet and haven't done delete template yet (we need to decide which approach we want to take)
+2. What I plan to do from this scrum to the next
+-create deletion template w functionality (php)
+-create list template for admin destinations (add/edit links)
+
+3. Where do I need assistance? What do I need to figure out?
+
+
