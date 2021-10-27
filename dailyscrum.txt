@@ -124,6 +124,7 @@
 
 2. What I plan to do from this scrum to the next
 -add active flag to user table
+-create image file path table with FK link to destinations
 -add fullcalendar to last minute deal page
 -add pop out windows for individual destination cards
 -migrate add destination validation to utils
