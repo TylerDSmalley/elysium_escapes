@@ -21,6 +21,11 @@ html {
     color: #26a1b1;
 }
 
+a {
+    text-decoration: none;
+    color: #fff;
+}
+
 h1 {
     font-family: 'Source Sans Pro', sans-serif;
 }
