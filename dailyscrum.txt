@@ -123,9 +123,9 @@
 -create destination page logic to pull destinations from DB. 
 
 2. What I plan to do from this scrum to the next
--add active flag to user table
--create image file path table with FK link to destinations
--add fullcalendar to last minute deal page
+*DONE*-add active flag to user table
+*DONE*-create image file path table with FK link to destinations
+*DONE*-add fullcalendar to last minute deal page
 -add pop out windows for individual destination cards
 -migrate add destination validation to utils
 
