@@ -113,3 +113,11 @@
 
 3. Where do I need assistance? What do I need to figure out?
 *ask Gregory about user deletion from tables 
+
+Ileana  Oct. 26th work
+-Added new validation function to utils for names
+-Turned user edit into hybrid user edit/user add template (Gregory does it in his video)
+-Created template for edit/add success. 
+-Added full functionality to admin.php for User Edit and User Add
+
+-Haven't tested code yet and haven't done delete template yet (we need to decide which approach we want to take)
