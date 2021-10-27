@@ -2,32 +2,44 @@
 {% block title %}Fire Sale Deals
 {% endblock %}
 {% block head %}
-<link rel="stylesheet" href="styles/trCalendar.css">
-<script src="scripts/trEvents.js" defer></script>
-<script src="scripts/trCalendar.js" defer></script>
+	<link rel="stylesheet" href="styles/trCalendar.css">
+	<link href='styles/calendar.css' rel='stylesheet'/>
+	<script src='scripts/calendar.js'></script>
+	<script>
+
+		document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {initialView: 'dayGridMonth'});
+        calendar.render();
+        });
+	</script>
+	<!-- 
+	<script src="scripts/trEvents.js" defer></script>
+	<script src="scripts/trCalendar.js" defer></script>
+	-->
 	{{ parent() }}
 {% endblock %}
 
 {% block content %}
 
-<div class="parallax-1">
-        <div class="caption">
-            <span class="border">Are You Ready To..</span>
-        </div>
-    </div>
+	<div class="parallax-1">
+		<div class="caption">
+			<span class="border">Are You Ready To..</span>
+		</div>
+	</div>
 
-    <section id="calendar_container">
-        <h2 id="h2_calendar">Travel Spontaneously</h2>
-        <div id="calendar">calendar</div>
-        <div class="button_wrapper">
-            <a class="button" href="http://lifes_a_beach_team_sit:8888/booking">Book Now!</a>
-        </div>
-    </section>
+	<section id="calendar_container">
+		<h2 id="h2_calendar">Travel Spontaneously</h2>
+		<div id="calendar"></div>
+		<div class="submitButtonBox">
+			<a class="submitButton" href="http://lifes_a_beach_team_sit:8888/booking">Book!</a>
+		</div>
+	</section>
 
-    <div class="parallax-1">
-        <div class="caption">
-            <span class="border">...Travel Right</span>
-        </div>
-    </div>
-	
+	<div class="parallax-1">
+		<div class="caption">
+			<span class="border">...Travel Right</span>
+		</div>
+	</div>
+
 {% endblock %}
