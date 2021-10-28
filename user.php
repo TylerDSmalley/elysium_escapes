@@ -39,8 +39,11 @@ $app->get('/register',function($request,$response,$args){
 
 // DESTINATIONS HANDLERS
 $app->get('/destinations', function ($request, $response, $args) {
+
+    
     $destinations = DB::query("SELECT * FROM destinations");
-    return $this->view->render($response, 'destinations.html.twig' , ['destinations' => $destinations]);
+    $images = DB::query("SELECT * FROM images");
+    return $this->view->render($response, 'destinations.html.twig' , ['destinations' => $destinations], ['images' => $images]);
 });
 
 // $app->get('/register', function .....);
@@ -52,4 +55,6 @@ $app->get('/destinations', function ($request, $response, $args) {
 // $app->get('/profile', function .....);
 
 //
+
+
 
