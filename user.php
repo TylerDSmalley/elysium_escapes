@@ -43,7 +43,7 @@ $app->get('/destinations', function ($request, $response, $args) {
     
     $destinations = DB::query("SELECT * FROM destinations");
     $images = DB::query("SELECT * FROM images");
-    return $this->view->render($response, 'destinations.html.twig' , ['destinations' => $destinations], ['images' => $images]);
+    return $this->view->render($response, 'destinations.html.twig' , ['destinations' => $destinations, 'images' => $images]);
 });
 
 // $app->get('/register', function .....);
