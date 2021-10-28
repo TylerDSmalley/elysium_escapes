@@ -34,10 +34,22 @@
 					User Phone:
 					<input class="title" type="text" name="phone" value="{{user.phone_number}}"/><br/>
                     User Type:<br/>
-                    <select name="type" id="type" value="{{ user.account_type }}">
-                        <option>customer</option>
+                    <select name="type" id="type">
+					 {% if user.account_type == "customer"%}
+                        <option selected>customer</option>
                         <option>manager</option>
                         <option>admin</option>
+					{% endif %}	
+					 {% if user.account_type == "manager"%}
+                        <option>customer</option>
+                        <option selected>manager</option>
+                        <option>admin</option>
+					{% endif %}	
+					 {% if user.account_type == "admin"%}
+                        <option>customer</option>
+                        <option>manager</option>
+                        <option selected>admin</option>
+					{% endif %}	
 					</select>
                     <br/><br/>
 					{% if op == 'edit' %}
