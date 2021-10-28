@@ -126,7 +126,7 @@
 *DONE*-add active flag to user table
 *DONE*-create image file path table with FK link to destinations
 *DONE*-add fullcalendar to last minute deal page
--add pop out windows for individual destination cards
+*DONE*-add pop out windows for individual destination cards
 -migrate add destination validation to utils
 
 3. Where do I need assistance? What do I need to figure out?
@@ -158,4 +158,39 @@
 
 3. Where do I need assistance? What do I need to figure out?
 
+
+<<Daily Scrum - 2021-10-27 >>
+--Tyler--
+1. What I have done / not done since last Scrum
+*DONE*-add active flag to user table
+*DONE*-create image file path table with FK link to destinations
+*DONE*-add fullcalendar to last minute deal page
+*DONE*-add pop out windows for individual destination cards
+
+2. What I plan to do from this scrum to the next
+
+
+3. Where do I need assistance? What do I need to figure out?
+-ask about blob/bulk photo saving
+
+
+--Stefan--
+1. What I have done / not done since last Scrum
+
+
+2. What I plan to do from this scrum to the next
+
+
+3. Where do I need assistance? What do I need to figure out?
+
+
+
+--Ileana--
+1. What I have done / not done since last Scrum
+
+
+2. What I plan to do from this scrum to the next
+
+
+3. Where do I need assistance? What do I need to figure out?
 
