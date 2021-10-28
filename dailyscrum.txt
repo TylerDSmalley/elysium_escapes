@@ -171,12 +171,10 @@
 -add contact us logic
 -create log in modal on base template for log in. 
 -link registration page somewhere? (nav or modal)
--
 -style registration 
 
 
 3. Where do I need assistance? What do I need to figure out?
-
 
 
 --Stefan--
