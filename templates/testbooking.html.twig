@@ -1,0 +1,80 @@
+{% extends "base.html.twig" %}
+{% block title %}Booking
+{% endblock %}
+{% block head %}
+	<link rel="stylesheet" href="styles/book.css"/>
+	<script src="scripts/booking.js" defer></script>
+	{{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+<div class="parallax-1">
+	<div class="caption">
+		<span class="border">Are You Ready To..</span>
+	</div>
+</div>
+
+<main></main>
+<section id="confirmed_container">
+	<form id="booking-form" name="booking-form" method="POST" autocomplete="on">
+		<div class="grid-container">
+			<div class="full-width">
+				<h1>Take Your Dream Vacation</h1>
+			<div class="full-width">
+				<h3>Booking Details</h3>
+				Choose Your Destination:
+			</div>
+			<div class="full-width">
+				<input type="radio" id="bermuda" name="location" value="Bermuda" required/>
+				<label for="bermuda"><img src="images/bermuda2.png" height="170" width="307" alt="Beach in Bermuda" title="Beach in Bermuda"/></label>
+				<input type="radio" id="fiji" name="location" value="Fiji"/>
+				<label for="fiji"><img src="images/fiji2.jpg" height="170" width="307" alt="Overhead picture of Fiji" title="Overhead picture of Fiji"/></label>
+				<input type="radio" id="mauritius" name="location" value="Mauritius"/>
+				<label for="mauritius"><img src="images/mauritius2.jpg" height="170" width="307" alt="Overhead picture of Mauritius" title="Overhead picture of Mauritius"/></label>
+				<br/>
+			</div>
+			<div class="col2">
+				<br/><br/>
+				<label for="adults">Adults&ast;</label>
+				<br/>
+				<input type="number" id="adults" name="adults" value="1" required/>
+			</div>
+			<div class="col3">
+				<br/><br/>
+				<label for="children">Children</label>
+				<br/>
+				<input type="number" id="children" name="children" value="0"/>
+			</div>
+			<div class="col2">
+				<label for="arrival">Arrival Date&ast;</label>
+				<br/>
+				<input type="date" id="arrival" name="arrival" required/>
+			</div>
+			<div class="col3">
+				<label for="departure">Departure Date&ast;</label>
+				<br/>
+				<input type="date" id="departure" name="departure" required/>
+			</div>
+			<div class="col2">
+				<label for="total">Total Nights&ast;</label>
+				<br/>
+				<input type="number" id="total"/>
+			</div>
+			<div class="full-width">
+				<br/>
+				<input type="submit" class="submit" value="Send"/>
+				<p>Required Field*</p>
+			</div>
+		</div>
+	</form>
+</section>
+
+<div class="parallax-1">
+	<div class="caption">
+		<span class="border">...Travel Right</span>
+	</div>
+</div>
+
+
+{% endblock %}

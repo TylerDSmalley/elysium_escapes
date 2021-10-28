@@ -1,0 +1,25 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+<br><br><br><br><br>
+<div>
+<p>
+    Country: {{location}}<br>
+    Number of Adults{{adults}}<br>
+    Date of Arrival: {{arrival}}<br>
+    Date of Departure: {{departure}}<br>
+</p><br><br>
+{% for hotel in h %}
+    {% if hotel.accommodation_type_name == "Resort" %}        
+        <img src="{{hotel.max_photo_url}}" width='300px'><br>
+        <p>
+            Hotel Name: {{ hotel.hotel_name }}<br>
+            City: {{ hotel.city }}<br>
+            Address: {{ hotel.address }}<br>
+            Price: {{ hotel.price_breakdown.all_inclusive_price }}<br><br><br>
+        </p>    
+    {% endif %}
+{% endfor %}  
+    
+</div>
+{% endblock content %}
