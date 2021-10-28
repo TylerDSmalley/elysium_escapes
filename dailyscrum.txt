@@ -168,17 +168,24 @@
 *DONE*-add pop out windows for individual destination cards
 
 2. What I plan to do from this scrum to the next
+-add contact us logic
+-create log in modal on base template for log in. 
+-link registration page somewhere? (nav or modal)
+-
+-style registration 
 
 
 3. Where do I need assistance? What do I need to figure out?
--ask about blob/bulk photo saving
+
 
 
 --Stefan--
 1. What I have done / not done since last Scrum
-
+-put api logic into booking page for hotel selection
 
 2. What I plan to do from this scrum to the next
+-link package selection template to billing template (billing will use stripe).
+-complete billing template and add logic to add order summary to booking_history table.
 
 
 3. Where do I need assistance? What do I need to figure out?
@@ -194,7 +201,9 @@
     -Didn't get to destination template yet. Want to look at map feature first
 
 2. What I plan to do from this scrum to the next
-
+-research map/group functionality for admin pages
+-finish admin destinations pages - list/edit/delete
+-list user - add link to view inactive users
 
 3. Where do I need assistance? What do I need to figure out?
 
