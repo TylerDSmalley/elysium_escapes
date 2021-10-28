@@ -187,7 +187,11 @@
 
 --Ileana--
 1. What I have done / not done since last Scrum
-
+    -Finished watching Gregory's admin CRUD video
+    -Added template for delete user
+    -Wrote functionality for delete user in admin.php (Set to inactive)
+    -Changed user list template to list all users with active status
+    -Didn't get to destination template yet. Want to look at map feature first
 
 2. What I plan to do from this scrum to the next
 
