@@ -25,10 +25,6 @@ $app->get('/contactus', function ($request, $response, $args) {
     return $this->view->render($response, 'contactus.html.twig');
 });
 
-$app->get('/pricing', function ($request, $response, $args) {
-    return $this->view->render($response, 'pricing.html.twig');
-});
-
 $app->get('/trcalendar', function ($request, $response, $args) {
     return $this->view->render($response, 'trcalendar.html.twig');
 });
