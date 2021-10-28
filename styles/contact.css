@@ -20,23 +20,31 @@ html {
     color: #26a1b1;
 }
 
-* {
-    box-sizing: border-box;
-}
-
 input[type=text],
 select,
 textarea {
-    width: 100%;
+    max-width: 100%;
     padding: 12px;
     margin-top: 6px;
     margin-bottom: 16px;
-    resize: vertical;
 }
 
-address p {
-    margin: 0px;
-    text-align: left;
+h2 {
+    flex: auto;
+    font-family: 'Caveat', cursive;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    font-size: 24pt;
+    font-weight: 900;
+    text-shadow: 1px 1px white, #07616b -1px -1px;
+    text-align: center;
+    color: #fff;
+    margin: 5% 25% 0 25%;
+}
+
+#map {
+    margin: 0;
+    padding: 0;
 }
 
 .footer {
@@ -54,112 +62,6 @@ address p {
     background-image: linear-gradient(to right, #f1dbc7, #f3ceb6);
 }
 
-.address_container {
-    flex: auto;
-    list-style: none;
-    margin: 1%;
-    padding: 1%;
-}
-
-.hours_container {
-    flex: auto;
-    list-style: none;
-    margin: 1%;
-    padding: 1%;
-}
-
-.logo_wrapper {
-    flex: auto;
-    margin: 1%;
-    padding: 1%;
-}
-
-.flex-container {
-    display: flex;
-    opacity: 0.9;
-    margin-top: 10px;
-}
-
-.flex-container>div {
-    background-color: #f1f1f1;
-    margin: 10px;
-    padding: 30px;
-    font-size: 15px;
-    border-radius: 20px;
-}
-
-#destination_container {
-    border-top: thin solid #AB8A72;
-    border-bottom: thin solid #AB8A72;
-    box-shadow: 0 4px 2px -2px rgb(37, 36, 36);
-    background-image: linear-gradient(to right, #f1dbc7, #f3ceb6);
-    position: relative;
-    align-items: center;
-    width: 100%;
-    margin: 0;
-    padding: 0 5% 5% 5%;
-}
-
-#h2_Destinations {
-    font-family: 'Caveat', cursive;
-    letter-spacing: 5px;
-    text-transform: uppercase;
-    font-size: 24pt;
-    font-weight: 900;
-    text-shadow: 1px 1px white, #07616b -1px -1px;
-    text-align: center;
-    color: #fff;
-    margin: 5% 25% 1% 25%;
-}
-
-#destination_list_wrapper {
-    padding: 0;
-    list-style: none;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-    width: 100%;
-    height: inherit;
-    margin: 0;
-    align-self: auto;
-}
-
-.destinaton_flexbox {
-    flex: auto;
-    padding: 10px;
-    max-width: 538px;
-    min-width: 0;
-    margin: 3%;
-}
-
-.destination_heading {
-    flex: auto;
-    width: 100%;
-    max-width: 538px;
-    min-width: 0;
-    height: auto;
-}
-
-.destination_description {
-    flex: auto;
-    text-justify: auto;
-    width: 80%;
-    max-width: 538px;
-    min-width: 80%;
-    height: auto;
-}
-
-.destination_image_box {
-    flex: auto;
-    width: 100%;
-    max-width: 538px;
-    min-width: 80%;
-    max-width: 10800%;
-    height: auto;
-}
-
 .parallax-1 {
     position: relative;
     opacity: 0.9;
@@ -175,6 +77,48 @@ address p {
     width: 100%;
     margin: 0;
     padding: 0;
+}
+
+.submitButtonBox {
+    flex: auto;
+    height: 100%;
+    margin: auto;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.submitButton {
+    width: 140px;
+    height: 45px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin: 15px;
+    background-color: rgb(245, 193, 174);
+    border: none;
+    border-radius: 30px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    color: #000;
+    font-size: 11px;
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+}
+
+.submitButton:hover {
+    background-color: #3ddf9e;
+    box-shadow: 0px 15px 20px rgba(47, 211, 145, 0.4);
+    color: #fff;
+    transform: translateY(-5px);
+}
+
+.redText {
+    color: rgb(238, 76, 76);
+    margin: 0, 3px, 6px, 3px;
+    padding: 0, 3px, 3px, 3px;
+    flex: auto;
+    width: auto;
+    align-self: center;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 
