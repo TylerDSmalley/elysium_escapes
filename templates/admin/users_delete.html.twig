@@ -13,17 +13,18 @@
 
 	<section class="section p-5">
 		<div class="container">
-
+				<br/><br/><br/><br/>
 				<h3>Delete User</h3>
-					User ID: {{user.id}}<br/>
-					User First Name: {{user.first_name}}<br/>
-					User Last Name: {{ user.lastName }}<br/>
-					User Email:{{ user.email }}<br>
-					User Phone: {{user.phone_number}}<br/>
-                    User Type: {{ user.account_type }}<br/>
+					User ID: &nbsp;{{user.id}}<br/>
+					User First Name: &nbsp;{{user.first_name}}<br/>
+					User Last Name: &nbsp;{{ user.last_name }}<br/>
+					User Email:&nbsp;{{ user.email }}<br>
+					User Phone:&nbsp; {{user.phone_number}}<br/>
+                    User Type:&nbsp; {{ user.account_type }}<br/>
                 <form method="POST">   
 					<div class="submitButtonBox">
-                        <p>Please confirm the deletion of this user</p>
+						<br/><br/>
+                        <p><strong>Please confirm the deletion of this user</strong></p>
 						<input class="submitButton" type="submit" value="Yes, Delete">
 					</div>
 				</div>
