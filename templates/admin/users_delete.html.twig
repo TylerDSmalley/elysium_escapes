@@ -1,0 +1,34 @@
+{% extends "admin/master.html.twig" %}
+
+{% block title %}Delete User
+{% endblock %}
+
+{% block head %}
+	<link rel="stylesheet" href="/styles/addDestinations.css">
+	<script src="scripts/nav.js"></script>
+	{{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+	<section class="section p-5">
+		<div class="container">
+
+				<h3>Delete User</h3>
+					User ID: {{user.id}}<br/>
+					User First Name: {{user.first_name}}<br/>
+					User Last Name: {{ user.lastName }}<br/>
+					User Email:{{ user.email }}<br>
+					User Phone: {{user.phone_number}}<br/>
+                    User Type: {{ user.account_type }}<br/>
+                <form method="POST">   
+					<div class="submitButtonBox">
+                        <p>Please confirm the deletion of this user</p>
+						<input class="submitButton" type="submit" value="Yes, Delete">
+					</div>
+				</div>
+			</form>
+            <a href="/admin/users/list">Cancel - Go Back to List</a>
+		</div>
+	</section>
+{% endblock content %}

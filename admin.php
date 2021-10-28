@@ -5,12 +5,11 @@ require_once 'utils.php';
 require_once 'init.php';
 
  $app->get('/admin/users/list', function($request,$response,$args){
-    $userList = DB::query("SELECT * FROM users");
+    $userList = DB::query("SELECT * FROM users WHERE status='active'");
     return $this->view->render($response,'admin/users_list.html.twig',['usersList'=> $userList]);
  });
 
  $app->get('/admin/users/{op:edit|add}[/{id:[0-9]+}]',function($request,$response,$args){
-//$app->get('/admin/users/{id:[0-9]+}/edit',function($request,$response,$args){
    if(($args['op'] == 'add' && !empty($args['id']) || $args['op'] == 'edit' && empty($args['id']))){
       $response = $response->withStatus(404);
       return $this->view->render($response,'admin/not_found.html.twig');
@@ -97,6 +96,21 @@ $app->post('/admin/users/{id:[0-9]+}/edit',function($request,$response,$args){
          return $this->view->render($response,'admin/users_addit_success.html.twig',['op'=>$args['op']]);
    }
 }
+});
+
+$app->get('/admin/users/delete[/{id:[0-9]+}]',function($request,$response,$args){
+   $user = DB::queryFirstRow("SELECT * FROM users WHERE id=%d",$args['id']);
+      if(!$user){
+         $response = $response->withStatus(404);
+         return $this->view->render($response,'admin/not_found.html.twig');
+      }
+   return $this->view->render($response,'admin/users_delete.html.twig',['user'=> $user]);
+});
+
+$app->post('/admin/users/delete[/{id:[0-9]+}]',function($request,$response,$args){
+   //Code to delete user
+   DB::query("UPDATE users SET status='inactive' WHERE id=%i",$args['id']);
+   return $this->view->render($response,'admin/users_delete.html_success.twig');
 });
 
 $app->get('/error_internal', function ($request, $response, $args) {
