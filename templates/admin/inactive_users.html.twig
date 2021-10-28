@@ -22,7 +22,7 @@
 {% block content %}
 	<br/><br/><br/><br/><br/>
 	<table class="center">
-		<caption><a href="/admin/users/add">Create a New User</a>&nbsp; | &nbsp;<a href="/admin/users/inactive">View Inactive Users</a></caption>
+		<caption><a href="/admin/users/list">Go Back to User List</a></caption>
 		<tr>
 			<th>ID</th>
 			<th>First Name</th>
@@ -31,7 +31,6 @@
 			<th>Phone Number</th>
 			<th>User Type</th>
             <th>Account Status</th>
-			<th>Actions</th>
 		</tr>
 		{% for u in usersList %}
 			<tr>
@@ -42,10 +41,6 @@
 				<td>{{u.phone_number}}</td>
 				<td>{{u.account_type}}</td>
                 <td>{{u.status}}</td>
-				<td>
-					<a href="/admin/users/edit/{{u.id}}">Edit</a>&nbsp;
-					<a href="/admin/users/delete/{{u.id}}">Delete</a>
-				</td>
 			</tr>
 		{% endfor %}
 	</table>

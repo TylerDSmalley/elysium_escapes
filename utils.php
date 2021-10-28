@@ -4,6 +4,14 @@ require_once 'vendor/autoload.php';
 
 require_once 'init.php';
 
+function validateName($name){
+    if(preg_match('/^[\.a-zA-Z0-9,!? ]*$/',$name) != 1 || strlen($name) < 2 || strlen($name)> 100)
+   {
+       return "Name must be between 2 and 100 characters and include only letters, numbers, space, dash, dot or comma";
+   }
+   return TRUE;
+}
+
 function validatePhone($phone){
     $valid_number = filter_var($phone, FILTER_SANITIZE_NUMBER_INT);
     $valid_number = str_replace("-", "", $valid_number);
@@ -38,13 +46,6 @@ function validatePassword($password1,$password2){
     return TRUE;
 }
 
-function validateName($name){
-    if(preg_match('/^[\.a-zA-Z0-9,!? ]*$/',$name) != 1 || strlen($name) < 2 || strlen($name)> 100)
-   {
-       return "Name must be between 2 and 100 characters and include only letters, numbers, space, dash, dot or comma";
-   }
-   return TRUE;
-}
 
 // $app->get('/admin/user/list', function .....);
 function verifyUploadedPhoto(&$newFilePath, $photo)

@@ -25,16 +25,14 @@
 			<form class="form" method="POST">
 				<h3>{% if op == 'add' %}Add{% else %}Edit{% endif %} User</h3>
 				<div class="formContainer">
-					User ID:
-					<input class="title" type="text" name="id" value="{{user.id}}"><br/>
 					User First Name:
-					<input class="title" type="text" name="name" value="{{ user.first_name }}"/><br/>
+					<input class="title" type="text" name="firstName" value="{{ user.first_name }}"/><br/>
                     User Last Name:
-					<input class="title" type="text" name="name" value="{{ user.last_name }}"/><br/>
+					<input class="title" type="text" name="lastName" value="{{ user.last_name }}"/><br/>
 					User Email:
-					<input class="title" type="text" name="name" value="{{ user.email }}"/><br>
+					<input class="title" type="text" name="email" value="{{ user.email }}"/><br>
 					User Phone:
-					<input class="title" type="text" name="email" value="{{user.phone_number}}"/><br/>
+					<input class="title" type="text" name="phone" value="{{user.phone_number}}"/><br/>
                     User Type:<br/>
                     <select name="type" id="type" value="{{ user.account_type }}">
                         <option>customer</option>

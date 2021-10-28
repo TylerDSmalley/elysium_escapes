@@ -9,6 +9,11 @@ require_once 'init.php';
     return $this->view->render($response,'admin/users_list.html.twig',['usersList'=> $userList]);
  });
 
+ $app->get('/admin/users/inactive', function($request,$response,$args){
+   $userList = DB::query("SELECT * FROM users WHERE status='inactive'");
+   return $this->view->render($response,'admin/inactive_users.html.twig',['usersList'=> $userList]);
+});
+
  $app->get('/admin/users/{op:edit|add}[/{id:[0-9]+}]',function($request,$response,$args){
    if(($args['op'] == 'add' && !empty($args['id']) || $args['op'] == 'edit' && empty($args['id']))){
       $response = $response->withStatus(404);
@@ -27,7 +32,7 @@ require_once 'init.php';
    return $this->view->render($response,'admin/users_addedit.html.twig',['user'=> $user,'op'=>$args['op']]);
 });
 
-$app->post('/admin/users/{id:[0-9]+}/edit',function($request,$response,$args){
+$app->post('/admin/users/{op:edit|add}[{id:[0-9]+}]',function($request,$response,$args){
    if(($args['op'] == 'add' && !empty($args['id']) || $args['op'] == 'edit' && empty($args['id']))){
       $response = $response->withStatus(404);
       return $this->view->render($response,'admin/not_found.html.twig');
@@ -61,8 +66,7 @@ $app->post('/admin/users/{id:[0-9]+}/edit',function($request,$response,$args){
   }
   }
   
-
-  if(filter_var($email,FILTER_VALIDATE_EMAIL)=== FALSE){
+  if(!filter_var($email,FILTER_VALIDATE_EMAIL)){
      $errorList[] = "Email not valid";
      $email="";
   }else{
