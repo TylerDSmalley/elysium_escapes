@@ -1,6 +1,7 @@
 {% extends "admin/master.html.twig" %}
 
-{% block title %}Edit User
+{% block title %}
+{% if op == 'add' %}Add{% else %}Edit{% endif %} User
 {% endblock %}
 
 {% block head %}
@@ -22,27 +23,28 @@
 		<div class="container">
 
 			<form class="form" method="POST">
-				<h3>Edit User</h3>
-                <a href="admin/users/add">Create New User</a>
+				<h3>{% if op == 'add' %}Add{% else %}Edit{% endif %} User</h3>
 				<div class="formContainer">
 					User ID:
 					<input class="title" type="text" name="id" value="{{user.id}}"><br/>
 					User First Name:
-					<input class="title" type="text" name="name" value="{{ user.firstName }}"/><br/>
+					<input class="title" type="text" name="name" value="{{ user.first_name }}"/><br/>
                     User Last Name:
-					<input class="title" type="text" name="name" value="{{ user.lastName }}"/><br/>
+					<input class="title" type="text" name="name" value="{{ user.last_name }}"/><br/>
 					User Email:
 					<input class="title" type="text" name="name" value="{{ user.email }}"/><br>
 					User Phone:
 					<input class="title" type="text" name="email" value="{{user.phone_number}}"/><br/>
-                    User Type:
+                    User Type:<br/>
                     <select name="type" id="type" value="{{ user.account_type }}">
                         <option>customer</option>
                         <option>manager</option>
                         <option>admin</option>
 					</select>
-                    <br>
-					<p>Only provide password if you are changing it for this user</p>
+                    <br/><br/>
+					{% if op == 'edit' %}
+					<p><strong>Only provide password if you are changing it for this user</strong></p>
+					{% endif %}
 					Password:
 					<input class="title" type="password" name="password1"/><br/>
 					Password (Confirmed):

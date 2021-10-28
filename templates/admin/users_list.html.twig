@@ -20,11 +20,12 @@
 {% endblock %}
 
 {% block content %}
-	<p>
-		<a href="/admin/users/add">Create a New User</a>
-	</p>
+	
 	<table class="center">
 		<br/><br/><br/><br/><br/>
+		<p class="center">
+		<a href="/admin/users/add">Create a New User</a>
+		</p>
 		<tr>
 			<th>ID</th>
 			<th>First Name</th>
@@ -51,4 +52,5 @@
 			</tr>
 		{% endfor %}
 	</table>
+		
 {% endblock %}
