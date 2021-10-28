@@ -4,7 +4,8 @@ RewriteEngine On
 RewriteCond %{HTTPS} !=on
 RewriteCond %{HTTP_HOST} fsd01.ca
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301,NE]
-Header always set Content-Security-Policy "upgrade-insecure-requests;"
+
+# Header always set Content-Security-Policy "upgrade-insecure-requests;"
 
 # deny access to certain directories that must never be accessed from a web browser
 RewriteRule ^/?(templates|logs|tmplcache|vendor)/(.*)$ - [R=404,L]
