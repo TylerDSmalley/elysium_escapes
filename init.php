@@ -73,9 +73,10 @@ $container['view'] = function ($c) {
         'debug' => true, // This line should enable debug mode
     ]);
     // add a value to ALL twig templates
-    $view->getEnvironment()->addGlobal('test1','VALUE');
     $view->getEnvironment()->addGlobal('clientIP', $_SERVER['REMOTE_ADDR']);
     $view->getEnvironment()->addGlobal('authUser', @$_SESSION['authUser']);
+    $view->getEnvironment()->addGlobal('authUser', @$_SESSION['authManager']);
+    $view->getEnvironment()->addGlobal('authUser', @$_SESSION['authAdmin']);
     // Instantiate and add Slim specific extension
     $router = $c->get('router');
     $uri = \Slim\Http\Uri::createFromEnvironment(new \Slim\Http\Environment($_SERVER));
