@@ -123,12 +123,12 @@ $app->get('/error_internal', function ($request, $response, $args) {
 
 // ADD DESTINATION HANDLER
 //State 1 - display form
-$app->get('/admin/destinations', function($request,$response,$args){
+$app->get('/admin/destinations/add', function($request,$response,$args){
   return $this->view->render($response,'admin/destinations_add.html.twig');
 });
 
 //STATE 2 & 3 = recieving submission
-$app->post('/admin/destinations', function ($request, $response, $args) use ($log) {
+$app->post('/admin/destinations/add', function ($request, $response, $args) use ($log) {
 
   $destination_description = $destination_name = $photo =  "";
   $errors = array('destination_name' => '', 'destination_description' => '', 'photo' => '');
