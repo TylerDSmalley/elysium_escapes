@@ -205,12 +205,22 @@
 
 3. Where do I need assistance? What do I need to figure out?
 ------------------------------------------------------------------------------------------------------------------
-Ileana -> Oct. 29
+Oct. 29
+
+Ileana
+1. What I have done / not done since last Scrum
 -Added template and logic to display inactive users (deleted).
 -Looked at map functionality but doesn't seem to apply to what I needed
 -Created destinations list template and functionality
 -Created destinations delete template and functionality
 -Began turning destinations add into add/edit like users template
+
+2. What I plan to do from this scrum to the next
+-Finish add/edit functionality for destinations template
+-Change master to display admin nav bar 
+-Watch videos/look at code on flash messages to implement
+
+3. Where do I need assistance? What do I need to figure out?
 
 Question: Do we want to make photo upload optional when editing a destination?
           Do we want to make destinations inactive like users on delete? Will delete cause issues?  
