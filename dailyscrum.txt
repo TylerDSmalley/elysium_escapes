@@ -114,7 +114,7 @@
 3. Where do I need assistance? What do I need to figure out?
 *ask Gregory about user deletion from tables 
 -------------------------------------------------------------
-<<Daily Scrum - 2021-10-26 >>
+<<Daily Scrum - 2021-10-27 >>
 --Tyler--
 1. What I have done / not done since last Scrum
 -update blog template to match site  
@@ -159,7 +159,7 @@
 3. Where do I need assistance? What do I need to figure out?
 
 
-<<Daily Scrum - 2021-10-27 >>
+<<Daily Scrum - 2021-10-28 >>
 --Tyler--
 1. What I have done / not done since last Scrum
 *DONE*-add active flag to user table
@@ -205,7 +205,22 @@
 
 3. Where do I need assistance? What do I need to figure out?
 ------------------------------------------------------------------------------------------------------------------
-Oct. 29
+<<Daily Scrum - 2021-10-29 >>
+
+--Tyler--
+1. What I have done / not done since last Scrum
+-add contact us logic
+-style registration 
+
+2. What I plan to do from this scrum to the next
+-create log in modal on base template for log in. 
+-link registration page somewhere? (nav or modal)
+-fix destination photo carousel
+-start testemonials
+-review gregory's videos on one drive
+
+3. Where do I need assistance? What do I need to figure out?
+-ask Gregory about what goes in user.php
 
 --Stefan--
 1. What I have done / not done since last Scrum
@@ -217,6 +232,8 @@ and their ages in search for hotel selection
 -review php videos/projects
 -link package selection template to billing template (billing will use stripe).
 -complete billing template and add logic to add order summary to booking_history table.
+-convert JS logic to php
+-look into car rental APIs
 
 
 3. Where do I need assistance? What do I need to figure out?
