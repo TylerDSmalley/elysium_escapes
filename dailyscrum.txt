@@ -250,7 +250,7 @@ Ileana
 
 2. What I plan to do from this scrum to the next
 -Finish add/edit functionality for destinations template
--Change master to display admin nav bar 
+-Change master to display admin nav bar
 -Watch videos/look at code on flash messages to implement
 
 3. Where do I need assistance? What do I need to figure out?
