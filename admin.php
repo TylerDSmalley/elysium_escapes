@@ -121,6 +121,11 @@ $app->get('/error_internal', function ($request, $response, $args) {
   return $this->view->render($response, 'error_internal.html.twig');
 });
 
+$app->get('/admin/destinations/list', function($request,$response,$args){
+   $destinationsList = DB::query("SELECT * FROM users destinations");
+   return $this->view->render($response,'admin/destinations_list.html.twig',['destinationsList'=> $destinationsList]);
+});
+
 // ADD DESTINATION HANDLER
 //State 1 - display form
 $app->get('/admin/destinations/add', function($request,$response,$args){
