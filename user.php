@@ -99,15 +99,13 @@ $app->post('/contactus', function ($request, $response, $args) {
         return $this->view->render($response, 'contactus.html.twig');
     } // end POST check
 });
-
 // CONTACT US HANDLERS END
+
+// CALENDAR HANDLERS
 $app->get('/trcalendar', function ($request, $response, $args) {
     return $this->view->render($response, 'trcalendar.html.twig');
 });
-
-$app->get('/register', function ($request, $response, $args) {
-    return $this->view->render($response, 'register.html.twig');
-});
+// CALENDAR HANDLERS END
 
 // DESTINATIONS HANDLERS
 $app->get('/destinations', function ($request, $response, $args) {
@@ -117,7 +115,69 @@ $app->get('/destinations', function ($request, $response, $args) {
 });
 // DESTINATIONS HANDLERS END
 
-// $app->get('/register', function .....);
+// REGISTER HANDLERS
+$app->get('/register', function ($request, $response, $args) {
+    return $this->view->render($response, 'register.html.twig');
+});
+
+$app->post('/register', function ($request, $response, $args) {
+    //extract values submitted
+    $firstName = $request->getParam('firstName');
+    $lastName = $request->getParam('lastName');
+    $email = $request->getParam('email');
+    $phoneNumber = $request->getParam('phone');
+    $password1 = $request->getParam('password1');
+    $password2 = $request->getParam('password2');
+
+    //validate
+
+    $errorList = array('firstName' => '', 'lastName' => '', 'email' => '', 'phone' => '', 'password' => '');
+
+    if (preg_match('/^[\.a-zA-Z0-9,!? ]*$/', $firstName) != 1 || strlen($firstName) < 2 || strlen($firstName) > 100) {
+        $errorList['firstName'] = "Name must be between 2 and 100 characters and include only letters, numbers, space, dash, dot or comma";
+        $firstName = "";
+    }
+
+    if (preg_match('/^[\.a-zA-Z0-9,!? ]*$/', $lastName) != 1 || strlen($lastName) < 2 || strlen($lastName) > 100) {
+        $errorList['lastName'] = "Name must be between 2 and 100 characters and include only letters, numbers, space, dash, dot or comma";
+        $lastName = "";
+    }
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errorList['email'] = "Invalid email format";
+        $email = "";
+    }else {
+
+        // check DB for duplicates
+        $emailDupeCheck = DB::query("SELECT email FROM users WHERE email = '$email' LIMIT 1");
+        $countEmail = mysqli_num_rows($emailDupeCheck);
+        if ($countEmail) {
+            $errors['email'] = 'Email already taken';
+            $email = ""; // reset invalid value to empty string
+        }
+    }
+
+    if (!validatePhone($phoneNumber)) {
+        $errorList['phone'] = "Invalid Phone Number format";
+        $phoneNumber = "";
+    }
+
+    $valPass = validatePassword($password1, $password2);
+    if (!$valPass) {
+        $errorList['password'] = $valPass;
+    }
+
+
+    if (array_filter($errorList)) { //STATE 2: Errors
+        $valuesList = ['firstName' => $firstName, 'lastName' => $lastName, 'email' => $email, 'phone' => $phoneNumber];
+        return $this->view->render($response, 'register.html.twig', ['errorList' => $errorList, 'v' => $valuesList]);
+    } else {
+        $hash = password_hash($password1, PASSWORD_DEFAULT);
+        DB::insert('users', ['first_name' => $firstName, 'last_name' => $lastName, 'email' => $email, 'phone_number' => $phoneNumber, 'password' => $hash]);
+        return $this->view->render($response, '/register_success.html.twig');
+    }
+});
+// REGISTER HANDLERS END
 
 // $app->get('/login', function .....);
 
