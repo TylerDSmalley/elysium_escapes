@@ -21,10 +21,11 @@ $app->post('/testbooking', function ($request, $response, $args) {
   $location = $request->getParam('location');
   $adults = $request->getParam('adults');
   $children = $request->getParam('children');
+  $childrenAges = $request->getParam('childrenAges');
   $arrival = $request->getParam('arrival');
   $departure = $request->getParam('departure');
-  $hotelList = searchHotels($location, $adults, $children, $arrival, $departure);
-  return $this->view->render($response, 'apitestbooking.html.twig', ['location' => $location, 'adults' => $adults, 'children' => $children, 'arrival' => $arrival, 'departure' => $departure, 'h' => $hotelList->result]);
+  $hotelList = searchHotels($location, $adults, $children, $childrenAges, $arrival, $departure);
+  return $this->view->render($response, 'apitestbooking.html.twig', ['location' => $location, 'adults' => $adults, 'children' => $children, 'childrenAges' => $childrenAges, 'arrival' => $arrival, 'departure' => $departure, 'h' => $hotelList->result]);
 });
 
 function callAPI($url) {
