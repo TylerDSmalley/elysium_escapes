@@ -30,7 +30,7 @@
 					<div class="redText">{{errors.destination_name}}</div>
 
 					<label>Destination Description</label>
-					<textarea id="textBody" name="destination_description">{{ destination.destination_description }}</textarea>
+					<textarea id="textBody" name="destination_description">{% autoescape %}{{destination.destination_description|raw}}{% endautoescape %}</textarea>
 					<div class="redText">{{errors.destination_description}}</div>
 
 					<label>Add Photo:</label>

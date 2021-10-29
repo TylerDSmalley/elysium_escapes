@@ -39,7 +39,7 @@
 			<tr>
 				<td>{{d.id}}</td>
 				<td>{{d.destination_name}}</td>
-				<td>{{d.destination_description}}</td>
+				<td>{% autoescape %}{{d.destination_description|raw}}{% endautoescape %}</td>
 				<td><img src ="/../{{d.destination_imagepath}}" width="250"/></td>
 				<td>
 					<a href="/admin/destinations/edit/{{d.id}}">Edit</a>&nbsp;
@@ -48,5 +48,4 @@
 			</tr>
 		{% endfor %}
 	</table>
-		
 {% endblock %}
