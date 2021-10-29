@@ -207,6 +207,22 @@
 ------------------------------------------------------------------------------------------------------------------
 Oct. 29
 
+--Stefan--
+1. What I have done / not done since last Scrum
+-modified api logic for booking page to include number of children
+and their ages in search for hotel selection
+-Began working on billing template (not complete)
+
+2. What I plan to do from this scrum to the next
+-review php videos/projects
+-link package selection template to billing template (billing will use stripe).
+-complete billing template and add logic to add order summary to booking_history table.
+
+
+3. Where do I need assistance? What do I need to figure out?
+-Having difficulty maintaining a necessary working pace for projects.
+Need to spend time reviewing material.
+
 Ileana
 1. What I have done / not done since last Scrum
 -Added template and logic to display inactive users (deleted).
