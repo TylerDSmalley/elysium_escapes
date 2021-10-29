@@ -27,7 +27,7 @@
 {% block content %}
 	<br/><br/><br/><br/><br/>
 	<table class="center">
-		<caption><a href="/admin/destinations/add">Add a New Destination</a>&nbsp; | &nbsp;<a href="/admin/users/inactive">View Inactive Users</a></caption>
+		<caption><a href="/admin/destinations/add">Add a New Destination</a></caption>
 		<tr>
 			<th>ID</th>
 			<th>Destination Name</th>
@@ -40,10 +40,10 @@
 				<td>{{d.id}}</td>
 				<td>{{d.destination_name}}</td>
 				<td>{{d.destination_description}}</td>
-				<td><img src ="/../{{d.destination_imagepath}}"/></td>
+				<td><img src ="/../{{d.destination_imagepath}}" width="250"/></td>
 				<td>
-					<a href="/admin/destinations/edit/{{u.id}}">Edit</a>&nbsp;
-					<a href="/admin/destinations/delete/{{u.id}}">Delete</a>
+					<a href="/admin/destinations/edit/{{d.id}}">Edit</a>&nbsp;
+					<a href="/admin/destinations/delete/{{d.id}}">Delete</a>
 				</td>
 			</tr>
 		{% endfor %}

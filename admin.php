@@ -4,16 +4,19 @@ require_once 'vendor/autoload.php';
 require_once 'utils.php';
 require_once 'init.php';
 
+// LIST USERS HANDLER
  $app->get('/admin/users/list', function($request,$response,$args){
     $userList = DB::query("SELECT * FROM users WHERE status='active'");
     return $this->view->render($response,'admin/users_list.html.twig',['usersList'=> $userList]);
  });
 
+ // INACTIVE USERS HANDLER
  $app->get('/admin/users/inactive', function($request,$response,$args){
    $userList = DB::query("SELECT * FROM users WHERE status='inactive'");
    return $this->view->render($response,'admin/inactive_users.html.twig',['usersList'=> $userList]);
 });
 
+// ADD AND EDIT USERS HANDLER
  $app->get('/admin/users/{op:edit|add}[/{id:[0-9]+}]',function($request,$response,$args){
    if(($args['op'] == 'add' && !empty($args['id']) || $args['op'] == 'edit' && empty($args['id']))){
       $response = $response->withStatus(404);
@@ -101,7 +104,7 @@ $app->post('/admin/users/{op:edit|add}[/{id:[0-9]+}]',function($request,$respons
    }
 }
 });
-
+//DELETE USERS HANDLER
 $app->get('/admin/users/delete[/{id:[0-9]+}]',function($request,$response,$args){
    $user = DB::queryFirstRow("SELECT * FROM users WHERE id=%d",$args['id']);
       if(!$user){
@@ -112,7 +115,6 @@ $app->get('/admin/users/delete[/{id:[0-9]+}]',function($request,$response,$args)
 });
 
 $app->post('/admin/users/delete[/{id:[0-9]+}]',function($request,$response,$args){
-   //Code to delete user
    DB::query("UPDATE users SET status='inactive' WHERE id=%i",$args['id']);
    return $this->view->render($response,'admin/users_delete.html_success.twig');
 });
@@ -121,19 +123,50 @@ $app->get('/error_internal', function ($request, $response, $args) {
   return $this->view->render($response, 'error_internal.html.twig');
 });
 
+// LIST DESTINATION HANDLER
 $app->get('/admin/destinations/list', function($request,$response,$args){
    $destinationsList = DB::query("SELECT * FROM  destinations");
    return $this->view->render($response,'admin/destinations_list.html.twig',['destinationsList'=> $destinationsList]);
 });
 
-// ADD DESTINATION HANDLER
-//State 1 - display form
-$app->get('/admin/destinations/add', function($request,$response,$args){
-  return $this->view->render($response,'admin/destinations_add.html.twig');
+//DELETE DESTINATION HANDLER
+$app->get('/admin/destinations/delete[/{id:[0-9]+}]',function($request,$response,$args){
+   $destination = DB::queryFirstRow("SELECT * FROM destinations WHERE id=%d",$args['id']);
+      if(!$destination){
+         $response = $response->withStatus(404);
+         return $this->view->render($response,'admin/not_found.html.twig');
+      }
+   return $this->view->render($response,'admin/destinations_delete.html.twig',['destination'=> $destination]);
 });
 
+$app->post('/admin/destinations/delete[/{id:[0-9]+}]',function($request,$response,$args){
+   DB::query("DELETE FROM destinations WHERE id=%i",$args['id']);
+   return $this->view->render($response,'admin/destinations_delete_success.html.twig');
+});
+
+// ADD AND EDIT DESTINATION HANDLER
+$app->get('/admin/destinations/{op:edit|add}[/{id:[0-9]+}]',function($request,$response,$args){
+   if(($args['op'] == 'add' && !empty($args['id']) || $args['op'] == 'edit' && empty($args['id']))){
+      $response = $response->withStatus(404);
+      return $this->view->render($response,'admin/not_found.html.twig');
+   }
+
+   if($args['op'] == 'edit'){
+      $destination = DB::queryFirstRow("SELECT * FROM destinations WHERE id=%i",$args['id']);
+      if(!$destination){
+         $response = $response->withStatus(404);
+         return $this->view->render($response,'admin/not_found.html.twig');
+ }
+}else{
+   $destination=[];
+}
+   return $this->view->render($response,'admin/destinations_addedit.html.twig',['destination'=> $destination,'op'=>$args['op']]);
+});
+
+//Need to fix up POST edit / add on destination
+
 //STATE 2 & 3 = recieving submission
-$app->post('/admin/destinations/add', function ($request, $response, $args) use ($log) {
+$app->post('/admin/destinations/{op:edit|add}[/{id:[0-9]+}]', function ($request, $response, $args) use ($log) {
 
   $destination_description = $destination_name = $photo =  "";
   $errors = array('destination_name' => '', 'destination_description' => '', 'photo' => '');
@@ -201,4 +234,5 @@ $app->post('/admin/destinations/add', function ($request, $response, $args) use 
       return $this->view->render($response, 'admin/destinations_add.html.twig'); //needs confirmation signal
   } // end POST check
 
+  
 });
