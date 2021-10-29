@@ -122,7 +122,7 @@ $app->get('/error_internal', function ($request, $response, $args) {
 });
 
 $app->get('/admin/destinations/list', function($request,$response,$args){
-   $destinationsList = DB::query("SELECT * FROM users destinations");
+   $destinationsList = DB::query("SELECT * FROM  destinations");
    return $this->view->render($response,'admin/destinations_list.html.twig',['destinationsList'=> $destinationsList]);
 });
 
