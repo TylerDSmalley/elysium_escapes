@@ -50,7 +50,7 @@ $data = json_decode ( $response);
 return $data;
 }
 
-function searchHotels($location, $adults, $children, $arrival, $departure) {
+function searchHotels($location, $adults, $children, $childrenAges, $arrival, $departure) {
   switch ($location) {
       case "Bermuda":
           $locationId = 24;
@@ -66,8 +66,6 @@ function searchHotels($location, $adults, $children, $arrival, $departure) {
   // $destinationType = "country"; // get list
   // $orderBy = "popularity"; // get list
   // $numberOfRooms = 1;
-  $numberOfChildren = 1;
-  $childrenAges = urlencode("5,0"); // %2C == , // "5%2C0" // urlencode("5,0")
 
   $apiUrl = "https://booking-com.p.rapidapi.com/v1/hotels/search?"
   ."dest_type=country"
@@ -80,9 +78,11 @@ function searchHotels($location, $adults, $children, $arrival, $departure) {
   ."&units=metric"
   ."&filter_by_currency=CAD"
   ."&locale=en-us"
-  ."&children_ages=" . $childrenAges
-  ."&include_adjacency=false"
-  ."&children_number=" . $numberOfChildren;
+  ."&include_adjacency=false";
+  
+  if ($children > 0) {
+      $apiUrl = $apiUrl ."&children_number=" . $children . "&children_ages=" . urlencode($childrenAges);
+  }
 
   return callAPI($apiUrl);   
   
