@@ -16,7 +16,7 @@ $log->pushHandler(new StreamHandler('logs/everything.log', Logger::DEBUG));
 $log->pushHandler(new StreamHandler('logs/errors.log', Logger::ERROR));
 
 $log->pushProcessor(function ($record) {
-    // $record['extra']['user'] = isset($_SESSION['user']) ? $_SESSION['user']['username'] : '=anonymous=';
+    $record['extra']['user'] = isset($_SESSION['user']) ? $_SESSION['user']['username'] : '=anonymous=';
     $record['extra']['ip'] = $_SERVER['REMOTE_ADDR'];
     return $record;
 });
@@ -72,8 +72,10 @@ $container['view'] = function ($c) {
         'cache' => dirname(__FILE__) . '/tmplcache',
         'debug' => true, // This line should enable debug mode
     ]);
-    //
-    $view->getEnvironment()->addGlobal('test1', 'VALUE');
+    // add a value to ALL twig templates
+    $view->getEnvironment()->addGlobal('test1','VALUE');
+    $view->getEnvironment()->addGlobal('clientIP', $_SERVER['REMOTE_ADDR']);
+    $view->getEnvironment()->addGlobal('authUser', @$_SESSION['authUser']);
     // Instantiate and add Slim specific extension
     $router = $c->get('router');
     $uri = \Slim\Http\Uri::createFromEnvironment(new \Slim\Http\Environment($_SERVER));
