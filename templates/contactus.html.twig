@@ -64,11 +64,11 @@
 
 
 			<div class="div col-md">
-			<h4 class="text-start">Contact Us</h4>
+				<h4 class="text-start">Contact Us</h4>
 				<form method="post" enctype="multipart/form-data">
 					<div class="col-md">
 						<div class="form-floating mb-3">
-							<input type="text" class="form-control" id="floatingInput" name="first_name"  placeholder="Jane" value="{{ v.first_name }}">
+							<input type="text" class="form-control" id="floatingInput" name="first_name" placeholder="Jane" value="{{ v.first_name }}">
 							<label for="floatingInput">First Name:</label>
 							<div class="redText">{{errors.first_name}}</div>
 						</div>
@@ -76,7 +76,7 @@
 
 					<div class="col-md">
 						<div class="form-floating mb-3">
-							<input type="text" class="form-control" id="floatingInput" name="last_name"  placeholder="Doe" value="{{ v.last_name }}">
+							<input type="text" class="form-control" id="floatingInput" name="last_name" placeholder="Doe" value="{{ v.last_name }}">
 							<label for="floatingInput">Last Name:</label>
 							<div class="redText">{{errors.last_name}}</div>
 						</div>
@@ -84,15 +84,15 @@
 
 					<div class="col-md">
 						<div class="form-floating mb-3">
-  							<input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com" value="{{ v.email }}">
-  							<label for="floatingInput">Email</label>
-							  <div class="redText">{{errors.email}}</div>
+							<input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com" value="{{ v.email }}">
+							<label for="floatingInput">Email</label>
+							<div class="redText">{{errors.email}}</div>
 						</div>
 					</div>
 
 					<div class="col-md">
 						<div class="form-floating mb-3">
-							<textarea class="form-control" id="floatingInputGrid" name="message_body" placeholder="Write something.." style="height:200px" required></textarea value="{{ v.itemDescription }}">
+							<textarea class="form-control" id="floatingInputGrid" name="message_body" placeholder="Write something.." style="height:200px" required></textareavalue="{{v.itemDescription}}">
 							<label for="floatingInputGrid" class="col-form-label">Message:</label>
 							<div class="redText">{{errors.message_body}}</div>
 						</div>
@@ -111,7 +111,10 @@
 
 </section>
 
-<div class="parallax-1"></div>{% endblock %}{% block scripts %}
+<div class="parallax-1"></div>
+{% endblock %}
+
+{% block scripts %}
 
 <script>
 	async function validateEmail() {
@@ -151,4 +154,5 @@ document.getElementById('email').value = "";
 document.getElementById('subject').value = "";
 }
 }
-</script>{% endblock %}
+</script>
+{% endblock %}
