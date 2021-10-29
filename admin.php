@@ -122,6 +122,10 @@ $app->get('/error_internal', function ($request, $response, $args) {
 });
 
 // ADD DESTINATION HANDLER
+//State 1 - display form
+$app->get('/admin/destinations', function($request,$response,$args){
+  return $this->view->render($response,'admin/destinations_add.html.twig');
+});
 
 //STATE 2 & 3 = recieving submission
 $app->post('/admin/destinations', function ($request, $response, $args) use ($log) {
