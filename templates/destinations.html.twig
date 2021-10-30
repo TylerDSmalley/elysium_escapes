@@ -30,9 +30,8 @@
 									<div class="h1 mb-3">
 										<h2 class="h3 card-title">{{ destination.destination_name }}</h2>
 									</div>
-									<img class="img-fluid" src="{{ destination.destination_imagepath }}" alt="{{ destination.destination_name }} photo">
-									<div class="submitButtonBox">
-										<button class="btn btn-lg submitButton" data-bs-toggle="modal" data-bs-target="#exampleModal{{ destination.id }}">Explore</button>
+									<div class="destinationImageBox">
+										<button class="btn btn-lg submitButton" data-bs-toggle="modal" data-bs-target="#exampleModal{{ destination.id }}"><img class="img-fluid destinationImage" src="{{ destination.destination_imagepath }}" alt="{{ destination.destination_name }} photo" title="{{ destination.destination_name }} title photo"></button>
 									</div>
 								</div>
 							</div>
