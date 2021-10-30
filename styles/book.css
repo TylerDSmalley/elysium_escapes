@@ -7,32 +7,6 @@
 
 /* Developed by:  Ileana Luts/Tyler Smalley */
 
-.body,
-html {
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    font-family: 'Source Sans Pro', sans-serif;
-    font-size: 14pt;
-    text-shadow: #ee9b57 3px 0 6px;
-    background-image: linear-gradient(to right, #f1dbc7, #f3ceb6);
-    color: #26a1b1;
-}
-
-h1 {
-    font-family: 'Caveat', cursive;
-    text-shadow: 1px 1px white, #07616b -2px -2px;
-    text-align: center;
-    color: #07616b;
-    font-size: 50px;
-    padding-top: 15px;
-}
-
-h3 {
-    color: #26a1b1;
-}
-
 img {
     max-width: 100%;
     border-radius: 4px;
@@ -42,10 +16,8 @@ img {
     display: grid;
     grid-template-columns: auto auto auto auto;
     grid-gap: 10px;
-    background-color: #F3CBA8;
     padding: 10px;
     margin: auto 0;
-    background-image: linear-gradient(to right, #f1dbc7, #f3ceb6);
 }
 
 .full-width {
@@ -115,45 +87,9 @@ input[type=date] {
     background-color: transparent;
 }
 
-.footer {
-    border-top: thick solid #AB8A72;
-    z-index: 5;
-    opacity: .95;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-end;
-    align-items: flex-end;
-    list-style: none;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    background-image: linear-gradient(to right, #F3CBA8, #F5C1A0);
-}
-
-.address_container {
-    flex: auto;
-    list-style: none;
-    width: 20%;
-    margin: 1%;
-}
-
-.hours_container {
-    flex: auto;
-    list-style: none;
-    width: 20%;
-    margin: 1%;
-}
-
-.logo_wrapper {
-    flex: auto;
-    width: 20%;
-    margin: 1%;
-}
-
 #confirmed_container {
     border-top: thin solid #AB8A72;
     border-bottom: thin solid #AB8A72;
-    background-image: linear-gradient(to right, #f1dbc7, #f3ceb6);
     box-shadow: 0 4px 2px -2px rgb(37, 36, 36);
     position: relative;
     align-items: center;
@@ -168,41 +104,6 @@ input[type=date] {
         flex-direction: column;
         justify-content: center;
     }
-}
-
-.footer {
-    border-top: thick solid #AB8A72;
-    z-index: 5;
-    opacity: .8;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-end;
-    align-items: flex-end;
-    list-style: none;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    background-image: linear-gradient(to right, #f1dbc7, #f3ceb6);
-}
-
-.address_container {
-    flex: auto;
-    list-style: none;
-    margin: 1%;
-    padding: 1%;
-}
-
-.hours_container {
-    flex: auto;
-    list-style: none;
-    margin: 1%;
-    padding: 1%;
-}
-
-.logo_wrapper {
-    flex: auto;
-    margin: 1%;
-    padding: 1%;
 }
 
 .button_wrapper {
