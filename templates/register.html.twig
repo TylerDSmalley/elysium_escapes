@@ -12,16 +12,18 @@
 
 {% block content %}
 
-	<div class="parallax-1">
-	</div>
-
 	<section class="section p-5">
 
 		<div class="container">
 
-			<div class="row text-center g-2">
-				<div class="registration col-auto">
-					<h4 class="text-start">Client Registration</h4>
+			<div class="row g-2 mt-5">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h3 class="h3 card-title" id="exampleModalNavLabel">Register</h3>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
 					<form method="post" enctype="multipart/form-data">
 						<div class="col-md">
 							<div class="form-floating mb-3">
@@ -70,7 +72,6 @@
 							</div>
 						</div>
 
-
 						<div class="submitButtonBox">
 							<input class="submitButton" type="submit" name="submit" value="Register!" onclick="confirmContact()">
 						</div>
@@ -78,13 +79,18 @@
 						<div id="confirmMessage"></div>
 					</form>
 				</div>
-
+						<div class="modal-footer">
+						<p>Already have an account?</p>
+							<a class="logInButtonBox" href="https://travel.fsd01.ca/login">
+								<button type="submit" class="btn logInButton">Sign in</button>
+							</a>
+						</div>
+					</div>
+				</div>
 			</div>
 			
 		</div>
 
 	</section>
 
-	<div class="parallax-1">
-	</div>
 {% endblock %}
