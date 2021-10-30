@@ -4,11 +4,26 @@ require_once 'vendor/autoload.php';
 require_once 'utils.php';
 require_once 'init.php';
 
-// LIST USERS HANDLER
- $app->get('/admin/users/list', function($request,$response,$args){
-    $userList = DB::query("SELECT * FROM users WHERE status='active'");
-    return $this->view->render($response,'admin/users_list.html.twig',['usersList'=> $userList]);
+// LIST USERS/DESTINATION/CONTACTUS HANDLER
+ $app->get('/admin/{op:users|destinations|contactus}/list', function($request,$response,$args){
+    if($args['op']=='users'){
+      $userList = DB::query("SELECT * FROM users WHERE status='active'");
+      return $this->view->render($response,'admin/users_list.html.twig',['usersList'=> $userList]);
+    }
+
+    if($args['op']=='destinations'){
+      $destinationsList = DB::query("SELECT * FROM  destinations");
+      return $this->view->render($response,'admin/destinations_list.html.twig',['destinationsList'=> $destinationsList]);
+    }
+
+    if($args['op']=='contactus'){
+      $contactsList = DB::query("SELECT * FROM  contact_us ORDER BY contactTS DESC");
+      return $this->view->render($response,'admin/contactus_list.html.twig',['contactsList'=> $contactsList]);
+    }
  });
+
+// $destinationsList = DB::query("SELECT * FROM  destinations");
+//return $this->view->render($response,'admin/destinations_list.html.twig',['destinationsList'=> $destinationsList]);
 
  // INACTIVE USERS HANDLER
  $app->get('/admin/users/inactive', function($request,$response,$args){
@@ -131,11 +146,6 @@ $app->get('/error_internal', function ($request, $response, $args) {
   return $this->view->render($response, 'error_internal.html.twig');
 });
 
-// LIST DESTINATION HANDLER
-$app->get('/admin/destinations/list', function($request,$response,$args){
-   $destinationsList = DB::query("SELECT * FROM  destinations");
-   return $this->view->render($response,'admin/destinations_list.html.twig',['destinationsList'=> $destinationsList]);
-});
 
 //DELETE DESTINATION HANDLER
 $app->get('/admin/destinations/delete[/{id:[0-9]+}]',function($request,$response,$args){
