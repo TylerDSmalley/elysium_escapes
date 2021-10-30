@@ -126,12 +126,12 @@ $app->post('/register', function ($request, $response, $args) {
     $lastName = $request->getParam('lastName');
     $email = $request->getParam('email');
     $phoneNumber = $request->getParam('phone');
-    $password = $request->getParam('password');
+    $password1 = $request->getParam('password1');
     $password2 = $request->getParam('password2');
 
     //validate
 
-    $errorList = array('firstName' => '', 'lastName' => '', 'email' => '', 'phone' => '', 'password' => '');
+    $errorList = array('firstName' => '', 'lastName' => '', 'email' => '', 'phone' => '', 'password1' => '');
 
     if (preg_match('/^[\.a-zA-Z0-9,!? ]*$/', $firstName) != 1 || strlen($firstName) < 2 || strlen($firstName) > 100) {
         $errorList['firstName'] = "Name must be between 2 and 100 characters and include only letters, numbers, space, dash, dot or comma";
@@ -146,7 +146,7 @@ $app->post('/register', function ($request, $response, $args) {
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errorList['email'] = "Invalid email format";
         $email = "";
-    }else {
+    } else {
 
         // check DB for duplicates
         $userRecord = DB::queryFirstRow("SELECT * FROM users WHERE email=%s", $email);
@@ -161,18 +161,18 @@ $app->post('/register', function ($request, $response, $args) {
         $phoneNumber = "";
     }
 
-    $valPass = validatePassword($password, $password2);
+    $valPass = validatePassword($password1, $password2);
     if (!$valPass) {
-        $errorList['password'] = $valPass;
+        $errorList['password1'] = $valPass;
     }
 
     if (array_filter($errorList)) { //STATE 2: Errors
         $valuesList = ['firstName' => $firstName, 'lastName' => $lastName, 'email' => $email, 'phone' => $phoneNumber];
         return $this->view->render($response, 'register.html.twig', ['errorList' => $errorList, 'v' => $valuesList]);
     } else {
-        $hash = password_hash($password, PASSWORD_DEFAULT);
-        DB::insert('users', ['first_name' => $firstName, 'last_name' => $lastName, 'email' => $email, 'phone_number' => $phoneNumber, 'password' => $hash]);
-        return $this->view->render($response, 'register_success.html.twig');
+        //$hash = password_hash($password1, PASSWORD_DEFAULT);
+        DB::insert('users', ['first_name' => $firstName, 'last_name' => $lastName, 'email' => $email, 'phone_number' => $phoneNumber, 'password' => $password1]);
+        return $this->view->render($response, 'login.html.twig');
     }
 });
 
@@ -187,43 +187,42 @@ $app->get('/login', function ($request, $response, $args) {
 });
 
 $app->post('/login', function ($request, $response, $args) {
-    $email = $password = '';
-    $errors = array('email' => '', 'password' => '');
 
+    $errors = array('email' => '', 'password1' => '');
     if (isset($_SESSION['user'])) {
         $errors['email'] = "already signed in";
+    }
+    // check email
+    if (empty($request->getParam('email')) || empty($request->getParam('password1'))) {
+        $errors['email'] = 'A email and password is required';
+    }
+
+    $email = $request->getParam('email');
+    $password1 = $request->getParam('password1');
+    // verify inputs
+    $userCheck = DB::queryFirstRow("SELECT * FROM users WHERE email=%s", $email);
+
+    if (!$userCheck) {
+        $errors['email'] = 'Incorrect entry';
+        $email = ""; // reset invalid value to empty string
+    }
+
+    $loginSuccessful = ($userCheck != null) && ($password1 == $userCheck['password']); 
+    //(password_verify($password1, $userCheck['password']));
+    if (!$loginSuccessful) { // STATE 2: login failed
+        $errors['email'] = 'Invalid email or password';
+    } 
+
+    if (array_filter($errors)) {
+        return $this->view->render($response, 'login.html.twig', ['errors' => $errors]);
     } else {
-        $errors = array('email' => '', 'password' => '');
-        // check email
-        if (empty($request->getParam('email')) || empty($request->getParam('password'))) {
-            $errors['email'] = 'An email and password is required';
-        } else {
-            $email = $request->getParam('email');
-            $password = $request->getParam('password');
-            // verify inputs
-            $userCheck = DB::queryFirstRow("SELECT * FROM users WHERE email=%s", $email);
-            if (!$userCheck) {
-                $errors['email'] = 'Incorrect entry';
-                $email = ""; // reset invalid value to empty string
-            }else{
-                $loginSuccessful = ($userCheck) && (password_verify($password, $userCheck['password']));
-                if (!$loginSuccessful) { // STATE 2: login failed
-                    $errors['email'] = 'Invalid email or password';
-                } else { // STATE 3: login successful
-                    unset($userRecord['password']); // for safety reasons remove the password
-                    $_SESSION['user'] = $userCheck;
-                    return $this->view->render($response, 'index.html.twig');
-                }
-            }
-        }
-
-        if (array_filter($errors)) {
-            return $this->view->render($response, 'login.html.twig', ['errors' => $errors]);
-        }
-    } // end POST check   
-
-
-    return $this->view->render($response, 'login.html.twig');
+        // STATE 3: login successful
+        unset($userCheck['password']); // for safety reasons remove the password
+        $_SESSION['user'] = $userCheck;
+        return $this->view->render($response, 'index.html.twig');
+    }
+    
+    // end POST check   
 });
 
 // LOGIN HANDLERS END
@@ -233,4 +232,8 @@ $app->post('/login', function ($request, $response, $args) {
 
 // $app->get('/profile', function .....);
 
-//
+//SESSION HANDLER 
+$app->get('/session', function ($request, $response, $args) {
+    $session = print_r($_SESSION);
+    return $this->view->render($response, 'session.html.twig', ['session' => $session]);
+});
