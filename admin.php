@@ -17,6 +17,14 @@ require_once 'init.php';
 });
 
 // ADD AND EDIT USERS HANDLER
+
+/*
+if (!isset($_SESSION['user']) || $_SESSION['user']['account_type'] != 'admin') {
+        $app->redirect('/forbidden');
+        return;
+    }
+*/
+
  $app->get('/admin/users/{op:edit|add}[/{id:[0-9]+}]',function($request,$response,$args){
    if(($args['op'] == 'add' && !empty($args['id']) || $args['op'] == 'edit' && empty($args['id']))){
       $response = $response->withStatus(404);
