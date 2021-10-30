@@ -14,8 +14,8 @@ html {
     margin: 0;
     padding: 0;
     font-size: 14pt;
-    text-shadow: #ee9b57 3px 0 6px;
-    background-image: linear-gradient(to right, #f1dbc7, #f3ceb6);
+    text-shadow: #ee9b57 2px 0 4px;
+    background-image: linear-gradient(to right, #eee7e1, #ebe1dc);
     color: #26a1b1;
 }
 
@@ -38,19 +38,8 @@ h2 {
     margin: 0 auto;
 }
 
-.footer {
-    border-top: thick solid #AB8A72;
-    z-index: 5;
-    opacity: .95;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-end;
-    align-items: flex-end;
-    list-style: none;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    background-image: linear-gradient(to right, #f1dbc7, #f3ceb6);
+.section {
+    background-image: url("../images/sand2.jpg");
 }
 
 .parallax-1 {
@@ -63,7 +52,7 @@ h2 {
 }
 
 .parallax-1 {
-    background-image: url("../images/sand2.jpg");
+    background-image: linear-gradient(to right, #eee7e1, #ebe1dc);
     min-height: 30%;
     width: 100%;
     margin: 0;
@@ -108,7 +97,7 @@ h2 {
     text-transform: uppercase;
     letter-spacing: 4px;
     margin: 15px;
-    background-color: rgb(245, 193, 174);
+    background-color: #f1dbc7;
     border: none;
     border-radius: 30px;
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
