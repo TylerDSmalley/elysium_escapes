@@ -179,7 +179,7 @@ $app->post('/register', function ($request, $response, $args) {
 });
 
 $app->get('/registered', function ($request, $response, $args) {
-    return $this->view->render($response, 'register_success.html.twig');
+    return $this->view->render($response, 'login.html.twig');
 });
 // REGISTER HANDLERS END
 
