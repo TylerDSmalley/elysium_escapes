@@ -149,10 +149,9 @@ $app->post('/register', function ($request, $response, $args) {
     }else {
 
         // check DB for duplicates
-        $userRecord = DB::query("SELECT email FROM users WHERE email = '$email' LIMIT 1");
-        $countEmail = mysqli_num_rows($userRecord);
-        if ($countEmail) {
-            $errors['email'] = 'Email already taken';
+        $userRecord = DB::queryFirstRow("SELECT * FROM users WHERE email=%s", $email);
+        if ($userRecord) {
+            $errorList['email'] = 'Email already taken';
             $email = ""; // reset invalid value to empty string
         }
     }
@@ -166,7 +165,6 @@ $app->post('/register', function ($request, $response, $args) {
     if (!$valPass) {
         $errorList['password'] = $valPass;
     }
-
 
     if (array_filter($errorList)) { //STATE 2: Errors
         $valuesList = ['firstName' => $firstName, 'lastName' => $lastName, 'email' => $email, 'phone' => $phoneNumber];
@@ -198,25 +196,24 @@ $app->post('/login', function ($request, $response, $args) {
         $errors = array('email' => '', 'password' => '');
         // check email
         if (empty($request->getParam('email')) || empty($request->getParam('password'))) {
-            $errors['email'] = 'A email and password is required';
+            $errors['email'] = 'An email and password is required';
         } else {
             $email = $request->getParam('email');
             $password = $request->getParam('password');
             // verify inputs
-            $userCheck = DB::query("SELECT * FROM users WHERE email = '$email' LIMIT 1");
-            $countEmail = mysqli_num_rows($userCheck);
-            if (!$countEmail) {
+            $userCheck = DB::queryFirstRow("SELECT * FROM users WHERE email=%s", $email);
+            if (!$userCheck) {
                 $errors['email'] = 'Incorrect entry';
                 $email = ""; // reset invalid value to empty string
-            }
-            $userRecord = mysqli_fetch_assoc($userCheck);
-            $loginSuccessful = ($userRecord != null) && (password_verify($password, $userRecord['password']));
-            if (!$loginSuccessful) { // STATE 2: login failed
-                $errors['email'] = 'Invalid email or password';
-            } else { // STATE 3: login successful
-                unset($userRecord['password']); // for safety reasons remove the password
-                $_SESSION['user'] = $userRecord;
-                return $this->view->render($response, 'index.html.twig');
+            }else{
+                $loginSuccessful = ($userCheck) && (password_verify($password, $userCheck['password']));
+                if (!$loginSuccessful) { // STATE 2: login failed
+                    $errors['email'] = 'Invalid email or password';
+                } else { // STATE 3: login successful
+                    unset($userRecord['password']); // for safety reasons remove the password
+                    $_SESSION['user'] = $userCheck;
+                    return $this->view->render($response, 'index.html.twig');
+                }
             }
         }
 
