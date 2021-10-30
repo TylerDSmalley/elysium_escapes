@@ -183,7 +183,13 @@ $app->get('/registered', function ($request, $response, $args) {
 });
 // REGISTER HANDLERS END
 
-// $app->get('/login', function .....);
+// LOGIN HANDLERS
+$app->get('/login', function ($request, $response, $args) {
+    return $this->view->render($response, 'login.html.twig');
+});
+
+// LOGIN HANDLERS END
+
 
 // $app->get('/logout', function .....);
 
