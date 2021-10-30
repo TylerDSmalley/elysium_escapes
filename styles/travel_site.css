@@ -233,29 +233,6 @@ div#calendar {
     width: 100%;
 }
 
-.caption {
-    position: absolute;
-    left: 0;
-    top: 50%;
-    width: 100%;
-    height: auto;
-    text-align: center;
-    color: #000;
-}
-
-.caption span.border {
-    opacity: .7;
-    background-color: #111;
-    border-radius: 5px;
-    color: #fff;
-    width: 100%;
-    height: auto;
-    padding: 18px;
-    font-size: 16pt;
-    font-family: 'Caveat', cursive;
-    letter-spacing: 10px;
-}
-
 
 /* Turn off parallax scrolling for tablets and phones */
 
