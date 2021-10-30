@@ -56,47 +56,9 @@
 						<a class="logInButton" href="travel_right_index_fr.html">Fr</a>
 					</li>
 					<li class="logInButtonBox">
-						<button type="button" class="btn logInButton" data-bs-toggle="modal" data-bs-target="#exampleModalNav">
-							Log In
-						</button>
-
-						<!-- Modal -->
-						<div class="modal fade" id="exampleModalNav" tabindex="-1" aria-labelledby="exampleModalNavLabel" aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h3 class="h3 card-title" id="exampleModalNavLabel">Log In</h3>
-										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-									</div>
-									<div class="modal-body">
-										<form method="post" enctype="multipart/form-data">
-
-											<div class="form-floating mb-3">
-												<input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com">
-												<label for="floatingInput">Email</label>
-												<div class="redText">{{errors.email}}</div>
-											</div>
-
-											<div class="form-floating mb-3">
-												<input type="password" class="form-control" id="floatingInput" name="password" placeholder="password">
-												<label for="floatingInput" class="form-label">Password</label>
-												<div class="redText">{{errors.password}}</div>
-											</div>
-
-											<div class="logInButtonBox">
-												<button type="submit" class="btn logInButton">Log In</button>
-											</div>
-										</form>
-									</div>
-									<div class="modal-footer">
-										<a class="logInButtonBox" href="https://travel.fsd01.ca/register">
-											<button type="submit" class="btn logInButton">Click here if you're not registered</button>
-										</a>
-										
-									</div>
-								</div>
-							</div>
-						</div>
+						<a class="logInButtonBox" href="https://travel.fsd01.ca/login">
+								<button type="submit" class="btn logInButton">Sign in</button>
+						</a>
 					</li>
 				</ul>
 			</nav>
@@ -104,7 +66,7 @@
 
 		{% block content %}{% endblock %}
 
-		<footer class="footer text-center position-relative">
+		<footer class="footer text-center">
 			<div class="container">
 				<p class="lead">Copyright &copy; 2021 Team SIT</p>
 
