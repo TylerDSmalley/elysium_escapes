@@ -126,7 +126,7 @@ $app->post('/register', function ($request, $response, $args) {
     $lastName = $request->getParam('lastName');
     $email = $request->getParam('email');
     $phoneNumber = $request->getParam('phone');
-    $password1 = $request->getParam('password1');
+    $password = $request->getParam('password');
     $password2 = $request->getParam('password2');
 
     //validate
@@ -149,8 +149,8 @@ $app->post('/register', function ($request, $response, $args) {
     }else {
 
         // check DB for duplicates
-        $emailDupeCheck = DB::query("SELECT email FROM users WHERE email = '$email' LIMIT 1");
-        $countEmail = mysqli_num_rows($emailDupeCheck);
+        $userRecord = DB::query("SELECT email FROM users WHERE email = '$email' LIMIT 1");
+        $countEmail = mysqli_num_rows($userRecord);
         if ($countEmail) {
             $errors['email'] = 'Email already taken';
             $email = ""; // reset invalid value to empty string
@@ -162,7 +162,7 @@ $app->post('/register', function ($request, $response, $args) {
         $phoneNumber = "";
     }
 
-    $valPass = validatePassword($password1, $password2);
+    $valPass = validatePassword($password, $password2);
     if (!$valPass) {
         $errorList['password'] = $valPass;
     }
@@ -172,7 +172,7 @@ $app->post('/register', function ($request, $response, $args) {
         $valuesList = ['firstName' => $firstName, 'lastName' => $lastName, 'email' => $email, 'phone' => $phoneNumber];
         return $this->view->render($response, 'register.html.twig', ['errorList' => $errorList, 'v' => $valuesList]);
     } else {
-        $hash = password_hash($password1, PASSWORD_DEFAULT);
+        $hash = password_hash($password, PASSWORD_DEFAULT);
         DB::insert('users', ['first_name' => $firstName, 'last_name' => $lastName, 'email' => $email, 'phone_number' => $phoneNumber, 'password' => $hash]);
         return $this->view->render($response, 'register_success.html.twig');
     }
@@ -185,6 +185,47 @@ $app->get('/registered', function ($request, $response, $args) {
 
 // LOGIN HANDLERS
 $app->get('/login', function ($request, $response, $args) {
+    return $this->view->render($response, 'login.html.twig');
+});
+
+$app->post('/login', function ($request, $response, $args) {
+    $email = $password = '';
+    $errors = array('email' => '', 'password' => '');
+
+    if (isset($_SESSION['user'])) {
+        $errors['email'] = "already signed in";
+    } else {
+        $errors = array('email' => '', 'password' => '');
+        // check email
+        if (empty($request->getParam('email')) || empty($request->getParam('password'))) {
+            $errors['email'] = 'A email and password is required';
+        } else {
+            $email = $request->getParam('email');
+            $password = $request->getParam('password');
+            // verify inputs
+            $userCheck = DB::query("SELECT * FROM users WHERE email = '$email' LIMIT 1");
+            $countEmail = mysqli_num_rows($userCheck);
+            if (!$countEmail) {
+                $errors['email'] = 'Incorrect entry';
+                $email = ""; // reset invalid value to empty string
+            }
+            $userRecord = mysqli_fetch_assoc($userCheck);
+            $loginSuccessful = ($userRecord != null) && (password_verify($password, $userRecord['password']));
+            if (!$loginSuccessful) { // STATE 2: login failed
+                $errors['email'] = 'Invalid email or password';
+            } else { // STATE 3: login successful
+                unset($userRecord['password']); // for safety reasons remove the password
+                $_SESSION['user'] = $userRecord;
+                return $this->view->render($response, 'index.html.twig');
+            }
+        }
+
+        if (array_filter($errors)) {
+            return $this->view->render($response, 'login.html.twig', ['errors' => $errors]);
+        }
+    } // end POST check   
+
+
     return $this->view->render($response, 'login.html.twig');
 });
 
