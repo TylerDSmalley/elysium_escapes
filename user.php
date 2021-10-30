@@ -207,8 +207,9 @@ $app->post('/login', function ($request, $response, $args) {
         $email = ""; // reset invalid value to empty string
     }
 
-    $loginSuccessful = ($userCheck != null) && ($password1 == $userCheck['password']); 
-    //(password_verify($password1, $userCheck['password']));
+
+    //$loginSuccessful = ($userCheck != null) && ($password1 == $userCheck['password']); 
+    $loginSuccessful = ($userCheck != null) && password_verify($password1, $userCheck['password']); 
     if (!$loginSuccessful) { // STATE 2: login failed
         $errors['email'] = 'Invalid email or password';
     } 

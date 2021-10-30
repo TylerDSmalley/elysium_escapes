@@ -22,8 +22,6 @@ require_once 'init.php';
     }
  });
 
-// $destinationsList = DB::query("SELECT * FROM  destinations");
-//return $this->view->render($response,'admin/destinations_list.html.twig',['destinationsList'=> $destinationsList]);
 
  // INACTIVE USERS HANDLER
  $app->get('/admin/users/inactive', function($request,$response,$args){
