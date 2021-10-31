@@ -10,7 +10,9 @@ $app->get('/', function ($request, $response, $args) {
 });
 
 $app->get('/blog', function ($request, $response, $args) {
-    return $this->view->render($response, 'blog.html.twig');
+    $testimonials = DB::query("SELECT testimonials.*, users.first_name FROM testimonials INNER JOIN users ON testimonials.user_id = users.id ");
+    $images = DB::query("SELECT * FROM images");
+    return $this->view->render($response, 'blog.html.twig', ['testimonials' => $testimonials, 'images' => $images]);
 });
 
 $app->get('/booking', function ($request, $response, $args) {
@@ -119,6 +121,8 @@ $app->get('/destinations', function ($request, $response, $args) {
 $app->get('/register', function ($request, $response, $args) {
     return $this->view->render($response, 'register.html.twig');
 });
+
+//Add handler for isEmailTaken
 
 $app->post('/register', function ($request, $response, $args) {
     //extract values submitted
