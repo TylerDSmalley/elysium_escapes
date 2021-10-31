@@ -213,9 +213,9 @@
 -style registration 
 
 2. What I plan to do from this scrum to the next
--create log in modal on base template for log in. 
--link registration page somewhere? (nav or modal)
--fix destination photo carousel
+-*DONE*create log in modal on base template for log in. 
+-*DONE*link registration page somewhere? (nav or modal)
+-*DONE*fix destination photo carousel
 -start testemonials
 -review gregory's videos on one drive
 
