@@ -4,11 +4,24 @@ require_once 'vendor/autoload.php';
 require_once 'utils.php';
 require_once 'init.php';
 
-// LIST USERS HANDLER
- $app->get('/admin/users/list', function($request,$response,$args){
-    $userList = DB::query("SELECT * FROM users WHERE status='active'");
-    return $this->view->render($response,'admin/users_list.html.twig',['usersList'=> $userList]);
+// LIST USERS/DESTINATION/CONTACTUS HANDLER
+ $app->get('/admin/{op:users|destinations|contactus}/list', function($request,$response,$args){
+    if($args['op']=='users'){
+      $userList = DB::query("SELECT * FROM users WHERE status='active'");
+      return $this->view->render($response,'admin/users_list.html.twig',['usersList'=> $userList]);
+    }
+
+    if($args['op']=='destinations'){
+      $destinationsList = DB::query("SELECT * FROM  destinations");
+      return $this->view->render($response,'admin/destinations_list.html.twig',['destinationsList'=> $destinationsList]);
+    }
+
+    if($args['op']=='contactus'){
+      $contactsList = DB::query("SELECT * FROM  contact_us ORDER BY contactTS DESC");
+      return $this->view->render($response,'admin/contactus_list.html.twig',['contactsList'=> $contactsList]);
+    }
  });
+
 
  // INACTIVE USERS HANDLER
  $app->get('/admin/users/inactive', function($request,$response,$args){
@@ -100,7 +113,9 @@ $app->post('/admin/users/{op:edit|add}[/{id:[0-9]+}]',function($request,$respons
       $hash = password_hash($password1,PASSWORD_DEFAULT);
       if($args['op']=='add'){
          DB::insert('users',['first_name'=>$firstName,'last_name'=>$lastName,'email'=>$email,'phone_number'=>$phoneNumber,'password'=>$hash,'account_type'=>$type]);
-         return $this->view->render($response,'/admin/users_addedit_success.html.twig',['op'=>$args['op']]);
+         setFlashMessage("User successfully added!");
+         //return $this->view->render($response,'/admin/users_addedit_success.html.twig',['op'=>$args['op']]);
+         return $this->view->render($response,'/admin/users_addedit.html.twig',['op'=>$args['op']]);
    }else{
       $data = ['first_name'=>$firstName,'last_name'=>$lastName,'email'=>$email,'phone_number'=>$phoneNumber,'account_type'=>$type];
          if($password1 != ""){
@@ -131,11 +146,6 @@ $app->get('/error_internal', function ($request, $response, $args) {
   return $this->view->render($response, 'error_internal.html.twig');
 });
 
-// LIST DESTINATION HANDLER
-$app->get('/admin/destinations/list', function($request,$response,$args){
-   $destinationsList = DB::query("SELECT * FROM  destinations");
-   return $this->view->render($response,'admin/destinations_list.html.twig',['destinationsList'=> $destinationsList]);
-});
 
 //DELETE DESTINATION HANDLER
 $app->get('/admin/destinations/delete[/{id:[0-9]+}]',function($request,$response,$args){

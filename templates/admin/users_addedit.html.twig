@@ -12,15 +12,25 @@
 
 {% block content %}
 
-	{% if errorList %}
+	<section class="section p-5">
+		<div class="container">
+		<br/><br/>
+		{% if errorList %}
 		<ul>
 			{% for error in errorList %}
 				<li>{{ error }}</li>
 			{% endfor %}
 		</ul>
 	{% endif %}
-	<section class="section p-5">
-		<div class="container">
+
+		{% if flashMessage %}
+		<div class="alert alert-success alert-dismissible fade show" role="alert">
+  			<strong>{{flashMessage}}</strong> 
+  			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    		<span aria-hidden="true">&times;</span>
+  			</button>
+			</div>
+		{% endif %}
 
 			<form class="form" method="POST">
 				<h3>{% if op == 'add' %}Add{% else %}Edit{% endif %} User</h3>
@@ -35,7 +45,7 @@
 					<input class="title" type="text" name="phone" value="{{user.phone_number}}"/><br/>
                     User Type:<br/>
                     <select name="type" id="type">
-					 {% if user.account_type == "customer"%}
+					 {% if user.account_type == "customer" or op == 'add'%}
                         <option selected>customer</option>
                         <option>manager</option>
                         <option>admin</option>
@@ -64,7 +74,6 @@
 						<input class="submitButton" type="submit" value="Submit">
 					</div>
 				</div>
-
 			</form>
 
 		</div>
