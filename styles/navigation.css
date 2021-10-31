@@ -1,3 +1,6 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
 @keyframes mobile-nav-slide {
     100% {
         left: 0
@@ -166,9 +169,8 @@ h3 {
         align-items: center;
         opacity: .97;
         display: flex;
-        flex-flow: row wrap;
+        flex-direction: row;
         justify-content: flex-end;
-        align-content: flex-end;
         align-items: center;
         list-style: none;
         border-bottom: solid thin #AB8A72;
@@ -179,8 +181,16 @@ h3 {
         padding: 0;
         background-image: linear-gradient(to right, #eee7e1, #ebe1dc);
     }
+    .logoBox {
+        flex: auto;
+        align-self: flex-start;
+        min-width: fit-content;
+        height: auto;
+        margin: auto;
+    }
     .logInButtonBox {
         flex: auto;
+        align-self: right;
         min-width: fit-content;
         height: auto;
         margin: auto;
