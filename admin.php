@@ -158,7 +158,7 @@ $app->get('/admin/destinations/delete[/{id:[0-9]+}]',function($request,$response
 });
 
 $app->post('/admin/destinations/delete[/{id:[0-9]+}]',function($request,$response,$args){
-   DB::query("DELETE FROM destinations WHERE id=%i",$args['id']);
+   DB::query("UPDATE destinations SET status = 'inactive' WHERE id=%i",$args['id']);
    return $this->view->render($response,'admin/destinations_delete_success.html.twig');
 });
 
@@ -251,6 +251,17 @@ $app->post('/admin/destinations/{op:edit|add}[/{id:[0-9]+}]', function ($request
       $log->debug(sprintf("new auction created with id=%s", $_SERVER['REMOTE_ADDR'], DB::insertId())); //needs test
       return $this->view->render($response, 'admin/destinations_add.html.twig'); //needs confirmation signal
   } // end POST check
-
   
+});
+
+$app->get('/isMessageRead/{id:[0-9]+}/{checkVal}', function($request, $response, $args) {
+
+   if(!$args['checkVal']){ //Checkbax is unchecked so NO
+      DB::query("UPDATE contact_us SET replied = 'No' WHERE id=%i",$args['id']);
+      echo "Checked";
+   }else{
+      DB::query("UPDATE contact_us SET replied = 'Yes' WHERE id=%i",$args['id']);
+      echo "Unchecked";
+   }
+   // don't send any content back if the new bid is okay
 });

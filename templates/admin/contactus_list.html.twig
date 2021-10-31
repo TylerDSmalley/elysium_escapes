@@ -4,6 +4,27 @@
 {% endblock %}
 
 {% block head %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('input[type="checkbox"]').Click(function() {
+                var checkVal = $(this).val();
+                var todoObj = { replied: checkVal};
+                var jsonString = JSON.stringify(todoObj);
+                $.ajax({
+                    url: '/isMessageRead/{{c.id}}/' + checkVal,
+                    type: PATCH,
+                    data: jsonString,
+                    dataType: 'json',
+                    //headers: { 'X-auth-username': username, 'X-auth-password': password },
+                    error: function(jqxhr, status, errorThrown) {
+                        httpErrorHandler(jqxhr, status, errorThrown);
+                    }
+                }).done(function(newId) {
+                    alert("Record updated successfully");
+            });
+        });
+    </script>
 	<style>
 		.table,
 		th,
@@ -45,7 +66,11 @@
 				<td>{% autoescape %}{{c.message_body|raw}}{% endautoescape %}</td>
 				<td>{{c.contactTS}}</td>
 				<td>
+                    {% if c.replied == 'Yes'%}
+                    <input type="checkbox" id="contacted" name="contacted" value="Read" checked>
+                    {% else %}
                     <input type="checkbox" id="contacted" name="contacted" value="Read">
+                    {% endif %}
                     <label for="contacted">Read and Replied to Message</label><br>
 				</td>
 			</tr>
