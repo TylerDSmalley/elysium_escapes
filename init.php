@@ -74,7 +74,7 @@ $container['view'] = function ($c) {
     ]);
     // add a value to ALL twig templates
     $view->getEnvironment()->addGlobal('clientIP', $_SERVER['REMOTE_ADDR']);
-    $view->getEnvironment()->addGlobal('authUser', @$_SESSION['user']);
+    $view->getEnvironment()->addGlobal('user', @$_SESSION['user']);
     // Instantiate and add Slim specific extension
     $router = $c->get('router');
     $uri = \Slim\Http\Uri::createFromEnvironment(new \Slim\Http\Environment($_SERVER));
