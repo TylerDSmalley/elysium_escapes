@@ -228,7 +228,12 @@ $app->post('/login', function ($request, $response, $args) {
 // LOGIN HANDLERS END
 
 
-// $app->get('/logout', function .....);
+// LOGOUT HANDLERS
+$app->get('/logout', function ($request, $response, $args) {
+    unset($_SESSION['user']);
+    return $this->view->render($response, 'logout.html.twig');
+});
+// LOGOUT HANDLERS END
 
 // $app->get('/profile', function .....);
 
