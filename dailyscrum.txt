@@ -257,3 +257,50 @@ Ileana
 
 Question: Do we want to make photo upload optional when editing a destination?
           Do we want to make destinations inactive like users on delete? Will delete cause issues?  
+
+<<Daily Scrum - 2021-10-31 >>
+
+--Tyler--
+1. What I have done / not done since last Scrum
+-*DONE*create log in modal on base template for log in. 
+-*DONE*link registration page somewhere? (nav or modal)
+-*DONE*fix destination photo carousel
+-review gregory's videos on one drive
+
+2. What I plan to do from this scrum to the next
+-start/finish testemonials
+-finish registration AJAX
+
+
+3. Where do I need assistance? What do I need to figure out?
+
+
+--Stefan--
+1. What I have done / not done since last Scrum
+-finished reviewing php videos/projects
+
+
+2. What I plan to do from this scrum to the next
+-link package selection template to billing template (billing will use stripe).
+-complete billing template and add logic to add order summary to booking_history table.
+-convert JS logic to php
+-look into car rental APIs
+
+
+3. Where do I need assistance? What do I need to figure out?
+
+
+Ileana
+1. What I have done / not done since last Scrum
+-Change master to display admin nav bar
+-Watch videos/look at code on flash messages to implement
+-finished view contact-us list on admin page
+-working on AJAX functionality to check off read/replied messages on contact us list
+
+2. What I plan to do from this scrum to the next
+-finish flash messages
+-finish contac-us AJAX
+
+3. Where do I need assistance? What do I need to figure out?
+
+
