@@ -82,3 +82,16 @@ function verifyUploadedPhoto(&$newFilePath, $photo)
     $newFilePath = "uploads/" . $santitizedPhoto . "." . $ext;
     return TRUE;
 }
+
+function setFlashMessage($message){
+    $_SESSION['flashMessage'] = $message;
+}
+
+function getAndClearFlashMessage(){
+    if(isset($_SESSION['flashMessage'])){
+        $message = $_SESSION['flashMessage'];
+        unset($_SESSION['flashMessage']);
+        return $message;
+    }
+    return "";
+}
