@@ -12,7 +12,11 @@
 
 {% block content %}
 
-	<div class="parallax-1"></div>
+	<div class="parallax-1">
+		<div class="caption">
+			<span class="border">Contact Us</span>
+		</div>
+	</div>
 
 	<section class="section p-5">
 
@@ -111,7 +115,12 @@
 
 </section>
 
-<div class="parallax-1"></div>
+<div class="parallax-1">
+	<div class="caption">
+		<span class="border">...Travel Right</span>
+	</div>
+</div>
+
 {% endblock %}
 
 {% block scripts %}
@@ -130,9 +139,6 @@ if (response.data.deliverable === false) {
 emailAddress.focus();
 } else 
 verified = true;
-
-
-
 });
 return verified;
 }
@@ -154,5 +160,4 @@ document.getElementById('email').value = "";
 document.getElementById('subject').value = "";
 }
 }
-</script>
-{% endblock %}
+</script>{% endblock %}
