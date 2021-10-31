@@ -55,11 +55,33 @@
 					<li class="logInButtonBox">
 						<a class="btn logInButton" href="travel_right_index_fr.html">Fr</a>
 					</li>
-					<li class="logInButtonBox">
-						<a class="btn logInButtonBox" href="https://travel.fsd01.ca/login">
+					{% if user.email != null %}
+						<li class="logInButtonBox">
+							<a class="btn logInButton" href="https://travel.fsd01.ca/logout">Sign Out</a>
+						</li>
+						{% if (user.account_type == "manager") or (user.account_type == "admin") %}
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle logInButton" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Admin</a>
+								<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+									<li>
+										<a class="dropdown-item" href="https://travel.fsd01.ca/admin/users/list">User List</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="https://travel.fsd01.ca/admin/destinations/list">Destination List</a>
+									</li>
+								</ul>
+							</li>
+						{% endif %}
+						<li class="logInButtonBox">
+							<p>Hello: {{user.email}} </p>
+						</li>
+					{% else %}
+						<li class="logInButtonBox">
+							<a class="btn logInButtonBox" href="https://travel.fsd01.ca/login">
 								<button type="submit" class="btn logInButton">Sign in</button>
-						</a>
-					</li>
+							</a>
+						</li>
+					{% endif %}
 				</ul>
 			</nav>
 		</header>
@@ -81,4 +103,4 @@
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 	</body>
 
-</html>
+</html></body></html>
