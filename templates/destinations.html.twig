@@ -24,7 +24,7 @@
 				{% if destinations %}
 					{% for destination in destinations %}
 						<!-- Destination Card -->
-						<div class="div col-md">
+						<div class="col-md">
 							<div class="card .bg-light.bg-gradient text-dark">
 								<div class="card-body text-center">
 									<div class="h1 mb-3">
@@ -41,7 +41,7 @@
 							<div class="modal-dialog modal-lg">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h2 class="h3 card-title" id="exampleModalLabel">{{ destination.destination_name }}</h2>
+										<h2 class="h3 card-title text-nowrap" id="exampleModalLabel">{{ destination.destination_name }}</h2>
 										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
 									<div class="modal-body">
