@@ -113,9 +113,9 @@ $app->post('/admin/users/{op:edit|add}[/{id:[0-9]+}]',function($request,$respons
       $hash = password_hash($password1,PASSWORD_DEFAULT);
       if($args['op']=='add'){
          DB::insert('users',['first_name'=>$firstName,'last_name'=>$lastName,'email'=>$email,'phone_number'=>$phoneNumber,'password'=>$hash,'account_type'=>$type]);
-         setFlashMessage("User successfully added!");
-         //return $this->view->render($response,'/admin/users_addedit_success.html.twig',['op'=>$args['op']]);
-         return $this->view->render($response,'/admin/users_addedit.html.twig',['op'=>$args['op']]);
+         setFlashMessage("User successfully added!"); 
+         //return $this->view->render($response,'/admin/users_addeit_sucess.html.twig',['op'=>$args['op']]);
+         return $response->withRedirect("/admin/users/list");
    }else{
       $data = ['first_name'=>$firstName,'last_name'=>$lastName,'email'=>$email,'phone_number'=>$phoneNumber,'account_type'=>$type];
          if($password1 != ""){
@@ -256,7 +256,7 @@ $app->post('/admin/destinations/{op:edit|add}[/{id:[0-9]+}]', function ($request
 
 $app->get('/isMessageRead/{id:[0-9]+}/{checkVal}', function($request, $response, $args) {
 
-   if(!$args['checkVal']){ //Checkbax is unchecked so NO
+   if($args['checkVal']=='No'){ //Checkbax is unchecked so NO
       DB::query("UPDATE contact_us SET replied = 'No' WHERE id=%i",$args['id']);
       echo "Checked";
    }else{

@@ -23,15 +23,6 @@
 		</ul>
 	{% endif %}
 
-		{% if flashMessage %}
-		<div class="alert alert-success alert-dismissible fade show" role="alert">
-  			<strong>{{flashMessage}}</strong> 
-  			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    		<span aria-hidden="true">&times;</span>
-  			</button>
-			</div>
-		{% endif %}
-
 			<form class="form" method="POST">
 				<h3>{% if op == 'add' %}Add{% else %}Edit{% endif %} User</h3>
 				<div class="formContainer">

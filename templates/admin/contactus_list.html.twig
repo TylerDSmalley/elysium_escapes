@@ -5,10 +5,14 @@
 
 {% block head %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
+<script>
         $(document).ready(function () {
-            $('input[type="checkbox"]').Click(function() {
-                var checkVal = $(this).val();
+            $('input[name=contacted2]').click(function() {
+                alert("checked");
+                var checkVal = $("input[name=contacted2]").prop('checked') ? 'Yes' : 'No';
+                // TODO: verfiy values in the client first (maybe)
+                //var checkVal = $(this).val();
+                alert(checkVal);
                 var todoObj = { replied: checkVal};
                 var jsonString = JSON.stringify(todoObj);
                 $.ajax({
@@ -23,6 +27,7 @@
                 }).done(function(newId) {
                     alert("Record updated successfully");
             });
+        });
         });
     </script>
 	<style>
@@ -67,9 +72,9 @@
 				<td>{{c.contactTS}}</td>
 				<td>
                     {% if c.replied == 'Yes'%}
-                    <input type="checkbox" id="contacted" name="contacted" value="Read" checked>
+                    <input type="checkbox" id="contacted" name="contacted{{c.id}}" value="contacted" checked>
                     {% else %}
-                    <input type="checkbox" id="contacted" name="contacted" value="Read">
+                    <input type="checkbox" id="contacted{{c.id}}" name="contacted{{c.id}}" value="contacted">
                     {% endif %}
                     <label for="contacted">Read and Replied to Message</label><br>
 				</td>
