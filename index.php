@@ -58,7 +58,7 @@ $data = json_decode ( $response);
 return $data;
 }
 
-function searchHotels($location, $adults, $children, $childrenAges, $arrival, $departure) {
+function searchHotels($location, $adults, $children, &$childrenAges, $arrival, $departure) {
   switch ($location) {
       case "Bermuda":
           $locationId = 24;
@@ -89,7 +89,15 @@ function searchHotels($location, $adults, $children, $childrenAges, $arrival, $d
   ."&include_adjacency=false";
   
   if ($children > 0) {
-      $apiUrl = $apiUrl ."&children_number=" . $children . "&children_ages=" . urlencode($childrenAges);
+      $apiUrl = $apiUrl . "&children_number=" . $children . "&children_ages=";
+      for ($i = $children; $i >= 1; $i--) {
+          $apiUrl = $apiUrl . "8";
+          $childrenAges = $childrenAges . "8";
+          if ($i > 1) {
+              $apiUrl = $apiUrl . "%2C";
+              $childrenAges = $childrenAges . ",";
+          }
+      }
   }
 
   return callAPI($apiUrl);   
