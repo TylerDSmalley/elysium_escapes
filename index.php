@@ -18,14 +18,21 @@ $app->get('/testbooking', function ($request, $response, $args) {
 
 
 $app->post('/testbooking', function ($request, $response, $args) {
-  $location = $request->getParam('location');
-  $adults = $request->getParam('adults');
-  $children = $request->getParam('children');
-  $childrenAges = $request->getParam('childrenAges');
-  $arrival = $request->getParam('arrival');
-  $departure = $request->getParam('departure');
-  $hotelList = searchHotels($location, $adults, $children, $childrenAges, $arrival, $departure);
-  return $this->view->render($response, 'apitestbooking.html.twig', ['location' => $location, 'adults' => $adults, 'children' => $children, 'childrenAges' => $childrenAges, 'arrival' => $arrival, 'departure' => $departure, 'h' => $hotelList->result]);
+  if ($request->getParam('hotel') === null) {
+    $location = $request->getParam('location');
+    $adults = $request->getParam('adults');
+    $children = $request->getParam('children');
+    $arrival = $request->getParam('arrival');
+    $departure = $request->getParam('departure');
+    $childrenAges = "";
+    $hotelList = searchHotels($location, $adults, $children, $childrenAges, $arrival, $departure);
+    return $this->view->render($response, 'apitestbooking.html.twig', ['options' => ['location' => $location, 'adults' => $adults, 'children' => $children, 'childrenAges' => $childrenAges, 'arrival' => $arrival, 'departure' => $departure], 'h' => $hotelList->result]);
+} else {
+    $hotel = json_decode($request->getParam('hotel'));
+    $options = json_decode($request->getParam('options'));
+    // print_r($hotel);
+    return $this->view->render($response, 'testBookingConfirm.html.twig', ['options' => $options, 'hotel' => $hotel]);
+}
 });
 
 function callAPI($url) {
