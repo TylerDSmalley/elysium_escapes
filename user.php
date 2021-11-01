@@ -174,8 +174,8 @@ $app->post('/register', function ($request, $response, $args) {
         $valuesList = ['firstName' => $firstName, 'lastName' => $lastName, 'email' => $email, 'phone' => $phoneNumber];
         return $this->view->render($response, 'register.html.twig', ['errorList' => $errorList, 'v' => $valuesList]);
     } else {
-        //$hash = password_hash($password1, PASSWORD_DEFAULT);
-        DB::insert('users', ['first_name' => $firstName, 'last_name' => $lastName, 'email' => $email, 'phone_number' => $phoneNumber, 'password' => $password1]);
+        $hash = password_hash($password1, PASSWORD_DEFAULT);
+        DB::insert('users', ['first_name' => $firstName, 'last_name' => $lastName, 'email' => $email, 'phone_number' => $phoneNumber, 'password' => $hash]);
         return $this->view->render($response, 'login.html.twig');
     }
 });
