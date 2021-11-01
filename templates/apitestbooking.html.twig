@@ -3,26 +3,20 @@
 {% block content %}
 <br><br><br><br><br>
 <div>
-<p>
-    Country: {{location}}<br>
-    Number of Adults: {{adults}}<br>
-    Number of Children: {{children}}<br>
-    Children's Ages: {{childrenAges}}<br>
-    Date of Arrival: {{arrival}}<br>
-    Date of Departure: {{departure}}<br>
-</p><br><br>
 {% for hotel in h %}
     {% if hotel.accommodation_type_name == "Resort" %}
         <form method="post">        
             <img src="{{hotel.max_photo_url}}" width='300px'><br>
+            <input type="hidden" name="hotel" value="{{hotel|json_encode()}}"/>
+            <input type="hidden" name="options" value="{{options|json_encode()}}"/>
             <p>
                 Hotel Name: {{ hotel.hotel_name }}<br>
                 City: {{ hotel.city }}<br>
                 Address: {{ hotel.address }}<br>
                 Price: {{ hotel.price_breakdown.all_inclusive_price }}<br>
             </p>
-            <input type="submit" value="Book This Resort">
-        </form><br><br><br>
+            <input type="submit" value="Book This Resort"><br><br><br>
+        </form>    
     {% endif %}
 {% endfor %}  
     
