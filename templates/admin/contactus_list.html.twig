@@ -8,11 +8,13 @@
 <script>
         $(document).ready(function () {
             $('input[name=contacted2]').click(function() {
-                alert("checked");
                 var checkVal = $("input[name=contacted2]").prop('checked') ? 'Yes' : 'No';
+                var checkId = $(this).attr("name");
+                alert(checkVal);
+                alert(checkId);
                 // TODO: verfiy values in the client first (maybe)
                 //var checkVal = $(this).val();
-                alert(checkVal);
+                //alert(checkVal);
                 var todoObj = { replied: checkVal};
                 var jsonString = JSON.stringify(todoObj);
                 $.ajax({
