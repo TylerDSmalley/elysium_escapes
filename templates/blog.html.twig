@@ -45,19 +45,19 @@
 							<p>{{ testimonial.comment_body }}</p>
 
 							<!--twig if check for images if true, add carousel-->
-							{% if testimonials.image_filepath is not empty %}
-								<div id="carouselExampleControls{{ testimonials.id }}" class="carousel slide" data-bs-ride="carousel{{ testimonials.id }}">
+							{% if testimonial.image_filepath is not empty %}
+								<div id="carouselExampleControls{{ testimonial.id }}" class="carousel slide" data-bs-ride="carousel{{ testimonial.id }}">
 									<div class="carousel-inner">
 										<div class="carousel-item active">
-											<img src="{{ testimonials.image_filepath }}" class="d-block w-100" alt="{{ testimonials.comment_title }}">
+											<img src="{{ testimonial.image_filepath }}" class="d-block w-100" alt="{{ testimonial.comment_title }}">
 										</div>
 										<!-- non functional. May need a seperate table for testemonial images. refer to destinations for carousel if checks.-->
 									</div>
-									<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls{{ testimonials.id }}" data-bs-slide="prev">
+									<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls{{ testimonial.id }}" data-bs-slide="prev">
 										<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 										<span class="visually-hidden">Previous</span>
 									</button>
-									<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls{{ testimonials.id }}" data-bs-slide="next">
+									<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls{{ testimonial.id }}" data-bs-slide="next">
 										<span class="carousel-control-next-icon" aria-hidden="true"></span>
 										<span class="visually-hidden">Next</span>
 									</button>
