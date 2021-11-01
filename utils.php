@@ -27,7 +27,7 @@ function validatePassword($password1, $password2)
 {
     if (empty($password1) || ($password1 !== $password2)) {
         return "Passwords do not match";
-    } elseif (strlen($password1) < 4 || strlen($password1) > 100) {
+    } elseif (strlen($password1) < 9 || strlen($password1) > 100) {
         return  "Your Password Must Contain At Least 8 Characters!";
     } elseif (!preg_match("#[0-9]+#", $password1)) {
         return  "Your Password Must Contain At Least 1 Number!";
