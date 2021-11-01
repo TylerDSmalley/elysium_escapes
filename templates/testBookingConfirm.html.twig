@@ -1,0 +1,125 @@
+{% extends "base.html.twig" %}
+{% block title %}Booking Confirmed
+{% endblock %}
+{% block head %}
+	<link rel="stylesheet" href="styles/bookingConfirm.css">
+	{{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+<div class="parallax-1">
+	<div class="caption">
+		<span class="border">See you soon..</span>
+	</div>
+</div>
+
+<section id="confirmed_container">
+	<h2 id="h2_confirmed">Booking Confirmed!</h2>
+	<p>One of our travel afficionadoes will contact you soon.</p>
+	<p>A confirmation email will be sent to you shortly.</p>
+	<div id="tableWrapper">
+		<fieldset>
+			<table class="flexTable">
+				<caption style="caption-side: top;">Booking Summary</caption>
+				<thead>
+					<tr>
+						<th>Destination |</th>
+						<th> Adults |</th>
+						<th> Children |</th>
+						<th> Arrival Date |</th>
+						<th> Departure Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>{{ options.location }}</td>
+						<td>{{ options.adults }}</td>
+						<td>{{ options.children }}</td>
+						<td>{{ options.arrival }}</td>
+						<td>{{ options.departure }}</td>
+					</tr>
+				</tbody>
+			</table><br><br>
+			<table class="flexTable">
+				<tr>
+					<th>Hotel Name |</th>
+					<td>{{ hotel.hotel_name }}</td>
+				</tr>
+				<tr>
+					<th> City |</th>
+					<td>{{ hotel.city }}</td>
+				</tr>
+				<tr>
+					<th> Address |</th>
+					<td>{{ hotel.address }}</td>
+				</tr>
+			</table><br>
+			<table class="flexTable">
+				<tr>
+					<th>Net Price |</th>
+					<td>{{ hotel.composite_price_breakdown.net_amount.value }}</td>
+				</tr>
+				<tr>
+					<th> Tax and Charges |</th>
+					{% if hotel.composite_price_breakdown.included_taxes_and_charges_amount.value != "0" %}
+					<td>{{ hotel.composite_price_breakdown.included_taxes_and_charges_amount.value  }}</td>
+					{% endif %}
+					{% if hotel.composite_price_breakdown.included_taxes_and_charges_amount.value == "0" %}
+					<td>{{ hotel.price_breakdown.sum_excluded_raw }}</td>
+					{% endif %}
+					
+				</tr>
+			</table>
+			<br>
+			<table class="flexTable">
+				<thead>
+					<tr>
+						<th>Charge Name |</th>
+						<th>Amount |</th>
+						<th>Details</th>
+					</tr>
+				</thead>
+				<tbody>
+				{% for item in hotel.composite_price_breakdown.items %}
+					<tr>
+						<td> {{item.name}} |</td>
+						<td>
+						{% if item.kind == "discount" %}
+						-
+						{% endif %}
+						{{ item.item_amount.value }} |</td>
+						<td>{{ item.details }}</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table><br>
+			<table class="flexTable">
+			{% if hotel.is_mobile_deal == "1" %}
+				<tr>
+					<th> Total Without Discount |</th>
+					<td>{{ hotel.composite_price_breakdown.strikethrough_amount.value }}</td>
+				</tr>
+        	{% endif %}
+				<tr>
+					<th>Total Amount per Night |</th>
+					<td>{{ hotel.composite_price_breakdown.gross_amount_per_night.value }}</td>
+				</tr>
+				<tr>
+					<th> Total Amount |</th>
+					<td>{{ hotel.price_breakdown.all_inclusive_price }}</td>
+				</tr>
+			</table>
+		</fieldset>
+	</div>
+</section>
+
+<div class="parallax-1"></div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+{% endblock %}
