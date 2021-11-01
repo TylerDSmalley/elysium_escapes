@@ -299,8 +299,51 @@ Ileana
 
 2. What I plan to do from this scrum to the next
 -finish flash messages
--finish contac-us AJAX
+-finish contact-us AJAX
 
 3. Where do I need assistance? What do I need to figure out?
+
+<<Daily Scrum - 2021-01-01 >>
+
+--Tyler--
+1. What I have done / not done since last Scrum
+-started testemonials - still need form for user add
+-finish registration AJAX
+
+
+2. What I plan to do from this scrum to the next
+-finish registration AJAX
+-finsh testemonials
+-
+
+3. Where do I need assistance? What do I need to figure out?
+
+
+--Stefan--
+1. What I have done / not done since last Scrum
+-linked option selection from booking page to hotel selection api and now user select from hotel options
+upon selection, the user is taken to a summary page while *payment processing needed still. 
+
+
+2. What I plan to do from this scrum to the next
+- insert booking info into booking_history table upon payment
+- pull that summary from booking history table to display on confirmation page
+- implement stripe. 
+
+
+3. Where do I need assistance? What do I need to figure out?
+
+
+Ileana
+1. What I have done / not done since last Scrum
+-code for flash messages implemented - needs troubleshooting
+-implemented contact-us AJAX in admin. Almost there. Values get passed to handler - need to remove error function perhaps
+
+2. What I plan to do from this scrum to the next
+-testing ajax - contact us
+-functionality for destinations add/edit. 
+
+3. Where do I need assistance? What do I need to figure out?
+-ask gregory about photo verification
 
 
