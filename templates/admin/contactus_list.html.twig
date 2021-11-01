@@ -7,19 +7,17 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
         $(document).ready(function () {
-            $('input[name=contacted2]').click(function() {
-                var checkVal = $("input[name=contacted2]").prop('checked') ? 'Yes' : 'No';
+            $('input[type=checkbox]').click(function() {
+                var checkVal = $(this).prop('checked') ? 'Yes' : 'No';
                 var checkId = $(this).attr("name");
                 alert(checkVal);
                 alert(checkId);
-                // TODO: verfiy values in the client first (maybe)
-                //var checkVal = $(this).val();
-                //alert(checkVal);
-                var todoObj = { replied: checkVal};
+             
+                var todoObj = { replied: checkVal, id: checkId};
                 var jsonString = JSON.stringify(todoObj);
                 $.ajax({
-                    url: '/isMessageRead/{{c.id}}/' + checkVal,
-                    type: PATCH,
+                    url: '/isMessageRead/' + checkId + "/" + checkVal,
+                    type: 'PATCH',
                     data: jsonString,
                     dataType: 'json',
                     //headers: { 'X-auth-username': username, 'X-auth-password': password },
@@ -74,9 +72,9 @@
 				<td>{{c.contactTS}}</td>
 				<td>
                     {% if c.replied == 'Yes'%}
-                    <input type="checkbox" id="contacted" name="contacted{{c.id}}" value="contacted" checked>
+                    <input type="checkbox" id="{{c.id}}" name="{{c.id}}" value="contacted" checked>
                     {% else %}
-                    <input type="checkbox" id="contacted{{c.id}}" name="contacted{{c.id}}" value="contacted">
+                    <input type="checkbox" id="{{c.id}}" name="{{c.id}}" value="contacted">
                     {% endif %}
                     <label for="contacted">Read and Replied to Message</label><br>
 				</td>

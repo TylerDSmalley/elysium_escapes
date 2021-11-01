@@ -256,12 +256,11 @@ $app->post('/admin/destinations/{op:edit|add}[/{id:[0-9]+}]', function ($request
 
 $app->get('/isMessageRead/{id:[0-9]+}/{checkVal}', function($request, $response, $args) {
 
-   if($args['checkVal']=='No'){ //Checkbax is unchecked so NO
+   if($args['checkVal']=='No'){ 
       DB::query("UPDATE contact_us SET replied = 'No' WHERE id=%i",$args['id']);
-      echo "Checked";
+      echo "Unchecked";
    }else{
       DB::query("UPDATE contact_us SET replied = 'Yes' WHERE id=%i",$args['id']);
-      echo "Unchecked";
+      echo "Checked";
    }
-   // don't send any content back if the new bid is okay
 });
