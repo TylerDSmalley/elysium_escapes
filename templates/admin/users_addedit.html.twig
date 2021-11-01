@@ -56,6 +56,9 @@
 					{% if op == 'edit' %}
 					<p><strong>Only provide password if you are changing it for this user</strong></p>
 					{% endif %}
+					{% if op == 'add' %}
+					<p>Password must be at least 8 characters long and contain at least one uppercase letter, one lower case letter, and one number</p>
+					{% endif %}
 					Password:
 					<input class="title" type="password" name="password1"/><br/>
 					Password (Confirmed):
