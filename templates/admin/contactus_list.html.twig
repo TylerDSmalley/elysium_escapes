@@ -10,8 +10,6 @@
             $('input[type=checkbox]').click(function() {
                 var checkVal = $(this).prop('checked') ? 'Yes' : 'No';
                 var checkId = $(this).attr("name");
-                alert(checkVal);
-                alert(checkId);
              
                 var todoObj = { replied: checkVal, id: checkId};
                 var jsonString = JSON.stringify(todoObj);
@@ -19,11 +17,11 @@
                     url: '/isMessageRead/' + checkId + "/" + checkVal,
                     type: 'PATCH',
                     data: jsonString,
-                    dataType: 'json',
+                    dataType: 'json'
                     //headers: { 'X-auth-username': username, 'X-auth-password': password },
-                    error: function(jqxhr, status, errorThrown) {
-                        httpErrorHandler(jqxhr, status, errorThrown);
-                    }
+                    //error: function(jqxhr, status, errorThrown) {
+                      //  httpErrorHandler(jqxhr, status, errorThrown);
+                   // }
                 }).done(function(newId) {
                     alert("Record updated successfully");
             });
