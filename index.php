@@ -13,7 +13,8 @@ require_once 'admin.php';
 // if you forget it all you'll see is a blank page
 
 $app->get('/testbooking', function ($request, $response, $args) {
-  return $this->view->render($response, 'testbooking.html.twig');
+    $destinations = DB::query("SELECT destination_name, destination_imagepath FROM destinations");
+    return $this->view->render($response, 'testbooking.html.twig', ['d' => $destinations]);
 });
 
 
