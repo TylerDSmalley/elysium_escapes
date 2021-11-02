@@ -26,12 +26,12 @@
 				Choose Your Destination:
 			</div>
 			<div class="full-width">
-				<input type="radio" id="bermuda" name="location" value="Bermuda" required/>
-				<label for="bermuda"><img src="images/bermuda2.png" height="170" width="307" alt="Beach in Bermuda" title="Beach in Bermuda"/></label>
-				<input type="radio" id="fiji" name="location" value="Fiji"/>
-				<label for="fiji"><img src="images/fiji2.jpg" height="170" width="307" alt="Overhead picture of Fiji" title="Overhead picture of Fiji"/></label>
-				<input type="radio" id="mauritius" name="location" value="Mauritius"/>
-				<label for="mauritius"><img src="images/mauritius2.jpg" height="170" width="307" alt="Overhead picture of Mauritius" title="Overhead picture of Mauritius"/></label>
+				<input type="radio" id="{{d[0].destination_name}}" name="location" value="{{d[0].destination_name}}" required/>
+				<label for="{{d[0].destination_name}}"><img src="{{d[0].destination_imagepath}}" height="170" width="307" alt="{{d[0].destination_name}} image" title="{{d[0].destination_name}} image"/></label>
+				<input type="radio" id="{{d[1].destination_name}}" name="location" value="{{d[1].destination_name}}"/>
+				<label for="{{d[1].destination_name}}"><img src="{{d[1].destination_imagepath}}" height="170" width="307" alt="{{d[1].destination_name}} image" title="{{d[1].destination_name}} image"/></label>
+				<input type="radio" id="{{d[2].destination_name}}" name="location" value="{{d[2].destination_name}}"/>
+				<label for="{{d[2].destination_name}}"><img src="{{d[2].destination_imagepath}}" height="170" width="307" alt="{{d[2].destination_name}} image" title="{{d[2].destination_name}} image"/></label>
 				<br/>
 			</div>
 			<div class="col2">
