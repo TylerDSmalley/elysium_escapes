@@ -216,7 +216,7 @@ $app->post('/admin/destinations/{op:edit|add}[/{id:[0-9]+}]', function ($request
 
   // check photo
   $photo = $_FILES['photo'];
-  if ($photo == null) {
+  if (empty($photo)) { // error not caught
       $errors['photo'] = 'A photo is required';
   } else {
       $photoFilePath = "";
