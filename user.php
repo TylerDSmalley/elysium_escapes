@@ -122,7 +122,16 @@ $app->get('/register', function ($request, $response, $args) {
     return $this->view->render($response, 'register.html.twig');
 });
 
-//Add handler for isEmailTaken
+$app->get('/isemailtaken/{email}', function ($request, $response, $args) {
+    $email = $args['email'];
+    $resultEmail = DB::queryFirstRow("SELECT email FROM users WHERE email='%s'", $email);
+
+    if ($resultEmail) {
+        return $response->write("Email already taken");  
+    } else {
+        return $response->write("");
+    }
+});
 
 $app->post('/register', function ($request, $response, $args) {
     //extract values submitted
@@ -213,10 +222,10 @@ $app->post('/login', function ($request, $response, $args) {
 
 
     //$loginSuccessful = ($userCheck != null) && ($password1 == $userCheck['password']); 
-    $loginSuccessful = ($userCheck != null) && password_verify($password1, $userCheck['password']); 
+    $loginSuccessful = ($userCheck != null) && password_verify($password1, $userCheck['password']);
     if (!$loginSuccessful) { // STATE 2: login failed
         $errors['email'] = 'Invalid email or password';
-    } 
+    }
 
     if (array_filter($errors)) {
         return $this->view->render($response, 'login.html.twig', ['errors' => $errors]);
@@ -226,7 +235,7 @@ $app->post('/login', function ($request, $response, $args) {
         $_SESSION['user'] = $userCheck;
         return $this->view->render($response, 'index.html.twig');
     }
-    
+
     // end POST check   
 });
 

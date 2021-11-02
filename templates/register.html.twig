@@ -14,8 +14,8 @@
             $('input[name=email]').keyup(function() {
                 var email = $(this).val();
                 console.log('email: ' + email);
-                email = encodeURIComponent(email);
-                $('#emailTaken').load("isemailtaken.php?email=" + email);
+                //email = encodeURIComponent(email);
+                $('#emailTaken').load("isemailtaken/" + email);
             });
         });
     </script>
@@ -57,6 +57,7 @@
 								<input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com" value="{{ v.email }}">
 								<label for="floatingInput">Email</label>
 								<div class="redText">{{errorList.email}}</div>
+								<span id="emailTaken" name="emailTaken" class="redText"></span><br>
 							</div>
 						</div>
 
