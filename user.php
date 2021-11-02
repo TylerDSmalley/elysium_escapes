@@ -10,7 +10,7 @@ $app->get('/', function ($request, $response, $args) {
 });
 
 $app->get('/blog', function ($request, $response, $args) {
-    $testimonials = DB::query("SELECT testimonials.*, users.first_name FROM testimonials INNER JOIN users ON testimonials.user_id = users.id ");
+    $testimonials = DB::query("SELECT t.*, u.first_name, d.destination_name FROM testimonials AS t LEFT JOIN users AS u ON t.user_id = u.id LEFT JOIN destinations AS d ON t.destination_id = d.id");
     $images = DB::query("SELECT * FROM images");
     return $this->view->render($response, 'blog.html.twig', ['testimonials' => $testimonials, 'images' => $images]);
 });
