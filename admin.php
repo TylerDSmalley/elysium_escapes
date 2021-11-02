@@ -29,6 +29,8 @@ require_once 'init.php';
    return $this->view->render($response,'admin/inactive_users.html.twig',['usersList'=> $userList]);
 });
 
+
+
 // ADD AND EDIT USERS HANDLER
 
 /*
@@ -54,6 +56,22 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['account_type'] != 'admin') {
    $user=[];
 }
    return $this->view->render($response,'admin/users_addedit.html.twig',['user'=> $user,'op'=>$args['op']]);
+});
+
+$app->get('/flash',function($request,$response,$args){
+   print_r($_SESSION);
+   return $this->view->render($response,'flash.html.twig');
+});
+
+
+$app->post('/flash',function($request,$response,$args){
+   setFlashMessage("User successfully added!"); 
+   return $response->withRedirect("/flash2");
+});
+
+$app->get('/flash2',function($request,$response,$args){
+   print_r($_SESSION);
+   return $this->view->render($response,'flash2.html.twig');
 });
 
 $app->post('/admin/users/{op:edit|add}[/{id:[0-9]+}]',function($request,$response,$args){
