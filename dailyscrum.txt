@@ -370,6 +370,7 @@ Ileana
 - insert booking info into booking_history table upon payment
 - pull that summary from booking history table to display on confirmation page
 - implement stripe. 
+- add session check for booking
 
 
 3. Where do I need assistance? What do I need to figure out?
@@ -382,6 +383,7 @@ Ileana
 2. What I plan to do from this scrum to the next
 -testing ajax - contact us - error handling
 -functionality for destinations add/edit. 
+-add session check functionality to admin. 
 
 3. Where do I need assistance? What do I need to figure out?
 
