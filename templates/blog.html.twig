@@ -31,13 +31,16 @@
 
 						<article class="blog-post bg-light p-4 rounded-3">
 							<h3 class="fst-italic">{{ testimonial.comment_title }}</h3>
-							<p class="blog-post-meta">
-								Posted on:
-								{{ testimonial.createdTS }}
-							</p>
 							<p class="m-0">
 								By:
 								{{ testimonial.first_name }}
+							</p>
+							<p class="m-0">
+								Destination: <a href="https://travel.fsd01.ca/destinations">{{ testimonial.destination_name }}</a>
+							</p>
+							<p class="m-0">
+								Posted on:
+								{{ testimonial.createdTS }}
 							</p>
 
 							<hr>
