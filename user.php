@@ -124,7 +124,7 @@ $app->get('/register', function ($request, $response, $args) {
 
 $app->get('/isemailtaken/{email}', function ($request, $response, $args) {
     $email = $args['email'];
-    $resultEmail = DB::queryFirstRow("SELECT email FROM users WHERE email='%s'", $email);
+    $resultEmail = DB::queryFirstRow("SELECT email FROM users WHERE email=%s", $email);
 
     if ($resultEmail) {
         return $response->write("Email already taken");  

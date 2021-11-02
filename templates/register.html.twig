@@ -10,15 +10,15 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script>
 
-        $(document).ready(function() {
-            $('input[name=email]').keyup(function() {
-                var email = $(this).val();
-                console.log('email: ' + email);
-                //email = encodeURIComponent(email);
-                $('#emailTaken').load("isemailtaken/" + email);
-            });
-        });
-    </script>
+		$(document).ready(function () {
+$('input[name=email]').keyup(function () {
+var email = $(this).val();
+console.log('email: ' + email);
+// email = encodeURIComponent(email);
+$('#emailTaken').load("isemailtaken/" + email);
+});
+});
+	</script>
 	{{ parent() }}
 {% endblock %}
 
@@ -35,64 +35,64 @@
 							<h3 class="h3 card-title" id="exampleModalNavLabel">Register</h3>
 						</div>
 						<div class="modal-body">
-					<form method="post" enctype="multipart/form-data">
-						<div class="col-md">
-							<div class="form-floating mb-3">
-								<input type="text" class="form-control" id="floatingInput" name="firstName" placeholder="Jane">
-								<label for="floatingInput">First Name:</label>
-								<div class="redText">{{errorList.firstName}}</div>
-							</div>
-						</div>
+							<form method="post" enctype="multipart/form-data">
+								<div class="col-md">
+									<div class="form-floating mb-3">
+										<input type="text" class="form-control" id="floatingInput" name="firstName" placeholder="Jane">
+										<label for="floatingInput">First Name:</label>
+										<div class="redText">{{errorList.firstName}}</div>
+									</div>
+								</div>
 
-						<div class="col-md">
-							<div class="form-floating mb-3">
-								<input type="text" class="form-control" id="floatingInput" name="lastName" placeholder="Doe">
-								<label for="floatingInput">Last Name:</label>
-								<div class="redText">{{errorList.lastName}}</div>
-							</div>
-						</div>
+								<div class="col-md">
+									<div class="form-floating mb-3">
+										<input type="text" class="form-control" id="floatingInput" name="lastName" placeholder="Doe">
+										<label for="floatingInput">Last Name:</label>
+										<div class="redText">{{errorList.lastName}}</div>
+									</div>
+								</div>
 
-						<div class="col-md">
-							<div class="form-floating mb-3">
-								<input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com" value="{{ v.email }}">
-								<label for="floatingInput">Email</label>
-								<div class="redText">{{errorList.email}}</div>
-								<span id="emailTaken" name="emailTaken" class="redText"></span><br>
-							</div>
-						</div>
+								<div class="col-md">
+									<div class="form-floating mb-3">
+										<input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com" value="{{ v.email }}">
+										<label for="floatingInput">Email</label>
+										<div id="emailTaken" class="redText">{{errorList.email}}</div>
+										<span id="emailTaken" name="emailTaken" class="redText"></span>
+									</div>
+								</div>
 
-						<div class="col-md">
-							<div class="form-floating mb-3">
-								<input type="text" class="form-control" id="floatingInput" name="phone" placeholder="555-555-5555" value="{{ v.phone_number }}">
-								<label for="floatingInput">Phone</label>
-								<div class="redText">{{errorList.phone}}</div>
-							</div>
-						</div>
+								<div class="col-md">
+									<div class="form-floating mb-3">
+										<input type="text" class="form-control" id="floatingInput" name="phone" placeholder="555-555-5555" value="{{ v.phone_number }}">
+										<label for="floatingInput">Phone</label>
+										<div class="redText">{{errorList.phone}}</div>
+									</div>
+								</div>
 
-						<div class="col-md">
-							<div class="form-floating mb-3">
-								<input type="password" class="form-control" id="floatingPassword" name="password1" placeholder="Password">
-								<label for="floatingPassword">Password</label>
-                                <div class="redText">{{errorList.password1}}</div>
-							</div>
-						</div>
+								<div class="col-md">
+									<div class="form-floating mb-3">
+										<input type="password" class="form-control" id="floatingPassword" name="password1" placeholder="Password">
+										<label for="floatingPassword">Password</label>
+										<div class="redText">{{errorList.password1}}</div>
+									</div>
+								</div>
 
-						<div class="col-md">
-							<div class="form-floating mb-3">
-								<input type="password" class="form-control" id="floatingPassword" name="password2" placeholder="Password">
-								<label for="floatingPassword">Password (Repeated):</label>
-							</div>
-						</div>
+								<div class="col-md">
+									<div class="form-floating mb-3">
+										<input type="password" class="form-control" id="floatingPassword" name="password2" placeholder="Password">
+										<label for="floatingPassword">Password (Repeated):</label>
+									</div>
+								</div>
 
-						<div class="submitButtonBox">
-							<input class="submitButton" type="submit" name="submit" value="Register!" onclick="confirmContact()">
+								<div class="submitButtonBox">
+									<input class="submitButton" type="submit" name="submit" value="Register!" onclick="confirmContact()">
+								</div>
+								<br/><br/>
+								<div id="confirmMessage"></div>
+							</form>
 						</div>
-						<br/><br/>
-						<div id="confirmMessage"></div>
-					</form>
-				</div>
 						<div class="modal-footer">
-						<p>Already have an account?</p>
+							<p>Already have an account?</p>
 							<a class="logInButtonBox" href="https://travel.fsd01.ca/login">
 								<button type="submit" class="btn logInButton">Sign in</button>
 							</a>
@@ -100,7 +100,7 @@
 					</div>
 				</div>
 			</div>
-			
+
 		</div>
 
 	</section>
