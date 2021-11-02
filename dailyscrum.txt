@@ -347,3 +347,42 @@ Ileana
 -ask gregory about photo verification
 
 
+<<Daily Scrum - 2021-01-0 >>
+
+--Tyler--
+1. Took a research break - had to focus on new content for current class (web services)
+
+
+2. What I plan to do from this scrum to the next
+-finish registration AJAX
+-finsh testemonials
+
+
+3. Where do I need assistance? What do I need to figure out?
+
+
+--Stefan--
+1. What I have done / not done since last Scrum
+- succesfully implemented the DB connecton to destinations/booking.
+
+
+2. What I plan to do from this scrum to the next
+- insert booking info into booking_history table upon payment
+- pull that summary from booking history table to display on confirmation page
+- implement stripe. 
+
+
+3. Where do I need assistance? What do I need to figure out?
+
+
+Ileana
+1. What I have done / not done since last Scrum
+- succesfully implemented AJAX functionality to contact us list. read reply checkbox updates DB in realtime. 
+
+2. What I plan to do from this scrum to the next
+-testing ajax - contact us - error handling
+-functionality for destinations add/edit. 
+
+3. Where do I need assistance? What do I need to figure out?
+
+
