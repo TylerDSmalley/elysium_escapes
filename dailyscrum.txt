@@ -347,7 +347,7 @@ Ileana
 -ask gregory about photo verification
 
 
-<<Daily Scrum - 2021-01-0 >>
+<<Daily Scrum - 2021-01-02 >>
 
 --Tyler--
 1. Took a research break - had to focus on new content for current class (web services)
@@ -387,4 +387,38 @@ Ileana
 
 3. Where do I need assistance? What do I need to figure out?
 
+
+<<Daily Scrum - 2021-01-04 >>
+
+--Tyler--
+1. Took a research break - had to focus on new content for current class (web services)
+
+
+2. What I plan to do from this scrum to the next
+-Web services catch up
+
+
+3. Where do I need assistance? What do I need to figure out?
+
+
+--Stefan--
+1. What I have done / not done since last Scrum
+- N/A
+
+
+2. What I plan to do from this scrum to the next
+- N/A
+
+
+3. Where do I need assistance? What do I need to figure out?
+
+
+Ileana
+1. What I have done / not done since last Scrum
+- N/A
+
+2. What I plan to do from this scrum to the next
+- N/A 
+
+3. Where do I need assistance? What do I need to figure out?
 
