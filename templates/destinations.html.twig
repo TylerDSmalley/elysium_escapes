@@ -46,7 +46,7 @@
 									</div>
 									<div class="modal-body">
 										<p>
-											{{ destination.destination_description }}
+											{% autoescape %}{{ destination.destination_description|raw }}{% endautoescape %}
 										</p>
 									</div>
 									<!-- photo carousel -->
