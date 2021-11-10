@@ -249,7 +249,16 @@ $app->get('/logout', function ($request, $response, $args) {
 });
 // LOGOUT HANDLERS END
 
-// $app->get('/profile', function .....);
+//   /user/order/history or /orders/history
+
+//USER PROFILE HANDLERS
+$app->get('/users/trips', function ($request, $response, $args) {
+    $userId = $_SESSION['user']['id'];
+    //FIX ME: JOIN DESTINATIONS WITH BOOKING HISTORY
+    $booking_history = DB::query("SELECT * FROM booking_history WHERE user_id=%s", $userId);
+    return $this->view->render($response, 'userProfileTrips.html.twig', ['booking_history' => $booking_history]);
+});
+//USER PROFILE HANDLERS END
 
 //SESSION HANDLER 
 $app->get('/session', function ($request, $response, $args) {
