@@ -254,8 +254,7 @@ $app->get('/logout', function ($request, $response, $args) {
 //USER PROFILE HANDLERS
 $app->get('/users/trips', function ($request, $response, $args) {
     $userId = $_SESSION['user']['id'];
-    //FIX ME: JOIN DESTINATIONS WITH BOOKING HISTORY
-    $booking_history = DB::query("SELECT * FROM booking_history WHERE user_id=%s", $userId);
+    $booking_history = DB::query("SELECT b.*, d.destination_name, d.destination_imagepath FROM booking_history AS b LEFT JOIN destinations AS d ON b.destination_id = d.id WHERE user_id=%s", $userId );
     return $this->view->render($response, 'userProfileTrips.html.twig', ['booking_history' => $booking_history]);
 });
 //USER PROFILE HANDLERS END
