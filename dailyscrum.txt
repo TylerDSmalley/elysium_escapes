@@ -422,3 +422,41 @@ Ileana
 
 3. Where do I need assistance? What do I need to figure out?
 
+<<Daily Scrum - 2021-01-05>>
+
+--Tyler--
+1. Took a research break - had to focus on new content for current class (web services)
+
+
+2. What I plan to do from this scrum to the next
+-Web services catch up
+
+
+3. Where do I need assistance? What do I need to figure out?
+
+
+--Stefan--
+1. What I have done / not done since last Scrum
+- N/A
+
+
+2. What I plan to do from this scrum to the next
+- N/A
+
+
+3. Where do I need assistance? What do I need to figure out?
+
+
+Ileana
+1. What I have done / not done since last Scrum
+- Took past few days to focus on web services
+- Added booking history template to admin
+- Added testemonials template to admin with option to delete a testimonial
+
+2. What I plan to do from this scrum to the next
+- Get back to flash messages
+- Might do some research on pagination
+- Look into what we need for user profile page
+
+3. Where do I need assistance? What do I need to figure out?
+- Could use a second look at destinations add/edit for logic with photo being optional

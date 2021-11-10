@@ -73,17 +73,6 @@ $app->get('/flash',function($request,$response,$args){
    return $this->view->render($response,'flash.html.twig');
 });
 
-
-$app->post('/flash',function($request,$response,$args){
-   setFlashMessage("User successfully added!"); 
-   return $response->withRedirect("/flash2");
-});
-
-$app->get('/flash2',function($request,$response,$args){
-   print_r($_SESSION);
-   return $this->view->render($response,'flash2.html.twig');
-});
-
 $app->post('/admin/users/{op:edit|add}[/{id:[0-9]+}]',function($request,$response,$args){
    if(($args['op'] == 'add' && !empty($args['id']) || $args['op'] == 'edit' && empty($args['id']))){
       $response = $response->withStatus(404);
