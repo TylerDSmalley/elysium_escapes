@@ -1,0 +1,80 @@
+{% extends "base.html.twig" %}
+{% block title %}User Profile
+{% endblock %}
+{% block head %}
+	<link rel="stylesheet" href="../styles/userProfile.css">
+	<script src="scripts/nav.js"></script>
+	{{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+
+	<div class="parallax-1">
+		<div class="caption">
+			<span class="border"> {{user.email}} </span>
+		</div>
+	</div>
+
+	<section class="section p-5">
+
+		<div class="container">
+			<div class="row text-center g-4">
+
+				{% if booking_history %}
+					{% for trip in booking_history %}
+						<!-- Order history Cards -->
+						<div class="col-md">
+							<div class="card .bg-light.bg-gradient text-dark">
+								<div class="card-body text-center">
+									<div class="h1 mb-3">
+										<h2 class="h3 card-title">{{ trip.destination_name }}</h2>
+										<p>{{ trip.booking_confirm }}</p>
+									</div>
+									<div class="destinationImageBox">
+										<button class="btn btn-lg submitButton" data-bs-toggle="modal" data-bs-target="#exampleModal{{ trip.id }}"><img class="img-fluid destinationImage" src="{{ trip.destination_imagepath }}" alt="{{ trip.destination_name }} photo" title="{{ trip.destination_name }} title photo"></button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Modal -->
+						<!-- FIX ME: FORMAT TO DISPLAY ORDER SUMMARY-->
+						<div class="modal fade" id="exampleModal{{ trip.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog modal-lg">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h2 class="h3 card-title text-nowrap" id="exampleModalLabel">{{ trip.destination_name }}</h2>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<p>
+											{% autoescape %}{{ trip.destination_description|raw }}{% endautoescape %}
+										</p>
+									</div>
+									
+									<!-- BUTTON TO ADD onClick will reveal TESTIMONIAL SUBMISSION FORM -->
+									<div class="modal-footer">
+										<button type="button" class="btn btn-info">
+											<a href="/booking">Add Testimonial!</a>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Modal END-->
+						<!-- Destination Card END-->
+					{% endfor %}
+				{% endif %}
+
+			</div>
+		</div>
+
+	</section>
+
+	<div class="parallax-1">
+		<div class="caption">
+			<span class="border">...Travel Right</span>
+		</div>
+	</div>
+
+{% endblock %}
