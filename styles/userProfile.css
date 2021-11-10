@@ -8,6 +8,14 @@ a {
     color: #fff;
 }
 
+.tripNum {
+    font-size: 12pt;
+}
+
+p {
+    justify-items: start;
+}
+
 #calendar_container {
     border-top: thin solid #AB8A72;
     border-bottom: thin solid #AB8A72;
@@ -35,7 +43,7 @@ a {
 }
 
 .card {
-    min-width: 100%;
+    flex: auto;
     height: auto;
 }
 
@@ -55,11 +63,6 @@ a {
     font-size: 11px;
     transition: all 0.3s ease 0s;
     cursor: pointer;
-}
-
-.destinationImage {
-    flex: auto;
-    border-radius: 30px;
 }
 
 .submitButton:hover {
