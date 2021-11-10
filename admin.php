@@ -4,8 +4,8 @@ require_once 'vendor/autoload.php';
 require_once 'utils.php';
 require_once 'init.php';
 
-// LIST USERS/DESTINATION/CONTACTUS/BOOKINGS HANDLER
- $app->get('/admin/{op:users|destinations|contactus|bookings}/list', function($request,$response,$args){
+// LIST USERS/DESTINATION/CONTACTUS/BOOKINGS/TESTIMONIALS HANDLER
+ $app->get('/admin/{op:users|destinations|contactus|bookings|testimonials}/list', function($request,$response,$args){
     if($args['op']=='users'){
       $userList = DB::query("SELECT * FROM users WHERE status='active'");
       return $this->view->render($response,'admin/users_list.html.twig',['usersList'=> $userList]);
@@ -24,6 +24,11 @@ require_once 'init.php';
     if($args['op']=='bookings'){
       $bookingsList = DB::query("SELECT * FROM  booking_history");
       return $this->view->render($response,'admin/bookings_list.html.twig',['bookingsList'=> $bookingsList]);
+    }
+
+    if($args['op']=='testimonials'){
+      $testimonialsList = DB::query("SELECT * FROM  testimonials");
+      return $this->view->render($response,'admin/testimonials_list.html.twig',['testimonialsList'=> $testimonialsList]);
     }
  });
 
@@ -184,6 +189,24 @@ $app->post('/admin/destinations/delete[/{id:[0-9]+}]',function($request,$respons
    DB::query("UPDATE destinations SET status = 'inactive' WHERE id=%i",$args['id']);
    return $this->view->render($response,'admin/destinations_delete_success.html.twig');
 });
+
+//DELETE TESTIMONIAL HANDLER
+$app->get('/admin/testimonials/delete[/{id:[0-9]+}]',function($request,$response,$args){
+   $testimonial = DB::queryFirstRow("SELECT * FROM testimonials WHERE id=%d",$args['id']);
+      if(!$testimonial){
+         $response = $response->withStatus(404);
+         return $this->view->render($response,'admin/not_found.html.twig');
+      }
+   return $this->view->render($response,'admin/testimonials_delete.html.twig',['testimonial'=> $testimonial]);
+});
+
+$app->post('/admin/testimonials/delete[/{id:[0-9]+}]',function($request,$response,$args){
+   DB::query("DELETE FROM testimonials WHERE id=%i",$args['id']);
+   return $this->view->render($response,'admin/testimonials_delete_success.html.twig');
+});
+
+
+
 
 // ADD AND EDIT DESTINATION HANDLER
 $app->get('/admin/destinations/{op:edit|add}[/{id:[0-9]+}]',function($request,$response,$args){
