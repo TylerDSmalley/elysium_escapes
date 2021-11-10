@@ -99,7 +99,7 @@ $app->post('/testbooking', function ($request, $response, $args) {
             'confirmation' => $bookingData["booking_confirm"]
         ];
         
-        return $this->view->render($response, 'testBookingConfirm2.html.twig', ['v' => $values]);
+        return $this->view->render($response, 'testBookingConfirm.html.twig', ['v' => $values]);
         
     } else if ($request->getParam('hotel') !== null){
         $hotel = json_decode($request->getParam('hotel'));
