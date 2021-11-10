@@ -33,81 +33,41 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>{{ options.location }}</td>
-						<td>{{ options.adults }}</td>
-						<td>{{ options.children }}</td>
-						<td>{{ options.arrival }}</td>
-						<td>{{ options.departure }}</td>
+						<td>{{ v.location }}</td>
+						<td>{{ v.adults }}</td>
+						<td>{{ v.children }}</td>
+						<td>{{ v.arrival }}</td>
+						<td>{{ v.departure }}</td>
 					</tr>
 				</tbody>
 			</table><br><br>
 			<table class="flexTable">
 				<tr>
-					<th>Hotel Name |</th>
-					<td>{{ hotel.hotel_name }}</td>
+					<th>Hotel Name</th>
+					<td>{{ v.hotel_name }}</td>
 				</tr>
 				<tr>
-					<th> City |</th>
-					<td>{{ hotel.city }}</td>
+					<th> City</th>
+					<td>{{ v.hotel_city }}</td>
 				</tr>
 				<tr>
-					<th> Address |</th>
-					<td>{{ hotel.address }}</td>
-				</tr>
-			</table><br>
-			<table class="flexTable">
-				<tr>
-					<th>Net Price |</th>
-					<td>{{ hotel.composite_price_breakdown.net_amount.value }}</td>
-				</tr>
-				<tr>
-					<th> Tax and Charges |</th>
-					{% if hotel.composite_price_breakdown.included_taxes_and_charges_amount.value != "0" %}
-					<td>{{ hotel.composite_price_breakdown.included_taxes_and_charges_amount.value  }}</td>
-					{% endif %}
-					{% if hotel.composite_price_breakdown.included_taxes_and_charges_amount.value == "0" %}
-					<td>{{ hotel.price_breakdown.sum_excluded_raw }}</td>
-					{% endif %}
-					
+					<th> Address</th>
+					<td>{{ v.hotel_address }}</td>
 				</tr>
 			</table>
 			<br>
 			<table class="flexTable">
-				<thead>
-					<tr>
-						<th>Charge Name |</th>
-						<th>Amount |</th>
-						<th>Details</th>
-					</tr>
-				</thead>
-				<tbody>
-				{% for item in hotel.composite_price_breakdown.items %}
-					<tr>
-						<td> {{item.name}} |</td>
-						<td>
-						{% if item.kind == "discount" %}
-						-
-						{% endif %}
-						{{ item.item_amount.value }} |</td>
-						<td>{{ item.details }}</td>
-					</tr>
-				{% endfor %}
-				</tbody>
-			</table><br>
-			<table class="flexTable">
-			{% if hotel.is_mobile_deal == "1" %}
 				<tr>
-					<th> Total Without Discount |</th>
-					<td>{{ hotel.composite_price_breakdown.strikethrough_amount.value }}</td>
-				</tr>
-        	{% endif %}
-				<tr>
-					<th>Total Amount per Night |</th>
-					<td>{{ hotel.composite_price_breakdown.gross_amount_per_night.value }}</td>
+					<th> Total Amount ({{v.hotel_currency}})</th>
+					<td>{{ v.price_hotel_currency }}</td>
 				</tr>
 				<tr>
-					<th> Total Amount |</th>
-					<td>{{ hotel.price_breakdown.all_inclusive_price }}</td>
+					<th> Total Amount (CAD)</th>
+					<td>{{ v.price_cad }}</td>
+				</tr>
+				<tr>
+					<th> Confirmation #</th>
+					<td>{{ v.confirmation }}</td>
 				</tr>
 			</table>
 		</fieldset>
