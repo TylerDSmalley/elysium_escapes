@@ -4,8 +4,8 @@ require_once 'vendor/autoload.php';
 require_once 'utils.php';
 require_once 'init.php';
 
-// LIST USERS/DESTINATION/CONTACTUS HANDLER
- $app->get('/admin/{op:users|destinations|contactus}/list', function($request,$response,$args){
+// LIST USERS/DESTINATION/CONTACTUS/BOOKINGS HANDLER
+ $app->get('/admin/{op:users|destinations|contactus|bookings}/list', function($request,$response,$args){
     if($args['op']=='users'){
       $userList = DB::query("SELECT * FROM users WHERE status='active'");
       return $this->view->render($response,'admin/users_list.html.twig',['usersList'=> $userList]);
@@ -19,6 +19,11 @@ require_once 'init.php';
     if($args['op']=='contactus'){
       $contactsList = DB::query("SELECT * FROM  contact_us ORDER BY contactTS DESC");
       return $this->view->render($response,'admin/contactus_list.html.twig',['contactsList'=> $contactsList]);
+    }
+
+    if($args['op']=='bookings'){
+      $bookingsList = DB::query("SELECT * FROM  booking_history");
+      return $this->view->render($response,'admin/bookings_list.html.twig',['bookingsList'=> $bookingsList]);
     }
  });
 
