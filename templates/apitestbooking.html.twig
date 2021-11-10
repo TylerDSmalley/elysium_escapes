@@ -13,7 +13,8 @@
                 Hotel Name: {{ hotel.hotel_name }}<br>
                 City: {{ hotel.city }}<br>
                 Address: {{ hotel.address }}<br>
-                Price: {{ hotel.price_breakdown.all_inclusive_price }}<br>
+                Price ({{hotel.currency_code}}): {{ hotel.price_breakdown.all_inclusive_price }}<br>
+                Price (CAD): {{ cad_price }}<br>
             </p>
             <input type="submit" value="Book This Resort"><br><br><br>
         </form>    
