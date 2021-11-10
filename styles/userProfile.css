@@ -1,4 +1,4 @@
-/* CSS Document for the Destinations page */
+/* CSS Document for the User Profile page */
 
 
 /* Developed by:  Tyler Smalley */
@@ -79,7 +79,7 @@ a {
 }
 
 .parallax-1 {
-    background-image: url("../images/phuket.jpg");
+    background-image: url("../images/sand2.jpg");
     min-height: 45%;
     width: 100%;
     margin: 0;
