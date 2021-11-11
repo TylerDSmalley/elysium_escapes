@@ -252,11 +252,86 @@ $app->get('/logout', function ($request, $response, $args) {
 //   /user/order/history or /orders/history
 
 //USER PROFILE HANDLERS
-$app->get('/users/trips', function ($request, $response, $args) {
+$app->get('/users/trips', function ($request, $response, $args)  {
     $userId = $_SESSION['user']['id'];
     $booking_history = DB::query("SELECT b.*, d.destination_name, d.destination_imagepath FROM booking_history AS b LEFT JOIN destinations AS d ON b.destination_id = d.id WHERE user_id=%s", $userId );
     return $this->view->render($response, 'userProfileTrips.html.twig', ['booking_history' => $booking_history]);
 });
+
+$app->post('/users/trips', function ($request, $response, $args) use ($log) {
+    $userId = $_SESSION['user']['id'];
+    $booking_history = DB::query("SELECT b.*, d.destination_name, d.destination_imagepath FROM booking_history AS b LEFT JOIN destinations AS d ON b.destination_id = d.id WHERE user_id=%s", $userId );
+
+    $comment_body = $comment_title = $photo =  "";
+    $errors = array('comment_title' => '', 'comment_body' => '', 'photo' => '');
+  
+    // check comment_title
+    if (empty($request->getParam('comment_title'))) {
+        $errors['comment_title'] = 'A story title is required';
+    } else {
+        $comment_title = $request->getParam('comment_title');
+        if (strlen($comment_title) < 2 || strlen($comment_title) > 50) {
+            $errors['comment_title'] = 'story title must be 2-50 characters long';
+        } else {
+            $finalComment_title = htmlentities($comment_title);
+        }
+    }
+  
+    // check comment_body
+    if (empty($request->getParam('comment_body'))) {
+        $errors['comment_body'] = 'A story is required to submit';
+    } else {
+        $comment_body = $request->getParam('comment_body');
+        if (strlen($comment_body) < 2 || strlen($comment_body) > 10000) {
+            $errors['comment_body'] = 'Body must be 2-10000 characters long';
+        } else {
+            $final_comment_body = strip_tags($comment_body, "<p><ul><li><em><strong><i><b><ol><h3><h4><h5><span><pre>");
+            $final_comment_body = htmlentities($final_comment_body);
+        }
+    }
+  
+    // check photo
+    $photo = $_FILES['photo'];
+    if (empty($photo)) { // error not caught
+        $errors['photo'] = 'A photo is required';
+    } else {
+        $photoFilePath = "";
+        $retval = verifyUploadedPhoto($photoFilePath, $comment_title);
+        if ($retval !== TRUE) {
+            $errors['photo'] = $retval; // string with error was returned, add it to error list
+        }
+    }
+  
+  
+    if (array_filter($errors)) { //STATE 2 = errors
+        $valuesList = ['comment_title' => $comment_title, 'comment_body' => $comment_body, 'image_filepath' => $photoFilePath];
+        return $this->view->render($response, 'userProfileTrips.html.twig', ['errors' => $errors, 'v' => $valuesList, 'booking_history' => $booking_history]);
+    } else {
+        // STATE 3: submission successful
+        // insert the record and inform user
+  
+        // 1. move uploaded file to its desired location
+        if (!move_uploaded_file($_FILES['photo']['tmp_name'], $photoFilePath)) {
+            die("Error moving the uploaded file. Action aborted.");
+        }
+        // 2. insert a new record with file path
+        $finalFilePath = htmlentities($photoFilePath);
+  
+        //save to db and check
+        DB::insert('testimonials', [
+            'comment_title' => $finalComment_title,
+            'comment_body' => $final_comment_body,
+            'image_filepath' => $finalFilePath,
+        ]);
+  
+        $log->debug(sprintf("new auction created with id=%s", $_SERVER['REMOTE_ADDR'], DB::insertId())); //needs test
+        $thanks = "Thank you for your story!";
+        return $this->view->render($response, 'userProfileTrips.html.twig', ['booking_history' => $booking_history, 'thanks' => $thanks]); //needs confirmation signal
+    } // end POST check
+    
+});
+
+
 //USER PROFILE HANDLERS END
 
 //SESSION HANDLER 
