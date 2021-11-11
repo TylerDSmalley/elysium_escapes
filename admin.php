@@ -122,7 +122,7 @@ $app->post('/admin/users/{op:edit|add}[/{id:[0-9]+}]',function($request,$respons
          $email="";
       }
    }
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    if($errorList){
       return $this->view->render($response,'admin/users_addedit.html.twig',
       ['errorList'=> $errorList, 'val'=> ['firstName'=> $firstName,'lastName'=>$lastName,'email'=>$email,'phone'=>$phoneNumber]]);
@@ -138,11 +138,11 @@ $app->post('/admin/users/{op:edit|add}[/{id:[0-9]+}]',function($request,$respons
          if($password1 != ""){
                $data['password'] = $hash;
          }
-
          DB::update('users',$data,"id=%d",$args['id']);
          return $this->view->render($response,'/admin/users_addedit_success.html.twig',['op'=>$args['op']]);
    }
 }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 });
 //DELETE USERS HANDLER
 $app->get('/admin/users/delete[/{id:[0-9]+}]',function($request,$response,$args){
@@ -221,6 +221,8 @@ $app->get('/admin/destinations/{op:edit|add}[/{id:[0-9]+}]',function($request,$r
 //STATE 2 & 3 = recieving submission
 $app->post('/admin/destinations/{op:edit|add}[/{id:[0-9]+}]', function ($request, $response, $args) use ($log) {
 
+   $op = $args['op'];
+
   $destination_description = $destination_name = $photo =  "";
   $errors = array('destination_name' => '', 'destination_description' => '', 'photo' => '');
 
@@ -250,22 +252,62 @@ $app->post('/admin/destinations/{op:edit|add}[/{id:[0-9]+}]', function ($request
   }
 
   // check photo
-  $photo = $_FILES['photo'];
-  if (empty($photo)) { // error not caught
-      $errors['photo'] = 'A photo is required';
-  } else {
-      $photoFilePath = "";
-      $retval = verifyUploadedPhoto($photoFilePath, $destination_name);
-      if ($retval !== TRUE) {
-          $errors['photo'] = $retval; // string with error was returned, add it to error list
-      }
-  }
 
+  $photo = $_FILES['photo'];
+  $isPhoto = TRUE;
+  if($op == 'add'){
+   $photoFilePath = "";
+   $retval = verifyUploadedPhoto($photoFilePath, $photo);
+   if ($retval !== TRUE) {
+       $errors['photo'] = $retval; // string with error was returned, add it to error list
+   }
+   //adding a new destination sent to validatePhoto
+
+  }elseif($op == 'edit' && $photo->getError()!= UPLOAD_ERR_NO_FILE){
+   $photoFilePath = "";
+   $retval = verifyUploadedPhoto($photoFilePath, $photo);
+   if ($retval !== TRUE) {
+       $errors['photo'] = $retval; // string with error was returned, add it to error list
+   }
+   //there is a photo for edit so send to validatePhoto
+  }else{
+     $isPhoto = FALSE;
+  }
+ 
 
   if (array_filter($errors)) { //STATE 2 = errors
       $valuesList = ['destination_name' => $destination_name, 'destination_description' => $destination_description, 'photo' => $photoFilePath];
       return $this->view->render($response, 'admin/destinations_add.html.twig', ['errors' => $errors, 'v' => $valuesList]);
-  } else {
+  } else { //This is an add operation
+         if($op == 'add'){
+
+            if (!move_uploaded_file($_FILES['photo']['tmp_name'], $photoFilePath)) {
+               die("Error moving the uploaded file. Action aborted.");
+           }
+           // 2. insert a new record with file path
+           $finalFilePath = htmlentities($photoFilePath);
+
+            DB::insert('destinations', [
+               'destination_name' => $finaldestination_name,
+               'destination_description' => $final_destination_description,
+               'destination_imagepath' => $finalFilePath,
+           ]);
+         }else{ //This is an edit operation
+            if($isPhoto == TRUE){
+               if (!move_uploaded_file($_FILES['photo']['tmp_name'], $photoFilePath)) {
+                  die("Error moving the uploaded file. Action aborted.");
+              }
+              // 2. insert a new record with file path
+              $finalFilePath = htmlentities($photoFilePath);
+               $data = ['destination_name'=>$finaldestination_name,'destination_description'=>$final_destination_description,'destination_imagepath' => $finalFilePath];
+               DB::update('destinations',$data,"id=%d",$args['id']);
+            }else{
+               $data = ['destination_name'=>$finaldestination_name,'destination_description'=>$final_destination_description];
+               DB::update('destinations',$data,"id=%d",$args['id']);
+            }
+            return $this->view->render($response,'/admin/users_addedit_success.html.twig',['op'=>$args['op']]);
+
+         }
       // STATE 3: submission successful
       // insert the record and inform user
 
