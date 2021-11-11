@@ -473,3 +473,99 @@ Ileana
 
 3. Where do I need assistance? What do I need to figure out?
 - Could use a second look at destinations add/edit for logic with photo being optional
+
+<<Daily Scrum - 2021-11-10>>
+
+--Tyler--
+1. What I have done / not done since last Scrum
+- Pause for Web Services 
+
+
+2. What I plan to do from this scrum to the next
+- Start template and logic for client profile page (booking_history and testemonials)
+
+
+3. Where do I need assistance? What do I need to figure out?
+-  How to do password reset
+
+
+--Stefan--
+1. What I have done / not done since last Scrum
+- Modify searchHotels function to search by destination_id
+- Created/implemented function to search booking api for destination_id (for api hotel search), and destination_type
+- Created/implemented function to determine unit of currency used by hotel, Convert to CDN
+- Created basic payment confirmation page (stripe not yet implemented)
+- Connect booking selection to payment confirmation page
+- Connect payment confirmation page to booking history/write to booking history
+- Retrieve data from booking history to display on booking confirmation/summary page
+
+
+2. What I plan to do from this scrum to the next
+- Validate user/session check
+- Response message if no hotels are returned in search
+- implement stripe
+
+
+3. Where do I need assistance? What do I need to figure out?
+-If I can't implement stripe tonight (or make reasonable progress with it), ask greg for help tomorrow
+
+
+
+Ileana
+1. What I have done / not done since last Scrum
+- Took past few days to focus on web services
+- Added booking history template to admin
+- Added testemonials template to admin with option to delete a testimonial
+
+2. What I plan to do from this scrum to the next
+- Get back to flash messages
+- Might do some research on pagination
+- Implement password retrieval
+
+
+3. Where do I need assistance? What do I need to figure out?
+- Could use a second look at destinations add/edit for logic with photo being optional
+
+<<Daily Scrum - 2021-11-11>>
+
+--Tyler--
+1. What I have done / not done since last Scrum
+- Almost finished template and logic for client profile page (booking_history and testemonials) *still needs feedback
+
+
+2. What I plan to do from this scrum to the next
+- finish form feedback for testimonial submission
+- finish user edit form template/logic
+- tackle booking as a team
+
+
+3. Where do I need assistance? What do I need to figure out?
+-  
+
+
+--Stefan--
+1. What I have done / not done since last Scrum
+- Researched stripe implementation
+- 
+
+
+2. What I plan to do from this scrum to the next
+- implement stripe
+
+
+3. Where do I need assistance? What do I need to figure out?
+- Team will gregory for stripe assistance
+
+
+
+Ileana
+1. What I have done / not done since last Scrum
+- Implement password retrieval * needs testing
+
+2. What I plan to do from this scrum to the next
+- watch video on send grid option for pass retrieval
+- add/edit destination photo check
+
+
+3. Where do I need assistance? What do I need to figure out?
+- 
