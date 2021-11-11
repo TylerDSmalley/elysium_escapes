@@ -42,6 +42,21 @@ function validatePassword($password1, $password2)
 }
 
 
+function validatePasswordQuality($password1)
+{
+    if (strlen($password1) < 9 || strlen($password1) > 100) {
+        return  "Your Password Must Contain At Least 8 Characters!";
+    } elseif (!preg_match("#[0-9]+#", $password1)) {
+        return  "Your Password Must Contain At Least 1 Number!";
+    } elseif (!preg_match("#[A-Z]+#", $password1)) {
+        return "Your Password Must Contain At Least 1 Capital Letter!";
+    } elseif (!preg_match("#[a-z]+#", $password1)) {
+        return "Your Password Must Contain At Least 1 Lowercase Letter!";
+    } else
+        return TRUE;
+}
+
+
 // $app->get('/admin/user/list', function .....);
 function verifyUploadedPhoto(&$newFilePath, $photo)
 {
