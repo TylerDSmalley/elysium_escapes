@@ -408,14 +408,15 @@ $app->post('/users/edit', function ($request, $response, $args) {
         return $this->view->render($response, 'userProfileEdit.html.twig', ['errorList' => $errorList, 'v' => $valuesList]);
     } else {
         if (!$email) {
-            DB::query("UPDATE users SET first_name=%s, last_name=%s, phone_number=%d WHERE id=%s", $firstName, $lastName, $phoneNumber, $userId);
+            DB::query("UPDATE users SET first_name=%s, last_name=%s, phone_number=%s WHERE id=%s", $firstName, $lastName, $phoneNumber, $userId);
             $success = "1";
+            printf($phoneNumber);
             unset($_SESSION['user']);
             $userCheck = DB::queryFirstRow("SELECT * FROM users WHERE id=%s", $userId);
             $_SESSION['user'] = $userCheck;
         return $this->view->render($response, 'userProfileEdit.html.twig', ['success' => $success]);
         }else {
-            DB::query("UPDATE users SET first_name=%s, last_name=%s, email=%s, phone_number=%d WHERE id=%s", $firstName, $lastName, $email, $phoneNumber, $userId);
+            DB::query("UPDATE users SET first_name=%s, last_name=%s, email=%s, phone_number=%s WHERE id=%s", $firstName, $lastName, $email, $phoneNumber, $userId);
             $success = "1";
             unset($_SESSION['user']);
             $userCheck = DB::queryFirstRow("SELECT * FROM users WHERE id=%s", $userId);

@@ -2,7 +2,7 @@
 {% block title %}Registration
 {% endblock %}
 {% block head %}
-	<link rel="stylesheet" href="../styles/registration.css">
+	<link rel="stylesheet" href="../styles/userProfile.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script>
@@ -20,6 +20,50 @@ $('#emailTaken').load("isemailtaken/" + email);
 
 {% block content %}
 
+    {% if success %}
+		<div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
+			<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+				<div class="toast-header">
+					<img src="../images/Logo.png" class="rounded me-5" alt="logo">
+					<button type="button" class="btn-close  ms-5" data-bs-dismiss="toast" aria-label="Close"></button>
+				</div>
+				<div class="toast-body">
+					<strong class="me-auto">Profile Updated</strong>
+				</div>
+			</div>
+		</div>
+	{% endif %}
+
+	{% if errors %}
+		<div class="position-fixed top-0 end-0 p-3" style="z-index: 1000">
+			<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+				<div class="toast-header">
+					<img src="../images/Logo.png" class="rounded me-5" alt="logo">
+					<button type="button" class="btn-close  ms-5" data-bs-dismiss="toast" aria-label="Close"></button>
+				</div>
+				<div class="toast-body">
+				<strong class="me-auto">There was a problem...</strong>
+					<ul>
+						{% for error in errors %}
+							<li>
+								{{error}}
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+		</div>
+	{% endif %}
+
+
+    <div class="parallax-1">
+		<div class="caption">
+			<span class="border">
+				{{user.first_name}}'s Profile
+			</span>
+		</div>
+	</div>
+
 	<section class="section p-5">
 
 		<div class="container">
@@ -28,7 +72,7 @@ $('#emailTaken').load("isemailtaken/" + email);
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h3 class="h3 card-title" id="exampleModalNavLabel">{{user.first_name}}'s Profile</h3>
+							<h3 class="h3 card-title" id="exampleModalNavLabel">Client Details</h3>
 						</div>
 						<div class="modal-body">
 							<p class="text-start">
@@ -135,4 +179,15 @@ $('#emailTaken').load("isemailtaken/" + email);
 
 	</section>
 
+    <div class="parallax-1">
+		
+	</div>
+
+    <script>
+        window.onload = (event) => {
+            let myAlert = document.querySelector('.toast');
+            let bsAlert = new bootstrap.Toast(myAlert);
+            bsAlert.show();
+        }
+    </script>
 {% endblock %}
