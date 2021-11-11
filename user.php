@@ -4,17 +4,21 @@ require_once 'vendor/autoload.php';
 
 require_once 'init.php';
 
-//display home page
+//INDEX HANDLERS
 $app->get('/', function ($request, $response, $args) {
     return $this->view->render($response, 'index.html.twig');
 });
+//INDEX HANDLERS//
 
+//BLOG HANDLERS
 $app->get('/blog', function ($request, $response, $args) {
-    $testimonials = DB::query("SELECT t.*, u.first_name, d.destination_name FROM testimonials AS t LEFT JOIN users AS u ON t.user_id = u.id LEFT JOIN destinations AS d ON t.destination_id = d.id");
+    $testimonials = DB::query("SELECT t.*, u.first_name, d.destination_name FROM testimonials AS t LEFT JOIN users AS u ON t.user_id = u.id LEFT JOIN destinations AS d ON t.destination_id = d.id ORDER BY t.createdTS DESC");
     $images = DB::query("SELECT * FROM images");
     return $this->view->render($response, 'blog.html.twig', ['testimonials' => $testimonials, 'images' => $images]);
 });
+//BLOG HANDLERS END
 
+//BOOKING HANDLERS
 $app->get('/booking', function ($request, $response, $args) {
     return $this->view->render($response, 'booking.html.twig');
 });
@@ -22,6 +26,7 @@ $app->get('/booking', function ($request, $response, $args) {
 $app->get('/bookingConfirm', function ($request, $response, $args) {
     return $this->view->render($response, 'bookingConfirm.html.twig');
 });
+//BOOKING HANDLERS END
 
 // CONTACT US HANDLERS
 $app->get('/contactus', function ($request, $response, $args) {
@@ -127,7 +132,7 @@ $app->get('/isemailtaken/{email}', function ($request, $response, $args) {
     $resultEmail = DB::queryFirstRow("SELECT email FROM users WHERE email=%s", $email);
 
     if ($resultEmail) {
-        return $response->write("Email already taken");  
+        return $response->write("Email already taken");
     } else {
         return $response->write("");
     }
@@ -249,22 +254,20 @@ $app->get('/logout', function ($request, $response, $args) {
 });
 // LOGOUT HANDLERS END
 
-//   /user/order/history or /orders/history
-
 //USER PROFILE HANDLERS
-$app->get('/users/trips', function ($request, $response, $args)  {
+$app->get('/users/trips', function ($request, $response, $args) {
     $userId = $_SESSION['user']['id'];
-    $booking_history = DB::query("SELECT b.*, d.destination_name, d.destination_imagepath FROM booking_history AS b LEFT JOIN destinations AS d ON b.destination_id = d.id WHERE user_id=%s", $userId );
+    $booking_history = DB::query("SELECT b.*, d.destination_name, d.destination_imagepath FROM booking_history AS b LEFT JOIN destinations AS d ON b.destination_id = d.id WHERE user_id=%s AND b.payment_status=%s ", $userId, "paid");
     return $this->view->render($response, 'userProfileTrips.html.twig', ['booking_history' => $booking_history]);
 });
 
 $app->post('/users/trips', function ($request, $response, $args) use ($log) {
     $userId = $_SESSION['user']['id'];
-    $booking_history = DB::query("SELECT b.*, d.destination_name, d.destination_imagepath FROM booking_history AS b LEFT JOIN destinations AS d ON b.destination_id = d.id WHERE user_id=%s", $userId );
+    $booking_history = DB::query("SELECT b.*, d.destination_name, d.destination_imagepath FROM booking_history AS b LEFT JOIN destinations AS d ON b.destination_id = d.id WHERE user_id=%s AND b.payment_status=%s ", $userId, "paid");
 
     $comment_body = $comment_title = $photo =  "";
     $errors = array('comment_title' => '', 'comment_body' => '', 'photo' => '');
-  
+
     // check comment_title
     if (empty($request->getParam('comment_title'))) {
         $errors['comment_title'] = 'A story title is required';
@@ -276,7 +279,7 @@ $app->post('/users/trips', function ($request, $response, $args) use ($log) {
             $finalComment_title = htmlentities($comment_title);
         }
     }
-  
+
     // check comment_body
     if (empty($request->getParam('comment_body'))) {
         $errors['comment_body'] = 'A story is required to submit';
@@ -289,46 +292,137 @@ $app->post('/users/trips', function ($request, $response, $args) use ($log) {
             $final_comment_body = htmlentities($final_comment_body);
         }
     }
-  
+
     // check photo
     $photo = $_FILES['photo'];
     if (empty($photo)) { // error not caught
         $errors['photo'] = 'A photo is required';
     } else {
         $photoFilePath = "";
-        $retval = verifyUploadedPhoto($photoFilePath, $comment_title);
+        $retval = verifyUploadedPhoto($photoFilePath, $photo);
         if ($retval !== TRUE) {
             $errors['photo'] = $retval; // string with error was returned, add it to error list
         }
     }
-  
-  
+
+
     if (array_filter($errors)) { //STATE 2 = errors
         $valuesList = ['comment_title' => $comment_title, 'comment_body' => $comment_body, 'image_filepath' => $photoFilePath];
         return $this->view->render($response, 'userProfileTrips.html.twig', ['errors' => $errors, 'v' => $valuesList, 'booking_history' => $booking_history]);
     } else {
         // STATE 3: submission successful
         // insert the record and inform user
-  
+
         // 1. move uploaded file to its desired location
         if (!move_uploaded_file($_FILES['photo']['tmp_name'], $photoFilePath)) {
             die("Error moving the uploaded file. Action aborted.");
         }
         // 2. insert a new record with file path
         $finalFilePath = htmlentities($photoFilePath);
-  
+
+        $destination_id = $request->getParam('destination_id');
+
         //save to db and check
         DB::insert('testimonials', [
+            'user_id' => $userId,
+            'destination_id' => $destination_id,
             'comment_title' => $finalComment_title,
             'comment_body' => $final_comment_body,
-            'image_filepath' => $finalFilePath,
+            'image_filepath' => $finalFilePath
         ]);
-  
+
         $log->debug(sprintf("new auction created with id=%s", $_SERVER['REMOTE_ADDR'], DB::insertId())); //needs test
         $thanks = "Thank you for your story!";
         return $this->view->render($response, 'userProfileTrips.html.twig', ['booking_history' => $booking_history, 'thanks' => $thanks]); //needs confirmation signal
     } // end POST check
+
+});
+
+
+$app->get('/users/edit', function ($request, $response, $args) {
+    return $this->view->render($response, 'userProfileEdit.html.twig');
+});
+
+$app->post('/users/edit', function ($request, $response, $args) {
+    //extract values submitted
+    $userId = $_SESSION['user']['id'];
     
+    if($request->getParam('firstName') !== null) {
+        $firstName = $request->getParam('firstName');
+    } else {
+        $firstName = $_SESSION['user']['first_name'];
+    }
+
+    if($request->getParam('lastName') !== null) {
+        $lastName = $request->getParam('lastName');
+    } else {
+        $lastName = $_SESSION['user']['last_name'];
+    }
+
+    if($request->getParam('email') !== null) {
+        $email = $request->getParam('email');
+    } 
+
+    if($request->getParam('phone') !== null) {
+        $phoneNumber = $request->getParam('phone');
+    } else {
+        $phoneNumber = $_SESSION['user']['phone_number'];
+    }
+
+    //validate
+
+    $errorList = array('firstName' => '', 'lastName' => '', 'email' => '', 'phone' => '');
+
+    if (preg_match('/^[\.a-zA-Z0-9,!? ]*$/', $firstName) != 1 || strlen($firstName) < 2 || strlen($firstName) > 100) {
+        $errorList['firstName'] = "Name must be between 2 and 100 characters and include only letters, numbers, space, dash, dot or comma";
+        $firstName = "";
+    }
+
+    if (preg_match('/^[\.a-zA-Z0-9,!? ]*$/', $lastName) != 1 || strlen($lastName) < 2 || strlen($lastName) > 100) {
+        $errorList['lastName'] = "Name must be between 2 and 100 characters and include only letters, numbers, space, dash, dot or comma";
+        $lastName = "";
+    }
+
+    if ($email) {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $errorList['email'] = "Invalid email format";
+            $email = "";
+        } else {
+    
+            // check DB for duplicates
+            $userRecord = DB::queryFirstRow("SELECT * FROM users WHERE email=%s", $email);
+            if ($userRecord) {
+                $errorList['email'] = 'Email already taken';
+                $email = ""; // reset invalid value to empty string
+            }
+        }
+    }
+
+    if (!validatePhone($phoneNumber)) {
+        $errorList['phone'] = "Invalid Phone Number format";
+        $phoneNumber = "";
+    }
+
+    if (array_filter($errorList)) { //STATE 2: Errors
+        $valuesList = ['firstName' => $firstName, 'lastName' => $lastName, 'email' => $email, 'phone' => $phoneNumber];
+        return $this->view->render($response, 'userProfileEdit.html.twig', ['errorList' => $errorList, 'v' => $valuesList]);
+    } else {
+        if (!$email) {
+            DB::query("UPDATE users SET first_name=%s, last_name=%s, phone_number=%d WHERE id=%s", $firstName, $lastName, $phoneNumber, $userId);
+            $success = "1";
+            unset($_SESSION['user']);
+            $userCheck = DB::queryFirstRow("SELECT * FROM users WHERE id=%s", $userId);
+            $_SESSION['user'] = $userCheck;
+        return $this->view->render($response, 'userProfileEdit.html.twig', ['success' => $success]);
+        }else {
+            DB::query("UPDATE users SET first_name=%s, last_name=%s, email=%s, phone_number=%d WHERE id=%s", $firstName, $lastName, $email, $phoneNumber, $userId);
+            $success = "1";
+            unset($_SESSION['user']);
+            $userCheck = DB::queryFirstRow("SELECT * FROM users WHERE id=%s", $userId);
+            $_SESSION['user'] = $userCheck;
+        return $this->view->render($response, 'userProfileEdit.html.twig', ['success' => $success]);
+        }
+    }
 });
 
 
