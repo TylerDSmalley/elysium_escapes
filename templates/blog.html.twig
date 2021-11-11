@@ -23,8 +23,6 @@
 					Tales from abroad
 				</h2>
 
-				<!--Add session check - if user logged in show button to add blog. When button pressed, a submission form is revealed.  -->
-
 				<!--twig insert starts -->
 				{% if testimonials %}
 					{% for testimonial in testimonials %}
@@ -37,10 +35,6 @@
 							</p>
 							<p class="m-0">
 								<strong>Destination:</strong> <a href="https://travel.fsd01.ca/destinations">{{ testimonial.destination_name }}</a>
-							</p>
-							<p class="m-0">
-								<strong>Posted on:</strong>
-								{{ testimonial.createdTS }}
 							</p>
 
 							<hr>
@@ -66,6 +60,10 @@
 									</button>
 								</div>
 							{% endif %}
+							<p class="m-0 text-end">
+								<strong>Posted on:</strong>
+								{{ testimonial.createdTS }}
+							</p>
 							<hr>
 
 						</article>
@@ -76,8 +74,8 @@
 
 				<!-- to be researched and implemented if time permits-->
 				<nav class="blog-pagination mt-4" aria-label="Pagination">
-					<a class="btn btn-outline-info" href="#">Older</a>
-					<a class="btn btn-outline-secondary disabled" href="#" tabindex="-1" aria-disabled="true">Newer</a>
+					<a class="btn btn-outline-info logInButton" href="#">Newer</a>
+					<a class="btn btn-outline-secondary disabled logInButton" href="#" tabindex="-1" aria-disabled="true">Older</a>
 				</nav>
 
 			</div>
