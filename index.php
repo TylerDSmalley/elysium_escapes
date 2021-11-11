@@ -213,4 +213,86 @@ function convertCurrencyToCAD($sourceCurrencyCode, $convertAmount) {
     return $convertAmount * $result->{array_keys(get_object_vars($result))[0]};
 }
 
+//$app->post('/passreset_request', function (Request $request, Response $response) {
+    $app->post('/passreset_request', function ( $request, $response) {
+    global $log;
+    //$view = Twig::fromRequest($request);
+    $post = $request->getParsedBody();
+    $email = filter_var($post['email'], FILTER_VALIDATE_EMAIL); // 'FALSE' will never be found anyway
+    $user = DB::queryFirstRow("SELECT * FROM users WHERE email=%s", $email);
+    if ($user) { // send email
+        $secret = generateRandomString(60);
+        $dateTime = gmdate("Y-m-d H:i:s"); // GMT time zone
+        DB::insertUpdate('password_resets', ['user_id' => $user['id'],'secretCode' => $secret,'createdTS' => $dateTime], 
+        ['secretCode' => $secret, 'createdTS' => $dateTime]);
+        //
+        // primitive template with string replacement
+        $emailBody = file_get_contents('templates/password_reset_email.html.strsub');
+        $emailBody = str_replace('EMAIL', $email, $emailBody);
+        $emailBody = str_replace('SECRET', $secret, $emailBody);
+        /* // OPTION 1: PURE PHP EMAIL SENDING - most likely will end up in Spam / Junk folder */
+        $to = $email;
+        $subject = "Password reset";
+        // Always set content-type when sending HTML email
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        // More headers
+        $headers .= 'From: No Reply <noreply@travel.fsd01.ca>' . "\r\n";
+        // finally send the email
+        $result = mail($to, $subject, $emailBody, $headers);
+        if ($result) {
+            $log->debug(sprintf("Password reset sent to %s", $email));
+        } else {
+            $log->error(sprintf("Error sending password reset email to %s\n:%s", $email));
+        } 
+    }
+        return $this->view->render($response, 'password_reset_sent.html.twig');
+    });
+
+    $app->map(['GET', 'POST'], '/passresetaction/{secret}', function ( $request, $response, array $args) {
+        global $log;
+        //$view = Twig::fromRequest($request);
+        // this needs to be done both for get and post
+        $secret = $args['secret'];
+        $resetRecord = DB::queryFirstRow("SELECT * FROM password_resets WHERE secretCode=%s", $secret);
+        if (!$resetRecord) {
+            $log->debug(sprintf('password reset token not found, token=%s', $secret));
+            return $this->view->render($response, 'password_reset_action_notfound.html.twig');
+        }
+        // check if password reset has not expired
+        $creationDT = strtotime($resetRecord['createdTS']); // convert to seconds since Jan 1, 1970 (UNIX time)
+        $nowDT = strtotime(gmdate("Y-m-d H:i:s")); // current time GMT
+        if ($nowDT - $creationDT > 60*60) { // expired
+            DB::delete('password_resets', 'secretCode=%s', $secret);
+            $log->debug(sprintf('password reset token expired user_id=%s, token=%s', $resetRecord['user_id'], $secret));
+            return $this->view->render($response, 'password_reset_action_notfound.html.twig');
+        }
+        // 
+        if ($request->getMethod() == 'POST') {
+            $post = $request->getParsedBody();
+            $pass1 = $post['pass1'];
+            $pass2 = $post['pass2'];
+            $errorList = array();
+            //COULD CALL validatepassword function -> Check if it will work the same
+            if ($pass1 != $pass2) {
+                array_push($errorList, "Passwords don't match");
+            } else {
+                $passQuality = validatePasswordQuality($pass1);
+                if ($passQuality !== TRUE) {
+                    array_push($errorList, $passQuality);
+                }
+            }
+            //
+            if ($errorList) {
+                return $this->view->render($response, 'password_reset_action.html.twig', ['errorList' => $errorList]);
+            } else {
+                DB::update('users', ['password' => $pass1], "id=%d", $resetRecord['user_id']);
+                DB::delete('password_resets', 'secretCode=%s', $secret); // cleanup the record
+                return $this->view->render($response, 'password_reset_action_success.html.twig');
+            }
+        } else {
+            return $this->view->render($response, 'password_reset_action.html.twig');
+        }
+    });
+
 $app->run();
