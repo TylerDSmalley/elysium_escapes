@@ -15,7 +15,7 @@ html {
     margin: 0;
     padding: 0;
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: 12pt;
+    font-size: 14pt;
     text-shadow: #ee9b57 1px 0 3px;
     background-image: linear-gradient(to right, #eee7e1, #ebe1dc);
 }
@@ -134,6 +134,10 @@ h3 {
     box-shadow: 0px 15px 20px rgba(47, 211, 145, 0.4);
     color: #fff;
     transform: translateY(-5px);
+}
+
+.modal-body {
+    background-image: linear-gradient(to right, #eee7e1, #ebe1dc);
 }
 
 .footer {
