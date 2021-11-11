@@ -2,22 +2,18 @@
 {% block title %}Registration
 {% endblock %}
 {% block head %}
-	<link rel="stylesheet" href="styles/registration.css">
-	<link rel="stylesheet" href="https://fonts.google.com/specimen/Source+Sans+Pro?category=Sans+Serif">
-	<link rel="stylesheet" href="https://fonts.google.com/specimen/Roboto?category=Sans+Serif#standard-styles">
-	<script src="scripts/nav.js"></script>
+	<link rel="stylesheet" href="../styles/registration.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script>
-
 		$(document).ready(function () {
-$('input[name=email]').keyup(function () {
-var email = $(this).val();
-console.log('email: ' + email);
-// email = encodeURIComponent(email);
-$('#emailTaken').load("isemailtaken/" + email);
-});
-});
+			$('input[name=email]').keyup(function () {
+				var email = $(this).val();
+				console.log('email: ' + email);
+				// email = encodeURIComponent(email);
+				$('#emailTaken').load("isemailtaken/" + email);
+			});
+		});
 	</script>
 	{{ parent() }}
 {% endblock %}
