@@ -371,41 +371,41 @@ $app->post('/users/edit', function ($request, $response, $args) {
 
     //validate
 
-    $errorList = array('firstName' => '', 'lastName' => '', 'email' => '', 'phone' => '');
+    $errors = array('firstName' => '', 'lastName' => '', 'email' => '', 'phone' => '');
 
     if (preg_match('/^[\.a-zA-Z0-9,!? ]*$/', $firstName) != 1 || strlen($firstName) < 2 || strlen($firstName) > 100) {
-        $errorList['firstName'] = "Name must be between 2 and 100 characters and include only letters, numbers, space, dash, dot or comma";
+        $errors['firstName'] = "Name must be between 2 and 100 characters and include only letters, numbers, space, dash, dot or comma";
         $firstName = "";
     }
 
     if (preg_match('/^[\.a-zA-Z0-9,!? ]*$/', $lastName) != 1 || strlen($lastName) < 2 || strlen($lastName) > 100) {
-        $errorList['lastName'] = "Name must be between 2 and 100 characters and include only letters, numbers, space, dash, dot or comma";
+        $errors['lastName'] = "Name must be between 2 and 100 characters and include only letters, numbers, space, dash, dot or comma";
         $lastName = "";
     }
 
     if ($email) {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $errorList['email'] = "Invalid email format";
+            $errors['email'] = "Invalid email format";
             $email = "";
         } else {
     
             // check DB for duplicates
             $userRecord = DB::queryFirstRow("SELECT * FROM users WHERE email=%s", $email);
             if ($userRecord) {
-                $errorList['email'] = 'Email already taken';
+                $errors['email'] = 'Email already taken';
                 $email = ""; // reset invalid value to empty string
             }
         }
     }
 
     if (!validatePhone($phoneNumber)) {
-        $errorList['phone'] = "Invalid Phone Number format";
+        $errors['phone'] = "Invalid Phone Number format";
         $phoneNumber = "";
     }
 
-    if (array_filter($errorList)) { //STATE 2: Errors
+    if (array_filter($errors)) { //STATE 2: Errors
         $valuesList = ['firstName' => $firstName, 'lastName' => $lastName, 'email' => $email, 'phone' => $phoneNumber];
-        return $this->view->render($response, 'userProfileEdit.html.twig', ['errorList' => $errorList, 'v' => $valuesList]);
+        return $this->view->render($response, 'userProfileEdit.html.twig', ['errors' => $errors, 'v' => $valuesList]);
     } else {
         if (!$email) {
             DB::query("UPDATE users SET first_name=%s, last_name=%s, phone_number=%s WHERE id=%s", $firstName, $lastName, $phoneNumber, $userId);

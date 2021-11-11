@@ -88,7 +88,7 @@ $('#emailTaken').load("isemailtaken/" + email);
 										<div class="form-floating mb-3">
 											<input type="text" class="form-control" id="floatingInputNameF" name="firstName" placeholder="Jane">
 											<label for="floatingInputNameF">First Name:</label>
-											<div class="redText">{{errorList.firstName}}</div>
+											<div class="redText">{{errors.firstName}}</div>
 										</div>
 									</div>
 									<div class="col-auto text-center mt-3">
@@ -112,7 +112,7 @@ $('#emailTaken').load("isemailtaken/" + email);
 										<div class="form-floating mb-3">
 											<input type="text" class="form-control" id="floatingInputNameL" name="lastName" placeholder="Doe">
 											<label for="floatingInputNameL">Last Name:</label>
-											<div class="redText">{{errorList.lastName}}</div>
+											<div class="redText">{{errors.lastName}}</div>
 										</div>
 									</div>
 									<div class="col-auto text-center mt-3">
@@ -135,7 +135,7 @@ $('#emailTaken').load("isemailtaken/" + email);
 										<div class="form-floating mb-3">
 											<input type="email" class="form-control" id="floatingInputEmail" name="email" placeholder="name@example.com" value="{{ v.email }}">
 											<label for="floatingInputEmail">Email</label>
-											<div id="emailTaken" class="redText">{{errorList.email}}</div>
+											<div id="emailTaken" class="redText">{{errors.email}}</div>
 											<span id="emailTaken" name="emailTaken" class="redText"></span>
 										</div>
 									</div>
@@ -159,7 +159,7 @@ $('#emailTaken').load("isemailtaken/" + email);
 										<div class="form-floating mb-3">
 											<input type="tel" class="form-control" id="floatingInputPhone" name="phone" placeholder="555-555-5555" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value="{{ v.phone_number }}">
 											<label for="floatingInputPhone">Phone</label>
-											<div class="redText">{{errorList.phone}}</div>
+											<div class="redText">{{errors.phone}}</div>
 										</div>
 									</div>
 									<div class="col-auto text-center mt-3">
