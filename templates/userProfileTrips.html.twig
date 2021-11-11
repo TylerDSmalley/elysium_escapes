@@ -9,16 +9,53 @@
 
 {% block content %}
 
+	{% if thanks %}
+		<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+			<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+				<div class="toast-header">
+					<img src="..." class="rounded me-2" alt="...">
+					<strong class="me-auto">Story Recieved</strong>
+					<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+				</div>
+				<div class="toast-body">
+					Thanks for sharing your travel story with the world!
+				</div>
+			</div>
+		</div>
+	{% endif %}
+
+	{% if errors %}
+		<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1000">
+			<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+				<div class="toast-header">
+					<img src="..." class="rounded me-2" alt="...">
+					<strong class="me-auto">There was a problem...</strong>
+					<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+				</div>
+				<div class="toast-body">
+					<ul>
+						{% for error in errors %}
+							<li>
+								{{error}}
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+		</div>
+	{% endif %}
 
 	<div class="parallax-1">
 		<div class="caption">
-			<span class="border"> {{user.first_name}}'s Trip History </span>
+			<span class="border">
+				{{user.first_name}}'s Trip History
+			</span>
 		</div>
 	</div>
 
 	<section class="section p-5">
-
 		<div class="container">
+
 			<div class="row-cols-auto text-center g-4">
 
 				{% if booking_history %}
@@ -29,7 +66,8 @@
 								<div class="card-body text-center">
 									<div class="h1 mb-3">
 										<h2 class="h3 card-title">{{ trip.destination_name }}</h2>
-										<p class="tripNum" >Trip #: {{ trip.booking_confirm }}</p>
+										<p class="tripNum">Trip #:
+											{{ trip.booking_confirm }}</p>
 									</div>
 									<div class="destinationImageBox">
 										<button class="btn btn-lg submitButton" data-bs-toggle="modal" data-bs-target="#exampleModal{{ trip.id }}">Trip Details</button>
@@ -38,7 +76,6 @@
 							</div>
 						</div>
 						<!-- Modal -->
-						<!-- FIX ME: FORMAT TO DISPLAY ORDER SUMMARY-->
 						<div class="modal fade" id="exampleModal{{ trip.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							<div class="modal-dialog modal-md">
 								<div class="modal-content">
@@ -47,22 +84,70 @@
 										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
 									<div class="modal-body">
-										<p class="text-start"> Your confirmation number is: <strong>{{ trip.booking_confirm }}</strong></p>
-										<p class="text-start"> Your total amount paid is: <strong>{{ trip.total_price }}</strong></p>
-										<p class="text-start"> Your trip was booked on: <strong>{{ trip.paymentTS }}</strong></p>
-										<p class="text-start"> Your chosen destination is: <strong>{{ trip.destination_name }}</strong></p>
-										<p class="text-start"> Your departure date is: <strong>{{ trip.departure_date }}</strong></p>
-										<p class="text-start"> Your return date is: <strong>{{ trip.return_date }}</strong></p>
-										<p class="text-start"> Number of adults: <strong>{{ trip.number_adults }}</strong></p>
-										<p class="text-start"> Number of children: <strong>{{ trip.number_children }}</strong></p>
-										<h2>Enjoy Your trip</h2>
+										<p class="text-start">
+											Your confirmation number is:
+											<strong>{{ trip.booking_confirm }}</strong>
+										</p>
+										<p class="text-start">
+											Your total amount paid is:
+											<strong>${{ trip.total_price }}</strong>
+										</p>
+										<p class="text-start">
+											Your trip was booked on:
+											<strong>{{ trip.paymentTS }}</strong>
+										</p>
+										<p class="text-start">
+											Your chosen destination is:
+											<strong>{{ trip.destination_name }}</strong>
+										</p>
+										<p class="text-start">
+											Your departure date is:
+											<strong>{{ trip.departure_date }}</strong>
+										</p>
+										<p class="text-start">
+											Your return date is:
+											<strong>{{ trip.return_date }}</strong>
+										</p>
+										<p class="text-start">
+											Number of adults:
+											<strong>{{ trip.number_adults }}</strong>
+										</p>
+										<p class="text-start">
+											Number of children:
+											<strong>{{ trip.number_children }}</strong>
+										</p>
+										<button class="btn btn-lg submitButton" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Leave a trip story!</button>
+
+										<div class="collapse" id="collapseExample">
+											<form class="row g-2" method="post" enctype="multipart/form-data">
+												<div class="col-12 mt-3">
+													<label class="input-group-text">Story title</label>
+													<input class="form-control" type="text" name="comment_title" value="{{ v.comment_title }}">
+													<div class="redText">{{errors.comment_title}}</div>
+												</div>
+
+												<div class="col-12 mt-3">
+													<span class="input-group-text">{{user.first_name}}'s trip story</span>
+													<textarea class="form-control" aria-label="With textarea" name="comment_body" value="{{ v.comment_body }}"></textarea>
+													<div class="redText">{{errors.comment_body}}</div>
+												</div>
+
+												<div class="col-12 mt-3">
+													<label class="input-group-text">Add Photo:</label>
+													<input type="file" class="form-control" name="image_filepath">
+													<div class="redText">{{errors.photo}}</div>
+												</div>
+
+												<div class="col-auto text-center mt-3">
+													<input class="btn btn-lg submitButton" type="submit" name="submit" value="Submit">
+													<button class="btn btn-lg submitButton" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Cancel</button>
+												</div>
+											</form>
+										</div>
 									</div>
-									
-									<!-- BUTTON TO ADD onClick will reveal TESTIMONIAL SUBMISSION FORM -->
+
 									<div class="modal-footer">
-										<button type="button" class="btn btn-info">
-											<a href="/booking">Add Testimonial!</a>
-										</button>
+										<h2>Enjoy Your trip</h2>
 									</div>
 								</div>
 							</div>
@@ -82,5 +167,13 @@
 			<span class="border">...Travel Right</span>
 		</div>
 	</div>
+
+	<script>
+		window.onload = (event) => {
+			let myAlert = document.querySelectorAll('.toast');
+			let bsAlert = new bootstrap.Toast(myAlert);
+			bsAlert.show();
+		}
+	</script>
 
 {% endblock %}
