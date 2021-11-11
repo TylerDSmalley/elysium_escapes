@@ -33,12 +33,11 @@
 				</button>
 
 				<ul class="navigation">
-					<li class="logoBox"></li>
-					<li class="logInButtonBox">
-						<a class="btn logInButton" href="https://travel.fsd01.ca">Home</a>
+					<li class="logoBox">
+						<a href="https://travel.fsd01.ca"><img src="../images/Logo.png" id="logo" alt="Elysium Escapes Logo"/></a>
 					</li>
 					<li class="logInButtonBox">
-						<a class="btn logInButton" href="https://travel.fsd01.ca/blog">Why Travel Right</a>
+						<a class="btn logInButton" href="https://travel.fsd01.ca/blog">Tales from Elysium</a>
 					</li>
 					<li class="logInButtonBox">
 						<a class="btn logInButton" href="https://travel.fsd01.ca/destinations">Destinations</a>
@@ -53,16 +52,22 @@
 						<a class="btn logInButton" href="https://travel.fsd01.ca/contactus">Contact Us</a>
 					</li>
 					<li class="logInButtonBox">
-						<a class="btn logInButton" href="travel_right_index_fr.html">Fr</a>
+						<a class="btn logInButton" href="#">Fr</a>
 					</li>
 					{% if user.email != null %}
-						<li class="logInButtonBox">
-							<a class="btn logInButton" href="https://travel.fsd01.ca/logout">Sign Out</a>
-						</li>
 						{% if (user.account_type == "manager") or (user.account_type == "admin") %}
 							<li class="logInButtonBox nav-item dropdown">
-								<a class="btn nav-link dropdown-toggle logInButton" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Admin</a>
+								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{user.email}}</a>
 								<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+									<li>
+										<a class="dropdown-item" href="https://travel.fsd01.ca/users/trips">Order History</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="https://travel.fsd01.ca/users/edit">Edit Profile</a>
+									</li>
+									<li>
+										<p class="dropdown-item">------------</p>
+									</li>
 									<li>
 										<a class="dropdown-item" href="https://travel.fsd01.ca/admin/users/list">User List</a>
 									</li>
@@ -78,20 +83,33 @@
 									<li>
 										<a class="dropdown-item" href="https://travel.fsd01.ca/admin/testimonials/list">Testimonials List</a>
 									</li>
+									<li>
+										<p class="dropdown-item">------------</p>
+									</li>
+									<li class="logInButtonBox">
+										<a class="dropdown-item" href="https://travel.fsd01.ca/logout">Sign Out</a>
+									</li>
+								</ul>
+							</li>
+						{% elseif (user.account_type == "customer") %}
+							<li class="logInButtonBox nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{user.email}}</a>
+								<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+									<li>
+										<a class="dropdown-item" href="https://travel.fsd01.ca/users/trips">Trip History</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="https://travel.fsd01.ca/users/edit">Edit Profile</a>
+									</li>
+									<li>
+										<p class="dropdown-item">------------</p>
+									</li>
+									<li class="logInButtonBox">
+										<a class="dropdown-item" href="https://travel.fsd01.ca/logout">Sign Out</a>
+									</li>
 								</ul>
 							</li>
 						{% endif %}
-						<li class="logInButtonBox nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{user.email}}</a>
-							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<li>
-									<a class="dropdown-item" href="https://travel.fsd01.ca/users/trips">Order History</a>
-								</li>
-								<li>
-									<a class="dropdown-item" href="https://travel.fsd01.ca/users/edit">Edit Profile</a>
-								</li>
-							</ul>
-						</li>
 					{% else %}
 						<li class="logInButtonBox">
 							<a class="btn logInButtonBox" href="https://travel.fsd01.ca/login">
