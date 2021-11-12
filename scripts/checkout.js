@@ -2,7 +2,8 @@
 const stripe = Stripe("pk_test_51JuPDTKzuA9IpUUKvtSDUnM1jq05tc6FucLC552QRiK5uSCkg0EVoMAdYrAgggGMNkKdwbBZ9BPv1p5FjaQuSbDq00sGqRBzaH");
 
 // The items the customer wants to buy
-const items = [{ id: "xl-tshirt" }];
+const items = [{ id: "xl-tshirt", total: price}];
+console.log(price);
 
 let elements;
 
