@@ -6,6 +6,7 @@
 
 {% block content %}
     <form id="payment-form">
+    <input type="hidden" id="price" value="{{cad_price}}"/>
       <p>
           Hotel Name: {{ hotel.hotel_name }}<br>
           City: {{ hotel.city }}<br>
