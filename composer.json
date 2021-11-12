@@ -1,5 +1,5 @@
 {
-    "name": "tyler/elysiumEscapes",
+    "name": "tyler/day06slimauction",
     "require": {
         "slim/slim": "^3.12",
         "twig/twig": "v2.14.7",
