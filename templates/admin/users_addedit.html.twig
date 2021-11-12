@@ -24,29 +24,30 @@
 	{% endif %}
 
 			<form class="form" method="POST">
+				<input class="title" type="hidden" name="op" value="{{ op }}"/>
 				<h3>{% if op == 'add' %}Add{% else %}Edit{% endif %} User</h3>
 				<div class="formContainer">
 					User First Name:
-					<input class="title" type="text" name="firstName" value="{{ user.first_name }}"/><br/>
+					<input class="title" type="text" name="firstName" value="{{ use.first_name }}"/><br/>
                     User Last Name:
-					<input class="title" type="text" name="lastName" value="{{ user.last_name }}"/><br/>
+					<input class="title" type="text" name="lastName" value="{{ use.last_name }}"/><br/>
 					User Email:
-					<input class="title" type="text" name="email" value="{{ user.email }}"/><br>
+					<input class="title" type="text" name="email" value="{{ use.email }}"/><br>
 					User Phone:
-					<input class="title" type="text" name="phone" value="{{user.phone_number}}"/><br/>
+					<input class="title" type="text" name="phone" value="{{use.phone_number}}"/><br/>
                     User Type:<br/>
                     <select name="type" id="type">
-					 {% if user.account_type == "customer" or op == 'add' or errorList %}
+					 {% if use.account_type == "customer" or op == 'add' or errorList %}
                         <option selected>customer</option>
                         <option>manager</option>
                         <option>admin</option>
 					{% endif %}	
-					 {% if user.account_type == "manager"%}
+					 {% if use.account_type == "manager"%}
                         <option>customer</option>
                         <option selected>manager</option>
                         <option>admin</option>
 					{% endif %}	
-					 {% if user.account_type == "admin"%}
+					 {% if use.account_type == "admin"%}
                         <option>customer</option>
                         <option>manager</option>
                         <option selected>admin</option>

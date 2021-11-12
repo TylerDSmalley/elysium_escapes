@@ -8,8 +8,9 @@ function validateName($name)
 {
     if (preg_match('/^[\.a-zA-Z0-9,!? ]*$/', $name) != 1 || strlen($name) < 2 || strlen($name) > 100) {
         return "Name must be between 2 and 100 characters and include only letters, numbers, space, dash, dot or comma";
+    } else {
+        return TRUE;
     }
-    return TRUE;
 }
 
 function validatePhone($phone)
@@ -17,7 +18,7 @@ function validatePhone($phone)
     $valid_number = filter_var($phone, FILTER_SANITIZE_NUMBER_INT);
     $valid_number = str_replace("-", "", $valid_number);
     if (strlen($valid_number) < 10 || strlen($valid_number) > 14) {
-        return FALSE;
+        return "Invalid phone number";
     } else {
         return TRUE;
     }
