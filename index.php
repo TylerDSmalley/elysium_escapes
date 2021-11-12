@@ -84,7 +84,7 @@ $app->post('/testbooking', function ($request, $response, $args) {
         $flightId = DB::insertId();
 
         $valuesList = [
-            'user_id' => 1,
+            'user_id' => $_SESSION['user']['id'],
             'destination_id' => $destinationId,
             'hotel_id' => $hotelId,
             'flight_id' => $flightId,
