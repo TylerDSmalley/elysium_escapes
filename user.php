@@ -20,11 +20,11 @@ $app->get('/blog', function ($request, $response, $args) {
 
 //BOOKING HANDLERS
 $app->get('/booking', function ($request, $response, $args) {
-    return $this->view->render($response, 'booking.html.twig');
+    return $this->view->render($response, 'testbooking.html.twig');
 });
 
 $app->get('/bookingConfirm', function ($request, $response, $args) {
-    return $this->view->render($response, 'bookingConfirm.html.twig');
+    return $this->view->render($response, 'testBookingConfirm.html.twig');
 });
 //BOOKING HANDLERS END
 
