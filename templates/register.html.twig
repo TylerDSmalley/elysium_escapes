@@ -34,7 +34,7 @@
 							<form method="post" enctype="multipart/form-data">
 								<div class="col-md">
 									<div class="form-floating mb-3">
-										<input type="text" class="form-control" id="floatingInputNameF" name="firstName" placeholder="Jane">
+										<input type="text" class="form-control" id="floatingInputNameF" name="firstName" placeholder="Jane" value = "{{ v.first_name }}">
 										<label for="floatingInputNameF">First Name:</label>
 										<div class="redText">{{errorList.firstName}}</div>
 									</div>
@@ -42,7 +42,7 @@
 
 								<div class="col-md">
 									<div class="form-floating mb-3">
-										<input type="text" class="form-control" id="floatingInputNameL" name="lastName" placeholder="Doe">
+										<input type="text" class="form-control" id="floatingInputNameL" name="lastName" placeholder="Doe" value = "{{ v.first_name }}">
 										<label for="floatingInputNameL">Last Name:</label>
 										<div class="redText">{{errorList.lastName}}</div>
 									</div>
