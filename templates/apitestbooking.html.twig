@@ -1,24 +1,37 @@
 {% extends "base.html.twig" %}
 
 {% block content %}
-<br><br><br><br><br>
-<div>
-{% for hotel in h %}
-    {% if hotel.accommodation_type_name == "Resort" %}
-        <form method="post">        
-            <img src="{{hotel.max_photo_url}}" width='300px'><br>
-            <input type="hidden" name="hotel" value="{{hotel|json_encode()}}"/>
-            <input type="hidden" name="options" value="{{options|json_encode()}}"/>
-            <p>
-                Hotel Name: {{ hotel.hotel_name }}<br>
-                City: {{ hotel.city }}<br>
-                Address: {{ hotel.address }}<br>
-                Price ({{hotel.currency_code}}): {{ hotel.price_breakdown.all_inclusive_price }}<br>
-            </p>
-            <input type="submit" value="Book This Resort"><br><br><br>
-        </form>    
-    {% endif %}
-{% endfor %}  
-    
-</div>
+	<br><br><br><br><br>
+	<div>
+		{% for hotel in h %}
+			{% if hotel.accommodation_type_name == "Resort" %}
+				<form method="post">
+					<img src="{{hotel.max_photo_url}}" width='300px'><br>
+					<input type="hidden" name="hotel" value="{{hotel|json_encode()}}"/>
+					<input type="hidden" name="options" value="{{options|json_encode()}}"/>
+					<p>
+						Hotel Name:
+						{{ hotel.hotel_name }}<br>
+						City:
+						{{ hotel.city }}<br>
+						Address:
+						{{ hotel.address }}<br>
+						Price ({{hotel.currency_code}}):
+						{{ hotel.price_breakdown.all_inclusive_price }}<br>
+					</p>
+					{% if user.email != null %}
+						<input type="submit" value="Book This Resort"><br><br><br>
+					{% else %}
+						<p>
+							To book this fabulous trip...
+							<a class="btn logInButtonBox" href="https://travel.fsd01.ca/login">
+								<p class="btn logInButton">Sign in</p>
+							</a>
+						</p>
+					{% endif %}
+				</form>
+			{% endif %}
+		{% endfor %}
+
+	</div>
 {% endblock content %}
