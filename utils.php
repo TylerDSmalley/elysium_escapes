@@ -36,9 +36,7 @@ function validatePassword($password1, $password2)
         return "Your Password Must Contain At Least 1 Capital Letter!";
     } elseif (!preg_match("#[a-z]+#", $password1)) {
         return "Your Password Must Contain At Least 1 Lowercase Letter!";
-    } elseif (!empty($password1)) {
-        return "Please Check You've Entered Or Confirmed Your Password!";
-    } else
+    }  else
         return TRUE;
 }
 
