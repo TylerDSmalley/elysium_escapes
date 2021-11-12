@@ -26,12 +26,10 @@
 				Choose Your Destination:
 			</div>
 			<div class="full-width">
-				<input type="radio" id="{{d[0].destination_name}}" name="location" value="{{d[0].destination_name}}" required/>
-				<label for="{{d[0].destination_name}}"><img src="{{d[0].destination_imagepath}}" height="170" width="307" alt="{{d[0].destination_name}} image" title="{{d[0].destination_name}} image"/></label>
-				<input type="radio" id="{{d[1].destination_name}}" name="location" value="{{d[1].destination_name}}"/>
-				<label for="{{d[1].destination_name}}"><img src="{{d[1].destination_imagepath}}" height="170" width="307" alt="{{d[1].destination_name}} image" title="{{d[1].destination_name}} image"/></label>
-				<input type="radio" id="{{d[2].destination_name}}" name="location" value="{{d[2].destination_name}}"/>
-				<label for="{{d[2].destination_name}}"><img src="{{d[2].destination_imagepath}}" height="170" width="307" alt="{{d[2].destination_name}} image" title="{{d[2].destination_name}} image"/></label>
+			{% for destination in d %}
+				<input type="radio" id="{{destination.destination_name}}" name="location" value="{{destination.destination_name}}" required/>
+				<label for="{{destination.destination_name}}"><img src="{{destination.destination_imagepath}}" height="170" width="307" alt="{{destination.destination_name}} image" title="{{destination.destination_name}} image"/></label>
+			{% endfor %}	
 				<br/>
 			</div>
 			<div class="col2">
