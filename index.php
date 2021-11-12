@@ -121,21 +121,18 @@ $app->post('/create', function ($request, $response, $args) {
         // Replace this constant with a calculation of the order's amount
         // Calculate the order total on the server to prevent
         // people from directly manipulating the amount on the client
-        // return 1400;
-        return $items["total"];
+        return 1400;
+        // return $items["total"];
     }
 
+
     
-    $jsonStr = file_get_contents('php://input');
-    $jsonObj = json_decode($jsonStr);
 
-    print_r($jsonObj);
-
-    /* try {
+    try {
         // retrieve JSON from POST body
         $jsonStr = file_get_contents('php://input');
         $jsonObj = json_decode($jsonStr);
-
+        print_r($jsonObj);
         // Create a PaymentIntent with amount and currency
          $paymentIntent = \Stripe\PaymentIntent::create([
             'amount' => calculateOrderAmount($jsonObj->items),
@@ -150,7 +147,7 @@ $app->post('/create', function ($request, $response, $args) {
     } catch (Error $e) {
         http_response_code(500);
         echo json_encode(['error' => $e->getMessage()]);
-    } */
+    }
 });
 
 function callAPI($url, $bookingApi = false) {
