@@ -122,16 +122,15 @@ $app->post('/admin/users/{op:edit|add}[/{id:[0-9]+}]',function($request,$respons
          $email="";
       }
    }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Problem with page reloading with errors.. changes add to edit and doesn't populate dropdown list
    if($errorList){
       return $this->view->render($response,'admin/users_addedit.html.twig',
-      ['errorList'=> $errorList, 'val'=> ['firstName'=> $firstName,'lastName'=>$lastName,'email'=>$email,'phone'=>$phoneNumber]]);
+      ['errorList'=> $errorList, 'val'=> ['firstName'=> $firstName,'lastName'=>$lastName,'email'=>$email,'phone'=>$phoneNumber,'account_type'=>$type]]);
    }else{
       $hash = password_hash($password1,PASSWORD_DEFAULT);
       if($args['op']=='add'){
          DB::insert('users',['first_name'=>$firstName,'last_name'=>$lastName,'email'=>$email,'phone_number'=>$phoneNumber,'password'=>$hash,'account_type'=>$type]);
          setFlashMessage("User successfully added!"); 
-         //return $this->view->render($response,'/admin/users_addeit_sucess.html.twig',['op'=>$args['op']]);
          return $response->withRedirect("/admin/users/list");
    }else{
       $data = ['first_name'=>$firstName,'last_name'=>$lastName,'email'=>$email,'phone_number'=>$phoneNumber,'account_type'=>$type];
@@ -142,7 +141,7 @@ $app->post('/admin/users/{op:edit|add}[/{id:[0-9]+}]',function($request,$respons
          return $this->view->render($response,'/admin/users_addedit_success.html.twig',['op'=>$args['op']]);
    }
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 });
 //DELETE USERS HANDLER
 $app->get('/admin/users/delete[/{id:[0-9]+}]',function($request,$response,$args){
@@ -282,6 +281,10 @@ $app->post('/admin/destinations/{op:edit|add}[/{id:[0-9]+}]', function ($request
          if ($op == 'add'){
 
             if (!move_uploaded_file($_FILES['photo']['tmp_name'], $photoFilePath)) {
+               echo $_FILES['photo']['tmp_name'] ;
+               echo "   ";
+               echo $photoFilePath;
+               
                die("Error moving the uploaded file. Action aborted.");
            }
            // 2. insert a new record with file path
@@ -305,28 +308,10 @@ $app->post('/admin/destinations/{op:edit|add}[/{id:[0-9]+}]', function ($request
                $data = ['destination_name'=>$finaldestination_name,'destination_description'=>$final_destination_description];
                DB::update('destinations',$data,"id=%d",$args['id']);
             }
-            return $this->view->render($response,'/admin/users_addedit_success.html.twig',['op'=>$args['op']]);
-
+            
          }
-      // STATE 3: submission successful
-      // insert the record and inform user
+      return $this->view->render($response,'/admin/destinations_addedit_success.html.twig',['op'=>$args['op']]);
 
-      // 1. move uploaded file to its desired location
-      if (!move_uploaded_file($_FILES['photo']['tmp_name'], $photoFilePath)) {
-          die("Error moving the uploaded file. Action aborted.");
-      }
-      // 2. insert a new record with file path
-      $finalFilePath = htmlentities($photoFilePath);
-
-      //save to db and check
-      DB::insert('destinations', [
-          'destination_name' => $finaldestination_name,
-          'destination_description' => $final_destination_description,
-          'destination_imagepath' => $finalFilePath,
-      ]);
-
-      $log->debug(sprintf("new auction created with id=%s", $_SERVER['REMOTE_ADDR'], DB::insertId())); //needs test
-      return $this->view->render($response, 'admin/destinations_add.html.twig'); //needs confirmation signal
   } // end POST check
   
 });

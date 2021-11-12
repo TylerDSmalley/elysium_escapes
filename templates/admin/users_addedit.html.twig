@@ -36,7 +36,7 @@
 					<input class="title" type="text" name="phone" value="{{user.phone_number}}"/><br/>
                     User Type:<br/>
                     <select name="type" id="type">
-					 {% if user.account_type == "customer" or op == 'add'%}
+					 {% if user.account_type == "customer" or op == 'add' or errorList %}
                         <option selected>customer</option>
                         <option>manager</option>
                         <option>admin</option>
