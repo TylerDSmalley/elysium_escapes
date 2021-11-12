@@ -263,7 +263,7 @@ $app->post('/admin/destinations/{op:edit|add}[/{id:[0-9]+}]', function ($request
    }
    //adding a new destination sent to validatePhoto
 
-  }elseif($op == 'edit' && $photo->getError()!= UPLOAD_ERR_NO_FILE){
+  }elseif($op == 'edit' && $photo['error'] != UPLOAD_ERR_NO_FILE){
    $photoFilePath = "";
    $retval = verifyUploadedPhoto($photoFilePath, $photo);
    if ($retval !== TRUE) {
@@ -279,7 +279,7 @@ $app->post('/admin/destinations/{op:edit|add}[/{id:[0-9]+}]', function ($request
       $valuesList = ['destination_name' => $destination_name, 'destination_description' => $destination_description, 'photo' => $photoFilePath];
       return $this->view->render($response, 'admin/destinations_add.html.twig', ['errors' => $errors, 'v' => $valuesList]);
   } else { //This is an add operation
-         if($op == 'add'){
+         if ($op == 'add'){
 
             if (!move_uploaded_file($_FILES['photo']['tmp_name'], $photoFilePath)) {
                die("Error moving the uploaded file. Action aborted.");
