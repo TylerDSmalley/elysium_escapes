@@ -574,12 +574,11 @@ Ileana
 
 --Tyler--
 1. What I have done / not done since last Scrum
-- 
+- finish form feedback for testimonial submission
+- finish user edit form template/logic
 
 
 2. What I plan to do from this scrum to the next
-- finish form feedback for testimonial submission
-- finish user edit form template/logic
 - tackle booking as a team
 
 
@@ -589,11 +588,12 @@ Ileana
 
 --Stefan--
 1. What I have done / not done since last Scrum
--
+- Studied webhooks
 
 
 2. What I plan to do from this scrum to the next
 - implement stripe
+- tackle booking as a team
 
 
 3. Where do I need assistance? What do I need to figure out?
@@ -603,11 +603,11 @@ Ileana
 
 Ileana
 1. What I have done / not done since last Scrum
-- 
+- add/edit destination photo check
 
 2. What I plan to do from this scrum to the next
 - watch video on send grid option for pass retrieval
-- add/edit destination photo check
+- tackle booking as a team
 
 
 3. Where do I need assistance? What do I need to figure out?
