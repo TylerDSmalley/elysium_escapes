@@ -122,16 +122,15 @@ $app->post('/admin/users/{op:edit|add}[/{id:[0-9]+}]',function($request,$respons
          $email="";
       }
    }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Problem with page reloading with errors.. changes add to edit and doesn't populate dropdown list
    if($errorList){
       return $this->view->render($response,'admin/users_addedit.html.twig',
-      ['errorList'=> $errorList, 'val'=> ['firstName'=> $firstName,'lastName'=>$lastName,'email'=>$email,'phone'=>$phoneNumber]]);
+      ['errorList'=> $errorList, 'val'=> ['firstName'=> $firstName,'lastName'=>$lastName,'email'=>$email,'phone'=>$phoneNumber,'account_type'=>$type]]);
    }else{
       $hash = password_hash($password1,PASSWORD_DEFAULT);
       if($args['op']=='add'){
          DB::insert('users',['first_name'=>$firstName,'last_name'=>$lastName,'email'=>$email,'phone_number'=>$phoneNumber,'password'=>$hash,'account_type'=>$type]);
          setFlashMessage("User successfully added!"); 
-         //return $this->view->render($response,'/admin/users_addeit_sucess.html.twig',['op'=>$args['op']]);
          return $response->withRedirect("/admin/users/list");
    }else{
       $data = ['first_name'=>$firstName,'last_name'=>$lastName,'email'=>$email,'phone_number'=>$phoneNumber,'account_type'=>$type];
@@ -142,7 +141,7 @@ $app->post('/admin/users/{op:edit|add}[/{id:[0-9]+}]',function($request,$respons
          return $this->view->render($response,'/admin/users_addedit_success.html.twig',['op'=>$args['op']]);
    }
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 });
 //DELETE USERS HANDLER
 $app->get('/admin/users/delete[/{id:[0-9]+}]',function($request,$response,$args){
