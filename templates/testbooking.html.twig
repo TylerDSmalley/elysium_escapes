@@ -27,8 +27,9 @@
 			</div>
 			<div class="full-width">
 			{% for destination in d %}
+				<h3>{{destination.destination_name}}</h3>
 				<input type="radio" id="{{destination.destination_name}}" name="location" value="{{destination.destination_name}}" required/>
-				<label for="{{destination.destination_name}}"><img src="{{destination.destination_imagepath}}" height="170" width="307" alt="{{destination.destination_name}} image" title="{{destination.destination_name}} image"/></label>
+				<label for="{{destination.destination_name}}"><img src="../{{destination.destination_imagepath}}" height="170" width="307" alt="{{destination.destination_name}} image" title="{{destination.destination_name}} image"/></label>
 			{% endfor %}	
 				<br/>
 			</div>

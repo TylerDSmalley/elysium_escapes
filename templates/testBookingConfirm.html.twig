@@ -27,47 +27,47 @@
 						<th>Destination |</th>
 						<th> Adults |</th>
 						<th> Children |</th>
-						<th> Arrival Date |</th>
-						<th> Departure Date</th>
+						<th> Departure Date |</th>
+						<th> Return Date</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td>{{ v.location }}</td>
-						<td>{{ v.adults }}</td>
-						<td>{{ v.children }}</td>
-						<td>{{ v.arrival }}</td>
-						<td>{{ v.departure }}</td>
+						<td>{{ bookingConfirm.destination_name }}</td>
+						<td>{{ bookingConfirm.number_adults }}</td>
+						<td>{{ bookingConfirm.number_children }}</td>
+						<td>{{ bookingConfirm.departure_date }}</td>
+						<td>{{ bookingConfirm.return_date }}</td>
 					</tr>
 				</tbody>
 			</table><br><br>
 			<table class="flexTable">
 				<tr>
 					<th>Hotel Name</th>
-					<td>{{ v.hotel_name }}</td>
+					<td>{{ bookingConfirm.hotel_name }}</td>
 				</tr>
 				<tr>
 					<th> City</th>
-					<td>{{ v.hotel_city }}</td>
+					<td>{{ bookingConfirm.hotel_city }}</td>
 				</tr>
 				<tr>
 					<th> Address</th>
-					<td>{{ v.hotel_address }}</td>
+					<td>{{ bookingConfirm.hotel_address }}</td>
 				</tr>
 			</table>
 			<br>
 			<table class="flexTable">
 				<tr>
-					<th> Total Amount ({{v.hotel_currency}})</th>
-					<td>{{ v.price_hotel_currency }}</td>
+					<th> Total Amount ({{bookingConfirm.hotel_currency}})</th>
+					<td>{{ bookingConfirm.price_hotel_currency }}</td>
 				</tr>
 				<tr>
 					<th> Total Amount (CAD)</th>
-					<td>{{ v.price_cad }}</td>
+					<td>{{ bookingConfirm.price_cad }}</td>
 				</tr>
 				<tr>
 					<th> Confirmation #</th>
-					<td>{{ v.confirmation }}</td>
+					<td>{{ bookingConfirm.booking_confirm }}</td>
 				</tr>
 			</table>
 		</fieldset>
