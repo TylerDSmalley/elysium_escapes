@@ -125,7 +125,13 @@ $app->post('/create', function ($request, $response, $args) {
         return $items["total"];
     }
 
-    try {
+    
+    $jsonStr = file_get_contents('php://input');
+    $jsonObj = json_decode($jsonStr);
+
+    print_r($jsonObj);
+
+    /* try {
         // retrieve JSON from POST body
         $jsonStr = file_get_contents('php://input');
         $jsonObj = json_decode($jsonStr);
@@ -144,7 +150,7 @@ $app->post('/create', function ($request, $response, $args) {
     } catch (Error $e) {
         http_response_code(500);
         echo json_encode(['error' => $e->getMessage()]);
-    }
+    } */
 });
 
 function callAPI($url, $bookingApi = false) {
