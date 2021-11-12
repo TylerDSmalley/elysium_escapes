@@ -19,7 +19,32 @@ $app->get('/testbooking', function ($request, $response, $args) {
 
 
 $app->post('/testbooking', function ($request, $response, $args) {
-    if ($request->getParam('submit') !== null) {
+    /* if ($request->getParam('submit') !== null) {
+
+        $bookingId = DB::insertId();
+
+        $bookingData = DB::queryFirstRow("SELECT * FROM booking_history WHERE id=%i", $bookingId);
+        $hotelData = DB::queryFirstRow("SELECT * FROM hotel WHERE confirmation=%i", $bookingData["booking_confirm"]);     
+        $location2 = DB::queryFirstField("SELECT destination_name FROM destinations WHERE id=%i", $bookingData["destination_id"]);
+
+        $values = [
+            'location' => $location2,
+            'adults' => $bookingData["number_adults"],
+            'children' => $bookingData["number_children"],
+            'arrival' => $bookingData["departure_date"],
+            'departure' => $bookingData["return_date"],
+            'hotel_name' => $hotelData["hotel_name"],
+            'hotel_city' => $hotelData["hotel_city"],
+            'hotel_address' => $hotelData["hotel_address"],
+            'hotel_currency' => $hotelData["hotel_currency"],
+            'price_hotel_currency' => $hotelData["price_hotel_currency"],
+            'price_cad' => $hotelData["price_cad"],
+            'confirmation' => $bookingData["booking_confirm"]
+        ];
+        
+        return $this->view->render($response, 'testBookingConfirm.html.twig', ['v' => $values]);
+        
+    } else */ if ($request->getParam('hotel') !== null){
         $hotel = json_decode($request->getParam('hotel'));
         $options = json_decode($request->getParam('options'));
 
@@ -70,43 +95,15 @@ $app->post('/testbooking', function ($request, $response, $args) {
             'flight_id' => $flightId,
             'number_adults' => $options->adults,
             'number_children' => $options->children,
-            'total_price' => $hotelPrice,
+            'total_price' => $cadPrice,
             'departure_date' => $options->arrival,
             'return_date' => $options->departure,
             'booking_confirm' => $rand
         ];
 
         DB::insert('booking_history', $valuesList);
-
-        $bookingId = DB::insertId();
-
-        $bookingData = DB::queryFirstRow("SELECT * FROM booking_history WHERE id=%i", $bookingId);
-        $hotelData = DB::queryFirstRow("SELECT * FROM hotel WHERE confirmation=%i", $bookingData["booking_confirm"]);     
-        $location2 = DB::queryFirstField("SELECT destination_name FROM destinations WHERE id=%i", $bookingData["destination_id"]);
-
-        $values = [
-            'location' => $location2,
-            'adults' => $bookingData["number_adults"],
-            'children' => $bookingData["number_children"],
-            'arrival' => $bookingData["departure_date"],
-            'departure' => $bookingData["return_date"],
-            'hotel_name' => $hotelData["hotel_name"],
-            'hotel_city' => $hotelData["hotel_city"],
-            'hotel_address' => $hotelData["hotel_address"],
-            'hotel_currency' => $hotelData["hotel_currency"],
-            'price_hotel_currency' => $hotelData["price_hotel_currency"],
-            'price_cad' => $hotelData["price_cad"],
-            'confirmation' => $bookingData["booking_confirm"]
-        ];
         
-        return $this->view->render($response, 'testBookingConfirm.html.twig', ['v' => $values]);
-        
-    } else if ($request->getParam('hotel') !== null){
-        $hotel = json_decode($request->getParam('hotel'));
-        $options = json_decode($request->getParam('options'));
-        $cadPrice = convertCurrencyToCAD($hotel->currency_code, $hotel->price_breakdown->all_inclusive_price);
-        
-        return $this->view->render($response, 'testpayment.html.twig', ['hotel' => $hotel, 'options' => $options, 'cad_price' => $cadPrice]);
+        return $this->view->render($response, 'checkout.html.twig', ['hotel' => $hotel, 'options' => $options, 'cad_price' => $cadPrice]);
     } else {
         $location = $request->getParam('location');
         $adults = $request->getParam('adults');
@@ -121,7 +118,40 @@ $app->post('/testbooking', function ($request, $response, $args) {
     
 });
 
-function callAPI($url) {
+$app->post('/create', function ($request, $response, $args) {
+    //\Stripe\Stripe::setApiKey('sk_test_51JuPDTKzuA9IpUUKot3YMvv0KCWLD5GXtkRASmhqQ96VrLzHufknH8XmZzTexDcaIiOcmcuGfQpHMQQ5jY6nd0da007T6z1Bi9');
+
+
+    function calculateOrderAmount(array $items): int {
+        // Replace this constant with a calculation of the order's amount
+        // Calculate the order total on the server to prevent
+        // people from directly manipulating the amount on the client
+        return 1400;
+    }
+
+    try {
+        // retrieve JSON from POST body
+        $jsonStr = file_get_contents('php://input');
+        $jsonObj = json_decode($jsonStr);
+
+        // Create a PaymentIntent with amount and currency
+        /* $paymentIntent = \Stripe\PaymentIntent::create([
+            'amount' => calculateOrderAmount($jsonObj->items),
+            'currency' => 'CAD',
+            'payment_method_types' => ['card'],
+        ]);
+
+        $output = [
+            'clientSecret' => $paymentIntent->client_secret,
+        ];
+        return $response->write(json_encode($output)); */
+    } catch (Error $e) {
+        http_response_code(500);
+        echo json_encode(['error' => $e->getMessage()]);
+    }
+});
+
+function callAPI($url, $bookingApi = false) {
 	$curl = curl_init($url);
 
 	curl_setopt_array($curl, [
@@ -133,6 +163,11 @@ function callAPI($url) {
             "x-rapidapi-key: 68aae21a33msh252600cf6b8ca98p12dc49jsn6f7bf7be6ae4" // testkeyone1@gmail.com // ApiTestingKey#1
         ],
 	]);
+
+    if ($bookingApi === true) {
+        curl_setopt($curl,CURLOPT_HTTPHEADER , ["x-rapidapi-host: booking-com.p.rapidapi.com",
+        "x-rapidapi-key: 68aae21a33msh252600cf6b8ca98p12dc49jsn6f7bf7be6ae4"]);
+    }
 	
 	$response = curl_exec($curl);
 	$err = curl_error($curl);
@@ -147,7 +182,7 @@ function callAPI($url) {
 function searchLocation($searchLocation, &$dest_type) {
     $apiUrl = "https://booking-com.p.rapidapi.com/v1/hotels/locations?locale=en-us&name=" . urlencode($searchLocation);
 
-    $locationList = callAPI($apiUrl);
+    $locationList = callAPI($apiUrl, true);
 
     foreach ($locationList as $location) {
         if ($location->name == $searchLocation) {
@@ -185,31 +220,13 @@ function searchHotels($location, $destType, $adults, $children, $arrival, $depar
         }
     }
 
-    return callAPI($apiUrl);
+    return callAPI($apiUrl, true);
     
 }
 
 function convertCurrencyToCAD($sourceCurrencyCode, $convertAmount) {
-    function callAPI2($url) {
-        $curl = curl_init($url);
-    
-        curl_setopt_array($curl, [
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_SSL_VERIFYPEER => FALSE,
-            CURLOPT_SSL_VERIFYHOST => FALSE
-        ]);
-        
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
-        
-        curl_close($curl);
-        
-        $data = json_decode ( $response);
-    
-        return $data;
-    }
     $apiUrl = "https://free.currconv.com/api/v7/convert?q=" . $sourceCurrencyCode . "_CAD&compact=ultra&apiKey=05d742f1f2b8ff8dd8c3";
-    $result = callAPI2($apiUrl);
+    $result = callAPI($apiUrl);
     return $convertAmount * $result->{array_keys(get_object_vars($result))[0]};
 }
 
