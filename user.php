@@ -20,12 +20,8 @@ $app->get('/blog', function ($request, $response, $args) {
 
 //BOOKING HANDLERS
 $app->get('/testbooking', function ($request, $response, $args) {
-    if(!isset( $_SESSION['user'])) {
-        return $this->view->render($response, 'login.html.twig');
-    } else {
-        $destinations = DB::query("SELECT destination_name, destination_imagepath FROM destinations");
-        return $this->view->render($response, 'testbooking.html.twig', ['d' => $destinations]);
-    }
+    $destinations = DB::query("SELECT destination_name, destination_imagepath FROM destinations");
+    return $this->view->render($response, 'testbooking.html.twig', ['d' => $destinations]);
 });
 
 $app->get('/bookingConfirm', function ($request, $response, $args) {
@@ -160,34 +156,29 @@ $app->post('/register', function ($request, $response, $args) {
 
     if (preg_match('/^[\.a-zA-Z0-9,!? ]*$/', $firstName) != 1 || strlen($firstName) < 2 || strlen($firstName) > 100) {
         $errorList['firstName'] = "Name must be between 2 and 100 characters and include only letters, numbers, space, dash, dot or comma";
-        $firstName = "";
     }
 
     if (preg_match('/^[\.a-zA-Z0-9,!? ]*$/', $lastName) != 1 || strlen($lastName) < 2 || strlen($lastName) > 100) {
         $errorList['lastName'] = "Name must be between 2 and 100 characters and include only letters, numbers, space, dash, dot or comma";
-        $lastName = "";
     }
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errorList['email'] = "Invalid email format";
-        $email = "";
     } else {
 
         // check DB for duplicates
         $userRecord = DB::queryFirstRow("SELECT * FROM users WHERE email=%s", $email);
         if ($userRecord) {
             $errorList['email'] = 'Email already taken';
-            $email = ""; // reset invalid value to empty string
         }
     }
 
-    if (!validatePhone($phoneNumber)) {
+    if (validatePhone($phoneNumber) !== true) {
         $errorList['phone'] = "Invalid Phone Number format";
-        $phoneNumber = "";
     }
 
     $valPass = validatePassword($password1, $password2);
-    if (!$valPass) {
+    if ($valPass !== true) {
         $errorList['password1'] = $valPass;
     }
 
@@ -197,13 +188,11 @@ $app->post('/register', function ($request, $response, $args) {
     } else {
         $hash = password_hash($password1, PASSWORD_DEFAULT);
         DB::insert('users', ['first_name' => $firstName, 'last_name' => $lastName, 'email' => $email, 'phone_number' => $phoneNumber, 'password' => $hash]);
-        return $this->view->render($response, 'login.html.twig');
+        return $this->view->render($response, 'index.html.twig');
     }
 });
 
-$app->get('/registered', function ($request, $response, $args) {
-    return $this->view->render($response, 'login.html.twig');
-});
+
 // REGISTER HANDLERS END
 
 // LOGIN HANDLERS
@@ -353,24 +342,24 @@ $app->get('/users/edit', function ($request, $response, $args) {
 $app->post('/users/edit', function ($request, $response, $args) {
     //extract values submitted
     $userId = $_SESSION['user']['id'];
-    
-    if($request->getParam('firstName') !== null) {
+
+    if ($request->getParam('firstName') !== null) {
         $firstName = $request->getParam('firstName');
     } else {
         $firstName = $_SESSION['user']['first_name'];
     }
 
-    if($request->getParam('lastName') !== null) {
+    if ($request->getParam('lastName') !== null) {
         $lastName = $request->getParam('lastName');
     } else {
         $lastName = $_SESSION['user']['last_name'];
     }
 
-    if($request->getParam('email') !== null) {
+    if ($request->getParam('email') !== null) {
         $email = $request->getParam('email');
-    } 
+    }
 
-    if($request->getParam('phone') !== null) {
+    if ($request->getParam('phone') !== null) {
         $phoneNumber = $request->getParam('phone');
     } else {
         $phoneNumber = $_SESSION['user']['phone_number'];
@@ -395,7 +384,7 @@ $app->post('/users/edit', function ($request, $response, $args) {
             $errors['email'] = "Invalid email format";
             $email = "";
         } else {
-    
+
             // check DB for duplicates
             $userRecord = DB::queryFirstRow("SELECT * FROM users WHERE email=%s", $email);
             if ($userRecord) {
@@ -421,14 +410,14 @@ $app->post('/users/edit', function ($request, $response, $args) {
             unset($_SESSION['user']);
             $userCheck = DB::queryFirstRow("SELECT * FROM users WHERE id=%s", $userId);
             $_SESSION['user'] = $userCheck;
-        return $this->view->render($response, 'userProfileEdit.html.twig', ['success' => $success]);
-        }else {
+            return $this->view->render($response, 'userProfileEdit.html.twig', ['success' => $success]);
+        } else {
             DB::query("UPDATE users SET first_name=%s, last_name=%s, email=%s, phone_number=%s WHERE id=%s", $firstName, $lastName, $email, $phoneNumber, $userId);
             $success = "1";
             unset($_SESSION['user']);
             $userCheck = DB::queryFirstRow("SELECT * FROM users WHERE id=%s", $userId);
             $_SESSION['user'] = $userCheck;
-        return $this->view->render($response, 'userProfileEdit.html.twig', ['success' => $success]);
+            return $this->view->render($response, 'userProfileEdit.html.twig', ['success' => $success]);
         }
     }
 });
