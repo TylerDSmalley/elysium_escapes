@@ -12,11 +12,6 @@ require_once 'admin.php';
 // Run app - must be the last operation
 // if you forget it all you'll see is a blank page
 
-$app->get('/testbooking', function ($request, $response, $args) {
-    $destinations = DB::query("SELECT destination_name, destination_imagepath FROM destinations");
-    return $this->view->render($response, 'testbooking.html.twig', ['d' => $destinations]);
-});
-
 
 $app->post('/testbooking', function ($request, $response, $args) {
     /* if ($request->getParam('submit') !== null) {
@@ -119,7 +114,7 @@ $app->post('/testbooking', function ($request, $response, $args) {
 });
 
 $app->post('/create', function ($request, $response, $args) {
-    //\Stripe\Stripe::setApiKey('sk_test_51JuPDTKzuA9IpUUKot3YMvv0KCWLD5GXtkRASmhqQ96VrLzHufknH8XmZzTexDcaIiOcmcuGfQpHMQQ5jY6nd0da007T6z1Bi9');
+    \Stripe\Stripe::setApiKey('sk_test_51JuPDTKzuA9IpUUKot3YMvv0KCWLD5GXtkRASmhqQ96VrLzHufknH8XmZzTexDcaIiOcmcuGfQpHMQQ5jY6nd0da007T6z1Bi9');
 
 
     function calculateOrderAmount(array $items): int {
@@ -135,7 +130,7 @@ $app->post('/create', function ($request, $response, $args) {
         $jsonObj = json_decode($jsonStr);
 
         // Create a PaymentIntent with amount and currency
-        /* $paymentIntent = \Stripe\PaymentIntent::create([
+         $paymentIntent = \Stripe\PaymentIntent::create([
             'amount' => calculateOrderAmount($jsonObj->items),
             'currency' => 'CAD',
             'payment_method_types' => ['card'],
@@ -144,7 +139,7 @@ $app->post('/create', function ($request, $response, $args) {
         $output = [
             'clientSecret' => $paymentIntent->client_secret,
         ];
-        return $response->write(json_encode($output)); */
+        return $response->write(json_encode($output)); 
     } catch (Error $e) {
         http_response_code(500);
         echo json_encode(['error' => $e->getMessage()]);
