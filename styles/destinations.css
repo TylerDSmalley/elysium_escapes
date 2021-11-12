@@ -21,22 +21,30 @@ a {
     opacity: .97;
 }
 
-.destinationImageBox {
-    display: flex;
+.card {
     min-width: fit-content;
-    max-width: 200px;
-    min-height: fit-content;
-    max-height: 200px;
-    margin: auto;
-    margin-bottom: 20px;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
+    height: auto;
 }
 
-.card {
-    min-width: 100%;
-    height: auto;
+.imgButton {
+    border: none;
+    border-radius: 30px;
+    max-width: 500px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    color: #000;
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+}
+
+.imgButton:hover {
+    background-color: #3ddf9e;
+    box-shadow: 0px 15px 20px rgba(47, 211, 145, 0.4);
+    color: #fff;
+    transform: translateY(-5px);
+}
+
+.destinationImage {
+    border-radius: 30px;
 }
 
 .submitButton {
@@ -55,11 +63,6 @@ a {
     font-size: 11px;
     transition: all 0.3s ease 0s;
     cursor: pointer;
-}
-
-.destinationImage {
-    flex: auto;
-    border-radius: 30px;
 }
 
 .submitButton:hover {
