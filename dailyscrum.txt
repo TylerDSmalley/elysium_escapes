@@ -569,3 +569,46 @@ Ileana
 
 3. Where do I need assistance? What do I need to figure out?
 - 
+
+<<Daily Scrum - 2021-11-12>>
+
+--Tyler--
+1. What I have done / not done since last Scrum
+- 
+
+
+2. What I plan to do from this scrum to the next
+- finish form feedback for testimonial submission
+- finish user edit form template/logic
+- tackle booking as a team
+
+
+3. Where do I need assistance? What do I need to figure out?
+-  
+
+
+--Stefan--
+1. What I have done / not done since last Scrum
+-
+
+
+2. What I plan to do from this scrum to the next
+- implement stripe
+
+
+3. Where do I need assistance? What do I need to figure out?
+- Team will gregory for stripe assistance
+
+
+
+Ileana
+1. What I have done / not done since last Scrum
+- 
+
+2. What I plan to do from this scrum to the next
+- watch video on send grid option for pass retrieval
+- add/edit destination photo check
+
+
+3. Where do I need assistance? What do I need to figure out?
+- 
