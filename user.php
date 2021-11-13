@@ -509,6 +509,7 @@ $app->post('/create', function ($request, $response, $args) {
         $jsonStr = file_get_contents('php://input');
         $jsonObj = json_decode($jsonStr, true);
         $totalCost = $jsonObj['price'];
+        $bookingId = $jsonObj['booking_id'];
         $totalCost = number_format($totalCost, 2, '.', '');
         $costAsCents = $totalCost * 100;
         
@@ -517,6 +518,7 @@ $app->post('/create', function ($request, $response, $args) {
             'amount' => $costAsCents,
             'currency' => 'CAD',
             'payment_method_types' => ['card'],
+            'description' => $bookingId,
         ]);
 
         $output = [
