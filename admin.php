@@ -27,7 +27,7 @@ $app->get('/admin/{op:users|destinations|contactus|bookings|testimonials}/list',
    }
 
    if ($args['op'] == 'testimonials') {
-      $testimonialsList = DB::query("SELECT * FROM  testimonials");
+      $testimonialsList = DB::query("SELECT * FROM  testimonials ORDER BY createdTS DESC");
       return $this->view->render($response, 'admin/testimonials_list.html.twig', ['testimonialsList' => $testimonialsList]);
    }
 });
@@ -182,9 +182,6 @@ $app->post('/admin/users/delete[/{id:[0-9]+}]', function ($request, $response, $
    //return $this->view->render($response, 'admin/users_delete.html_success.twig');
 });
 
-$app->get('/error_internal', function ($request, $response, $args) {
-   return $this->view->render($response, 'error_internal.html.twig');
-});
 
 
 //DELETE DESTINATION HANDLER
@@ -199,7 +196,9 @@ $app->get('/admin/destinations/delete[/{id:[0-9]+}]', function ($request, $respo
 
 $app->post('/admin/destinations/delete[/{id:[0-9]+}]', function ($request, $response, $args) {
    DB::query("UPDATE destinations SET status = 'inactive' WHERE id=%i", $args['id']);
-   return $this->view->render($response, 'admin/destinations_delete_success.html.twig');
+   setFlashMessage("Destination successfully deleted!");
+   return $response->withRedirect("/admin/destinations/list");
+   //return $this->view->render($response, 'admin/destinations_delete_success.html.twig');
 });
 
 //DELETE TESTIMONIAL HANDLER
@@ -214,9 +213,10 @@ $app->get('/admin/testimonials/delete[/{id:[0-9]+}]', function ($request, $respo
 
 $app->post('/admin/testimonials/delete[/{id:[0-9]+}]', function ($request, $response, $args) {
    DB::query("DELETE FROM testimonials WHERE id=%i", $args['id']);
-   return $this->view->render($response, 'admin/testimonials_delete_success.html.twig');
+   setFlashMessage("Testimonial successfully deleted!");
+   return $response->withRedirect("/admin/testimonials/list");
+   //return $this->view->render($response, 'admin/testimonials_delete_success.html.twig');
 });
-
 
 
 
@@ -251,11 +251,11 @@ $app->post('/admin/destinations/{op:edit|add}[/{id:[0-9]+}]', function ($request
 
    // check destination_name
    if (empty($request->getParam('destination_name'))) {
-      $errors['destination_name'] = 'A Seller Name is required';
+      $errors['destination_name'] = 'A Destination name is required';
    } else {
       $destination_name = $request->getParam('destination_name');
       if (strlen($destination_name) < 2 || strlen($destination_name) > 50) {
-         $errors['destination_name'] = 'destination_name must be 2-50 characters long';
+         $errors['destination_name'] = 'Destination name must be 2-50 characters long';
       } else {
          $finaldestination_name = htmlentities($destination_name);
       }
@@ -263,11 +263,11 @@ $app->post('/admin/destinations/{op:edit|add}[/{id:[0-9]+}]', function ($request
 
    // check destination_description
    if (empty($request->getParam('destination_description'))) {
-      $errors['destination_description'] = 'An Item Description is required';
+      $errors['destination_description'] = 'A Destination description is required';
    } else {
       $destination_description = $request->getParam('destination_description');
       if (strlen($destination_description) < 2 || strlen($destination_description) > 5000) {
-         $errors['itemDescription'] = 'Body must be 2-10000 characters long';
+         $errors['itemDescription'] = 'Destination description must be 2-5000 characters long';
       } else {
          $final_destination_description = strip_tags($destination_description, "<p><ul><li><em><strong><i><b><ol><h3><h4><h5><span><pre>");
          $final_destination_description = htmlentities($final_destination_description);
@@ -319,6 +319,8 @@ $app->post('/admin/destinations/{op:edit|add}[/{id:[0-9]+}]', function ($request
             'destination_description' => $final_destination_description,
             'destination_imagepath' => $finalFilePath,
          ]);
+         setFlashMessage("Destination successfully added!");
+        
       } else { //This is an edit operation
          if ($isPhoto == TRUE) {
             if (!move_uploaded_file($_FILES['photo']['tmp_name'], $photoFilePath)) {
@@ -328,12 +330,15 @@ $app->post('/admin/destinations/{op:edit|add}[/{id:[0-9]+}]', function ($request
             $finalFilePath = htmlentities($photoFilePath);
             $data = ['destination_name' => $finaldestination_name, 'destination_description' => $final_destination_description, 'destination_imagepath' => $finalFilePath];
             DB::update('destinations', $data, "id=%d", $args['id']);
+            setFlashMessage("Destination successfully updated!");
          } else {
             $data = ['destination_name' => $finaldestination_name, 'destination_description' => $final_destination_description];
             DB::update('destinations', $data, "id=%d", $args['id']);
+            setFlashMessage("Destination successfully updated!");
          }
       }
-      return $this->view->render($response, '/admin/destinations_addedit_success.html.twig', ['op' => $args['op']]);
+      return $response->withRedirect("/admin/destinations/list");
+     // return $this->view->render($response, '/admin/destinations_addedit_success.html.twig', ['op' => $args['op']]);
    } // end POST check
 
 });
