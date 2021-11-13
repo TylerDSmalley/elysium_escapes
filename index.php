@@ -154,6 +154,7 @@ $app->post('/create', function ($request, $response, $args) {
 });
 
 $app->post('/webhook', function ($request, $response, $args) {
+    $endpoint_secret = 'whsec_kyc8SMQpVojIE3mFk6xAkcvSMxwM8sUY';
     $payload = @file_get_contents('php://input');
     $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
     $event = null;
