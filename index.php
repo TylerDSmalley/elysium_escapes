@@ -153,7 +153,7 @@ $app->post('/create', function ($request, $response, $args) {
     }
 });
 
-$app->post('/create', function ($request, $response, $args) {
+$app->post('/webhook', function ($request, $response, $args) {
     $payload = @file_get_contents('php://input');
     $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
     $event = null;
