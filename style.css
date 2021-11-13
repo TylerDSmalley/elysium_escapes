@@ -1,9 +1,0 @@
-@media(min-width: 768px) {
-    .news-input {
-        width: 50%;
-    }
-}
-
-.title-background {
-    background-image: url("images/footer_marquee_index.jpg");
-}
