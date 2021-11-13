@@ -175,8 +175,10 @@ $app->post('/webhook', function ($request, $response, $args) {
 
     // Handle the event
     switch ($event->type) {
-    case 'charge.succeeded':
+    case 'payment_intent.succeeded':
         $charge = $event->data->object;
+        echo 'Payment succeeded ' . $event->type;
+        break;
     // ... handle other event types
     default:
         echo 'Received unknown event type ' . $event->type;
