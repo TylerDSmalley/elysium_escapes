@@ -160,7 +160,8 @@ $app->post('/admin/users/{op:edit|add}[/{id:[0-9]+}]', function ($request, $resp
             $data['password'] = $hash;
          }
          DB::update('users', $data, "id=%d", $args['id']);
-         return $this->view->render($response, '/admin/users_addedit_success.html.twig');
+         setFlashMessage("User successfully updated!");
+         return $response->withRedirect("/admin/users/list");
       }
    }
 });
@@ -176,7 +177,9 @@ $app->get('/admin/users/delete[/{id:[0-9]+}]', function ($request, $response, $a
 
 $app->post('/admin/users/delete[/{id:[0-9]+}]', function ($request, $response, $args) {
    DB::query("UPDATE users SET status='inactive' WHERE id=%i", $args['id']);
-   return $this->view->render($response, 'admin/users_delete.html_success.twig');
+   setFlashMessage("User successfully deleted!");
+   return $response->withRedirect("/admin/users/list");
+   //return $this->view->render($response, 'admin/users_delete.html_success.twig');
 });
 
 $app->get('/error_internal', function ($request, $response, $args) {
