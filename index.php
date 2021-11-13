@@ -267,10 +267,12 @@ function convertCurrencyToCAD($sourceCurrencyCode, $convertAmount) {
     return $convertAmount * $result->{array_keys(get_object_vars($result))[0]};
 }
 
-//$app->post('/passreset_request', function (Request $request, Response $response) {
+    $app->get('/passreset_request', function ($request,$response){
+    return $this->view->render($response,'password_reset.html.twig');
+});
+
     $app->post('/passreset_request', function ( $request, $response) {
     global $log;
-    //$view = Twig::fromRequest($request);
     $post = $request->getParsedBody();
     $email = filter_var($post['email'], FILTER_VALIDATE_EMAIL); // 'FALSE' will never be found anyway
     $user = DB::queryFirstRow("SELECT * FROM users WHERE email=%s", $email);
@@ -327,20 +329,26 @@ function convertCurrencyToCAD($sourceCurrencyCode, $convertAmount) {
             $pass1 = $post['pass1'];
             $pass2 = $post['pass2'];
             $errorList = array();
-            //COULD CALL validatepassword function -> Check if it will work the same
-            if ($pass1 != $pass2) {
-                array_push($errorList, "Passwords don't match");
-            } else {
-                $passQuality = validatePasswordQuality($pass1);
-                if ($passQuality !== TRUE) {
-                    array_push($errorList, $passQuality);
-                }
+
+            $result = validatePassword($pass1,$pass2);
+            if($result !== TRUE){
+                $errorList = $result;
             }
+            //COULD CALL validatepassword function -> Check if it will work the same
+           // if ($pass1 != $pass2) {
+            //    array_push($errorList, "Passwords don't match");
+            //} else {
+            //    $passQuality = validatePasswordQuality($pass1);
+             //   if ($passQuality !== TRUE) {
+             //       array_push($errorList, $passQuality);
+              //  }
+           // }
             //
             if ($errorList) {
                 return $this->view->render($response, 'password_reset_action.html.twig', ['errorList' => $errorList]);
             } else {
-                DB::update('users', ['password' => $pass1], "id=%d", $resetRecord['user_id']);
+                $hash = password_hash($pass1, PASSWORD_DEFAULT);
+                DB::update('users', ['password' => $hash], "id=%d", $resetRecord['user_id']);
                 DB::delete('password_resets', 'secretCode=%s', $secret); // cleanup the record
                 return $this->view->render($response, 'password_reset_action_success.html.twig');
             }
