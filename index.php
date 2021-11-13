@@ -116,7 +116,6 @@ $app->post('/testbooking', function ($request, $response, $args) {
 $app->post('/create', function ($request, $response, $args) {
     \Stripe\Stripe::setApiKey('sk_test_51JuPDTKzuA9IpUUKot3YMvv0KCWLD5GXtkRASmhqQ96VrLzHufknH8XmZzTexDcaIiOcmcuGfQpHMQQ5jY6nd0da007T6z1Bi9');
 
-
     function calculateOrderAmount(array $items): int {
         $totalCost = $items['price'];
         $totalCost = number_format($totalCost, 2, '.', '');
