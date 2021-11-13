@@ -40,8 +40,8 @@ $app->post('/webhook', function ($request, $response, $args) {
     // Handle the event
     switch ($event->type) {
     case 'payment_intent.succeeded':
-        $charge = $event->data->object;
-        echo 'Payment succeeded ' . $event->type;
+        $paymentIntent = $event->data->object;
+        echo 'Received payment of ' . $paymentIntent->amount;
         break;
     // ... handle other event types
     default:
