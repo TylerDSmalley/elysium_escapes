@@ -612,3 +612,60 @@ Ileana
 
 3. Where do I need assistance? What do I need to figure out?
 - 
+
+<<Daily Scrum - 2021-11-13>>
+
+--Tyler--
+1. What I have done / not done since last Scrum
+- finished baseline booking process
+- almost finished styling booking process (*confirmation needs styling)
+- debug user registration/login
+- add 404 redirect to user pages
+- check breakpoint formatting on admin pages
+
+
+2. What I plan to do from this scrum to the next
+- finish styling booking confirmation
+- style password reset
+- try to break site
+- give uniform look to 404 not found page on admin. (add guy chillin on a beach)
+
+
+3. Where do I need assistance? What do I need to figure out?
+-  
+
+
+--Stefan--
+1. What I have done / not done since last Scrum
+- finished baseline booking process
+- implemented stripe
+- implemented webhook
+
+
+2. What I plan to do from this scrum to the next
+- implent photo array into hotel booking page
+- finish webhook
+- migrate code/handlers from index to user/util documents
+
+
+3. Where do I need assistance? What do I need to figure out?
+- perhaps webhooks
+
+
+
+Ileana
+1. What I have done / not done since last Scrum
+- finished baseline booking process
+- implemented password reset
+- created 404 not found template for admin
+- added some flash messages to admin actions (success feedback)
+
+
+2. What I plan to do from this scrum to the next
+- finish implementing flash messages
+- implement email confirmation for succesfull booking
+- implement user check for admin 
+
+
+3. Where do I need assistance? What do I need to figure out?
+- 
