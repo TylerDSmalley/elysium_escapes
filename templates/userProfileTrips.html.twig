@@ -32,7 +32,7 @@
 					<button type="button" class="btn-close  ms-5" data-bs-dismiss="toast" aria-label="Close"></button>
 				</div>
 				<div class="toast-body">
-				<strong class="me-auto">There was a problem...</strong>
+					<strong class="me-auto">There was a problem...</strong>
 					<ul>
 						{% for error in errors %}
 							<li>
@@ -84,38 +84,118 @@
 										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
 									<div class="modal-body">
-										<p class="text-start">
-											Your confirmation number is:
-											<strong>{{ trip.booking_confirm }}</strong>
-										</p>
-										<p class="text-start">
-											Your total amount paid is:
-											<strong>${{ trip.total_price }}</strong>
-										</p>
-										<p class="text-start">
-											Your trip was booked on:
-											<strong>{{ trip.paymentTS }}</strong>
-										</p>
-										<p class="text-start">
-											Your chosen destination is:
-											<strong>{{ trip.destination_name }}</strong>
-										</p>
-										<p class="text-start">
-											Your departure date is:
-											<strong>{{ trip.departure_date }}</strong>
-										</p>
-										<p class="text-start">
-											Your return date is:
-											<strong>{{ trip.return_date }}</strong>
-										</p>
-										<p class="text-start">
-											Number of adults:
-											<strong>{{ trip.number_adults }}</strong>
-										</p>
-										<p class="text-start">
-											Number of children:
-											<strong>{{ trip.number_children }}</strong>
-										</p>
+
+										<div class="row ">
+											<div class=" col-auto">
+											<img src="../{{ trip.destination_imagepath }}" class="d-block w-100" alt="{{ trip.destination_imagepath }}">
+											</div>
+										</div>
+
+										<h5 class="mt-3">Order Details</h5>
+										<hr class="solid">
+
+										<div class="row ">
+											<p class="text-start col-7">
+												Your confirmation number is:
+											</p>
+											<p class="text-start col-3">
+												<strong>{{ trip.booking_confirm }}</strong>
+											</p>
+										</div>
+
+										<div class="row ">
+											<p class="text-start col-7">
+												Your total amount paid is:
+											</p>
+											<p class="text-start col-3">
+												<strong>${{ trip.price_cad }}</strong>
+											</p>
+										</div>
+
+										<div class="row ">
+											<p class="text-start col-7">
+												Your departure date is:
+											</p>
+											<p class="text-start col-3">
+												<strong>{{ trip.departure_date }}</strong>
+											</p>
+										</div>
+
+										<div class="row ">
+											<p class="text-start col-7">
+												Your return date is:
+											</p>
+											<p class="text-start col-3">
+												<strong>{{ trip.return_date }}</strong>
+											</p>
+										</div>
+
+										<div class="row ">
+											<p class="text-start col-7">
+												Number of adults:
+											</p>
+											<p class="text-start col-3">
+												<strong>{{ trip.number_adults }}</strong>
+											</p>
+										</div>
+
+										<div class="row ">
+											<p class="text-start col-7">
+												Number of children:
+											</p>
+											<p class="text-start col-3">
+												<strong>{{ trip.number_children }}</strong>
+											</p>
+										</div>
+
+										<div class="row ">
+											<p class="text-start col-7">
+												Your trip was booked on:
+											</p>
+											<p class="text-start col-3 ">
+												<strong>{{ trip.paymentTS }}</strong>
+											</p>
+										</div>
+
+										<h5 class="mt-3">Location Details</h5>
+										<hr class="solid">
+
+										<div class="row ">
+											<p class="text-start col-7">
+												Your chosen destination is:
+											</p>
+											<p class="text-start col-3">
+												<strong>{{ trip.destination_name }}</strong>
+											</p>
+										</div>
+
+										<div class="row ">
+											<p class="text-start col-7">
+												Your hotel name is:
+											</p>
+											<p class="text-start col-3">
+												<strong>{{ trip.hotel_name }}</strong>
+											</p>
+										</div>
+
+										<div class="row ">
+											<p class="text-start col-7">
+												Your hotel city is:
+											</p>
+											<p class="text-start col-3">
+												<strong>{{ trip.hotel_city }}</strong>
+											</p>
+										</div>
+
+										<div class="row ">
+											<p class="text-start col-7">
+												Your hotel address is:
+											</p>
+											<p class="text-start col-3">
+												<strong>{{ trip.hotel_address }}</strong>
+											</p>
+										</div>
+
 										<button class="btn btn-lg submitButton" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Leave a trip story!</button>
 
 										<div class="collapse" id="collapseExample">
@@ -170,11 +250,11 @@
 	</div>
 
 	<script>
-        window.onload = (event) => {
-            let myAlert = document.querySelector('.toast');
-            let bsAlert = new bootstrap.Toast(myAlert);
-            bsAlert.show();
-        }
-    </script>
+		window.onload = (event) => {
+let myAlert = document.querySelector('.toast');
+let bsAlert = new bootstrap.Toast(myAlert);
+bsAlert.show();
+}
+	</script>
 
 {% endblock %}
