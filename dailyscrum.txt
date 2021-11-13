@@ -622,6 +622,7 @@ Ileana
 - debug user registration/login
 - add 404 redirect to user pages
 - check breakpoint formatting on admin pages
+- update home page
 
 
 2. What I plan to do from this scrum to the next
