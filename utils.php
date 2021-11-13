@@ -119,3 +119,84 @@ function generateRandomString($length = 10) {
     }
     return $randomString;
 }
+
+function callAPI($url, $bookingApi = false) {
+	$curl = curl_init($url);
+
+	curl_setopt_array($curl, [
+		CURLOPT_RETURNTRANSFER => true,
+		CURLOPT_SSL_VERIFYPEER => FALSE,
+		CURLOPT_SSL_VERIFYHOST => FALSE,
+	]);
+
+    if ($bookingApi === true) {
+        curl_setopt($curl,CURLOPT_HTTPHEADER , ["x-rapidapi-host: booking-com.p.rapidapi.com",
+		"x-rapidapi-key: 78d052d8bdmsh0c0c5ff77ea5b65p178eb7jsnd806e39afcb0"]);// project.test.resources@gmail.com // Password#1
+    }
+	
+	$response = curl_exec($curl);
+	$err = curl_error($curl);
+	
+	curl_close($curl);
+	
+	$data = json_decode ( $response);
+
+	return $data;
+}
+
+function searchLocation($searchLocation, &$dest_type) {
+    $apiUrl = "https://booking-com.p.rapidapi.com/v1/hotels/locations?locale=en-us&name=" . urlencode($searchLocation);
+
+    $locationList = callAPI($apiUrl, true);
+
+    foreach ($locationList as $location) {
+        if ($location->name == $searchLocation) {
+            $dest_type = $location->dest_type;
+            return $location->dest_id; 
+        }
+    }
+}
+
+function searchHotels($location, $destType, $adults, $children, $arrival, $departure) {
+
+    $apiUrl = "https://booking-com.p.rapidapi.com/v1/hotels/search?"
+    ."dest_type=" . $destType
+    ."&checkin_date=" . $arrival
+    ."&room_number=1"
+    ."&checkout_date=" . $departure
+    ."&order_by=popularity"
+    ."&dest_id=" . $location
+    ."&adults_number=" . $adults
+    ."&units=metric"
+    ."&filter_by_currency=CAD"
+    ."&locale=en-us"
+    ."&include_adjacency=false";
+    
+    if ($children > 0) {
+        $childrenAges = "";
+        $apiUrl = $apiUrl . "&children_number=" . $children . "&children_ages=";
+        for ($i = $children; $i >= 1; $i--) {
+            $apiUrl = $apiUrl . "8";
+            $childrenAges = $childrenAges . "8";
+            if ($i > 1) {
+                $apiUrl = $apiUrl . "%2C";
+                $childrenAges = $childrenAges . ",";
+            }
+        }
+    }
+
+    return callAPI($apiUrl, true);
+    
+}
+
+
+function convertCurrencyToCAD($sourceCurrencyCode, $convertAmount) {
+    $apiUrl = "https://free.currconv.com/api/v7/convert?q=" . $sourceCurrencyCode . "_CAD&compact=ultra&apiKey=05d742f1f2b8ff8dd8c3";
+    $result = callAPI($apiUrl);
+    $convertAmount * $result->{array_keys(get_object_vars($result))[0]};
+    return $convertAmount * $result->{array_keys(get_object_vars($result))[0]};
+}
+
+    $app->get('/passreset_request', function ($request,$response){
+    return $this->view->render($response,'password_reset.html.twig');
+});

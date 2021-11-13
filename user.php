@@ -432,3 +432,98 @@ $app->get('/session', function ($request, $response, $args) {
     $session = print_r($_SESSION);
     return $this->view->render($response, 'session.html.twig', ['session' => $session]);
 });
+
+$app->post('/testbooking', function ($request, $response, $args) {
+    if ($request->getParam('hotel') !== null){
+        $hotel = json_decode($request->getParam('hotel'));
+        $options = json_decode($request->getParam('options'));
+
+        $hotelName = $hotel->hotel_name;
+        $hotelCity = $hotel->city;
+        $hotelAddress = $hotel->address;
+        $hotelCurrencyCode = $hotel->currency_code;
+        $hotelPrice = $hotel->price_breakdown->all_inclusive_price;
+        $cadPrice = convertCurrencyToCAD($hotelCurrencyCode, $hotelPrice);
+        $cadPrice = number_format($cadPrice, 2, '.', '');
+
+        $min = 100000000000000;
+        $max = 999999999999999;
+        $rand = random_int($min, $max); // Consider improved approach - check db for match
+        $destinationId = DB::queryFirstField("SELECT id FROM destinations WHERE destination_name=%s", $options->location);
+        $hotelData = ['destination_id' => $destinationId, 'hotel_name' => $hotelName, 'hotel_city' => $hotelCity, 'hotel_address' => $hotelAddress, 'hotel_currency' => $hotelCurrencyCode, 'price_hotel_currency' => $hotelPrice, 'price_cad' => $cadPrice, 'confirmation' => $rand];
+        
+        DB::insert('hotel', $hotelData);
+        $hotelId = DB::insertId();
+
+        $dummyFlight = ['destination_id' => $destinationId, 'flight_name' => "test flight", 'price' => 1, 'confirmation' => $rand];
+        DB::insert('flight', $dummyFlight);
+        $flightId = DB::insertId();
+
+        $valuesList = [
+            'user_id' => $_SESSION['user']['id'],
+            'destination_id' => $destinationId,
+            'hotel_id' => $hotelId,
+            'flight_id' => $flightId,
+            'number_adults' => $options->adults,
+            'number_children' => $options->children,
+            'total_price' => $cadPrice,
+            'departure_date' => $options->arrival,
+            'return_date' => $options->departure,
+            'booking_confirm' => $rand
+        ];
+
+        DB::insert('booking_history', $valuesList);
+        
+        return $this->view->render($response, 'checkout.html.twig', ['hotel' => $hotel, 'options' => $options, 'cad_price' => $cadPrice]);
+    } else {
+        $location = $request->getParam('location');
+        $adults = $request->getParam('adults');
+        $children = $request->getParam('children');
+        $arrival = $request->getParam('arrival');
+        $departure = $request->getParam('departure');
+        $destType = "";
+        $locationId = searchLocation($location, $destType);
+        $hotelList = searchHotels($locationId, $destType, $adults, $children, $arrival, $departure);
+        
+        return $this->view->render($response, 'apitestbooking.html.twig', ['options' => ['location' => $location, 'adults' => $adults, 'children' => $children, 'arrival' => $arrival, 'departure' => $departure], 'h' => $hotelList->result]);
+    }
+    
+});
+
+$app->post('/create', function ($request, $response, $args) {
+    \Stripe\Stripe::setApiKey('sk_test_51JuPDTKzuA9IpUUKot3YMvv0KCWLD5GXtkRASmhqQ96VrLzHufknH8XmZzTexDcaIiOcmcuGfQpHMQQ5jY6nd0da007T6z1Bi9');
+
+    function calculateOrderAmount(array $items): int {
+        $totalCost = $items['price'];
+        $totalCost = number_format($totalCost, 2, '.', '');
+        $costAsCents = $totalCost * 100;
+        printf($totalCost);
+        // return 1400;
+        return $costAsCents;
+    }
+
+    try {
+        // retrieve JSON from POST body
+        $jsonStr = file_get_contents('php://input');
+        $jsonObj = json_decode($jsonStr, true);
+        $totalCost = $jsonObj['price'];
+        $totalCost = number_format($totalCost, 2, '.', '');
+        $costAsCents = $totalCost * 100;
+        printf($$costAsCents);
+        
+        // Create a PaymentIntent with amount and currency
+         $paymentIntent = \Stripe\PaymentIntent::create([
+            'amount' => $costAsCents,
+            'currency' => 'CAD',
+            'payment_method_types' => ['card'],
+        ]);
+
+        $output = [
+            'clientSecret' => $paymentIntent->client_secret,
+        ];
+        return $response->write(json_encode($output)); 
+    } catch (Error $e) {
+        http_response_code(500);
+        echo json_encode(['error' => $e->getMessage()]);
+    }
+});
