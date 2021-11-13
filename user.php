@@ -508,18 +508,15 @@ $app->post('/create', function ($request, $response, $args) {
         // retrieve JSON from POST body
         $jsonStr = file_get_contents('php://input');
         $jsonObj = json_decode($jsonStr, true);
-        $bookingId = $jsonObj['booking_id'];
         $totalCost = $jsonObj['price'];
         $totalCost = number_format($totalCost, 2, '.', '');
         $costAsCents = $totalCost * 100;
-        printf($bookingId);
         
         // Create a PaymentIntent with amount and currency
          $paymentIntent = \Stripe\PaymentIntent::create([
             'amount' => $costAsCents,
             'currency' => 'CAD',
             'payment_method_types' => ['card'],
-            'description' => $bookingId,
         ]);
 
         $output = [

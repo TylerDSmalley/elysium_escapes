@@ -3,7 +3,7 @@ const stripe = Stripe("pk_test_51JuPDTKzuA9IpUUKvtSDUnM1jq05tc6FucLC552QRiK5uSCk
 const price = document.getElementById('price').value;
 const booking_id = document.getElementById('booking_id').value;
 // The items the customer wants to buy
-const items = [{ description: booking_id, total: price }];
+const items = [{ total: price }];
 
 let elements;
 
@@ -20,7 +20,7 @@ async function initialize() {
     const { clientSecret } = await fetch("/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ items }),
+        body: JSON.stringify({ price }),
     }).then((r) => r.json());
 
     elements = stripe.elements({ clientSecret });
