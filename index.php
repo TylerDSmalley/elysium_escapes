@@ -50,6 +50,8 @@ $app->post('/testbooking', function ($request, $response, $args) {
         $hotelCurrencyCode = $hotel->currency_code;
         $hotelPrice = $hotel->price_breakdown->all_inclusive_price;
         $cadPrice = convertCurrencyToCAD($hotelCurrencyCode, $hotelPrice);
+        $cadPrice = number_format($cadPrice, 2, '.', '');
+
 
         if ($hotel->composite_price_breakdown->included_taxes_and_charges_amount->value != "0") {
             $hotelTaxChargesTotal = $hotel->composite_price_breakdown->included_taxes_and_charges_amount->value;
@@ -227,6 +229,7 @@ function searchHotels($location, $destType, $adults, $children, $arrival, $depar
 function convertCurrencyToCAD($sourceCurrencyCode, $convertAmount) {
     $apiUrl = "https://free.currconv.com/api/v7/convert?q=" . $sourceCurrencyCode . "_CAD&compact=ultra&apiKey=05d742f1f2b8ff8dd8c3";
     $result = callAPI($apiUrl);
+    $convertAmount * $result->{array_keys(get_object_vars($result))[0]};
     return $convertAmount * $result->{array_keys(get_object_vars($result))[0]};
 }
 
