@@ -473,8 +473,10 @@ $app->post('/testbooking', function ($request, $response, $args) {
         ];
 
         DB::insert('booking_history', $valuesList);
+
+        $bookingId = DB::insertId();
         
-        return $this->view->render($response, 'checkout.html.twig', ['hotel' => $hotel, 'options' => $options, 'cad_price' => $cadPrice]);
+        return $this->view->render($response, 'checkout.html.twig', ['hotel' => $hotel, 'options' => $options, 'cad_price' => $cadPrice, 'booking_id' => $bookingId]);
     } else {
         $location = $request->getParam('location');
         $adults = $request->getParam('adults');
@@ -506,16 +508,18 @@ $app->post('/create', function ($request, $response, $args) {
         // retrieve JSON from POST body
         $jsonStr = file_get_contents('php://input');
         $jsonObj = json_decode($jsonStr, true);
+        $bookingId = $jsonObj['booking_id'];
         $totalCost = $jsonObj['price'];
         $totalCost = number_format($totalCost, 2, '.', '');
         $costAsCents = $totalCost * 100;
-        printf($$costAsCents);
+        printf($bookingId);
         
         // Create a PaymentIntent with amount and currency
          $paymentIntent = \Stripe\PaymentIntent::create([
             'amount' => $costAsCents,
             'currency' => 'CAD',
             'payment_method_types' => ['card'],
+            'description' => $bookingId,
         ]);
 
         $output = [

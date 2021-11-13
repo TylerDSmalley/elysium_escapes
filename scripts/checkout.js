@@ -1,9 +1,9 @@
 // A reference to Stripe.js initialized with a fake API key.
 const stripe = Stripe("pk_test_51JuPDTKzuA9IpUUKvtSDUnM1jq05tc6FucLC552QRiK5uSCkg0EVoMAdYrAgggGMNkKdwbBZ9BPv1p5FjaQuSbDq00sGqRBzaH");
 const price = document.getElementById('price').value;
+const booking_id = document.getElementById('booking_id').value;
 // The items the customer wants to buy
-const items = [{ id: "xl-tshirt", total: price }];
-console.log(price);
+const items = [{ description: booking_id, total: price }];
 
 let elements;
 
@@ -20,7 +20,7 @@ async function initialize() {
     const { clientSecret } = await fetch("/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ price }),
+        body: JSON.stringify({ items }),
     }).then((r) => r.json());
 
     elements = stripe.elements({ clientSecret });

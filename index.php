@@ -41,7 +41,7 @@ $app->post('/webhook', function ($request, $response, $args) {
     switch ($event->type) {
     case 'payment_intent.succeeded':
         $paymentIntent = $event->data->object;
-        echo 'Received payment of ' . $paymentIntent->amount;
+        echo 'Received payment of ' . $paymentIntent->amount . ' Booking Id: ' . $paymentIntent->description;
         break;
     // ... handle other event types
     default:
