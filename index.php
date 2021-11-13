@@ -118,24 +118,26 @@ $app->post('/create', function ($request, $response, $args) {
 
 
     function calculateOrderAmount(array $items): int {
-        // Replace this constant with a calculation of the order's amount
-        // Calculate the order total on the server to prevent
-        // people from directly manipulating the amount on the client
+        $totalCost = $items['price'];
+        $totalCost = number_format($totalCost, 2, '.', '');
+        $costAsCents = $totalCost * 100;
+        printf($totalCost);
         // return 1400;
-        return $items[0]["total"];
+        return $costAsCents;
     }
-
-
-    
 
     try {
         // retrieve JSON from POST body
         $jsonStr = file_get_contents('php://input');
-        $jsonObj = json_decode($jsonStr);
-        // print_r($jsonObj);
+        $jsonObj = json_decode($jsonStr, true);
+        $totalCost = $jsonObj['price'];
+        $totalCost = number_format($totalCost, 2, '.', '');
+        $costAsCents = $totalCost * 100;
+        printf($$costAsCents);
+        
         // Create a PaymentIntent with amount and currency
          $paymentIntent = \Stripe\PaymentIntent::create([
-            'amount' => calculateOrderAmount($jsonObj->items),
+            'amount' => $costAsCents,
             'currency' => 'CAD',
             'payment_method_types' => ['card'],
         ]);
