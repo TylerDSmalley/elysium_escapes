@@ -1,11 +1,27 @@
+{% extends "base.html.twig" %}
+{% block title %}Booking
+{% endblock %}
 {% block head %}
-	<link rel="stylesheet" href="styles/checkout.css"/>
-    <script src="https://js.stripe.com/v3/"></script>
+	<link rel="stylesheet" href="styles/book.css"/>
+  <link rel="stylesheet" href="styles/checkout.css"/>
+	<script src="scripts/booking.js" defer></script>
+  <script src="https://js.stripe.com/v3/"></script>
 	<script src="scripts/checkout.js" defer></script>
+	{{ parent() }}
 {% endblock %}
 
 {% block content %}
-    <form id="payment-form">
+
+	<div class="parallax-1">
+		<div class="caption">
+			<span class="border">Are You Ready To..</span>
+		</div>
+	</div>
+
+	<section class="section p-5">
+
+		<div class="container  mt-5 mb-5 bg-light rounded">
+			<form id="payment-form">
     <input type="hidden" id="price" value="{{cad_price}}"/>
       <p>
           Hotel Name: {{ hotel.hotel_name }}<br>
@@ -22,4 +38,13 @@
       </button>
       <div id="payment-message" class="hidden"></div>
     </form>
+		</div>
+	</section>
+
+	<div class="parallax-1">
+		<div class="caption">
+			<span class="border">...Escape</span>
+		</div>
+	</div>
 {% endblock %}
+
