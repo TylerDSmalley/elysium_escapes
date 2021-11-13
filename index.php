@@ -256,6 +256,12 @@ function searchHotels($location, $destType, $adults, $children, $arrival, $depar
     
 }
 
+function getHotelPhotos($hotelId) {
+    $apiUrl = "https://booking-com.p.rapidapi.com/v1/hotels/photos?hotel_id=" . $hotelId ."&locale=en-us";
+    $photos = callAPI($apiUrl);
+    return $photos;
+}
+
 function convertCurrencyToCAD($sourceCurrencyCode, $convertAmount) {
     $apiUrl = "https://free.currconv.com/api/v7/convert?q=" . $sourceCurrencyCode . "_CAD&compact=ultra&apiKey=05d742f1f2b8ff8dd8c3";
     $result = callAPI($apiUrl);
