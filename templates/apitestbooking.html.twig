@@ -1,37 +1,111 @@
 {% extends "base.html.twig" %}
+{% block title %}Booking
+{% endblock %}
+{% block head %}
+	<link rel="stylesheet" href="styles/book.css"/>
+	<script src="scripts/booking.js" defer></script>
+	{{ parent() }}
+{% endblock %}
 
 {% block content %}
-	<br><br><br><br><br>
-	<div>
-		{% for hotel in h %}
-			{% if hotel.accommodation_type_name == "Resort" %}
-				<form method="post">
-					<img src="{{hotel.max_photo_url}}" width='300px'><br>
-					<input type="hidden" name="hotel" value="{{hotel|json_encode()}}"/>
-					<input type="hidden" name="options" value="{{options|json_encode()}}"/>
-					<p>
-						Hotel Name:
-						{{ hotel.hotel_name }}<br>
-						City:
-						{{ hotel.city }}<br>
-						Address:
-						{{ hotel.address }}<br>
-						Price ({{hotel.currency_code}}):
-						{{ hotel.price_breakdown.all_inclusive_price }}<br>
-					</p>
-					{% if user.email != null %}
-						<input type="submit" value="Book This Resort"><br><br><br>
-					{% else %}
-						<p>
-							To book this fabulous trip...
-							<a class="btn logInButtonBox" href="https://travel.fsd01.ca/login">
-								<p class="btn logInButton">Sign in</p>
-							</a>
-						</p>
-					{% endif %}
-				</form>
-			{% endif %}
-		{% endfor %}
 
+	<div class="parallax-1">
+		<div class="caption">
+			<span class="border">Are You Ready To..</span>
+		</div>
 	</div>
+
+	<section class="section p-5">
+		<div class="container mt-5 mb-5 bg-light rounded">
+			<div class="d-flex justify-content-center row g-3 align-items-center text-center  mt-5 mb-5">
+				<div class="col-auto">
+					{% for hotel in h %}
+						{% if hotel.accommodation_type_name == "Resort" %}
+							<div class="col-auto mx-auto mt-3 mb-5">
+
+								<h2 class="text-center">{{ hotel.hotel_name }}</h2>
+								<button class="imgButton" data-bs-toggle="modal" data-bs-target="#exampleModal{{ hotel.hotel_name }}"><img class="imgButton" src="{{hotel.max_photo_url}}" height="200" width="200"></button>
+
+								<!-- Modal -->
+								<div class="modal fade" id="exampleModal{{ hotel.hotel_name }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<div class="modal-dialog modal-lg">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h2 class="h3 card-title text-nowrap" id="exampleModalLabel">{{ hotel.hotel_name }}</h2>
+												<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+											</div>
+											<div class="modal-body">
+												<form class="form" name="book{{ hotel.hotel_name }}" method="post">
+													<input type="hidden" name="hotel" value="{{hotel|json_encode()}}"/>
+													<input type="hidden" name="options" value="{{options|json_encode()}}"/>
+													<p>
+														Hotel Name:
+														{{ hotel.hotel_name }}<br>
+														City:
+														{{ hotel.city }}<br>
+														Address:
+														{{ hotel.address }}<br>
+														Price ({{hotel.currency_code}}):
+														{{ hotel.price_breakdown.all_inclusive_price }}<br>
+													</p>
+
+													<!-- photo carousel -->
+													<div id="carouselExampleControls{{ hotel.hotel_name }}" class="carousel slide" data-bs-ride="carousel{{ hotel.hotel_name }}">
+														<div class="carousel-inner">
+															<div class="carousel-item active">
+																<img src="{{hotel.max_photo_url}}" class="d-block w-100" alt="{{ hotel.hotel_name }}">
+															</div>
+															{% if images %}
+																{% for image in images %}
+																	{% if destination.id is same as(image.destination_id) %}
+																		<div class="carousel-item">
+																			<img src="{{ image.collage_imagepath }}" class="d-block w-100" alt="{{ destination.destination_imagepath }}">
+																		</div>
+																	{% endif %}
+																{% endfor %}
+															{% endif %}
+														</div>
+														<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls{{ hotel.hotel_name }}" data-bs-slide="prev">
+															<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+															<span class="visually-hidden">Previous</span>
+														</button>
+														<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls{{ hotel.hotel_name }}" data-bs-slide="next">
+															<span class="carousel-control-next-icon" aria-hidden="true"></span>
+															<span class="visually-hidden">Next</span>
+														</button>
+													</div>
+													<!-- photo carousel END -->
+													<div class="modal-footer">
+														{% if user.email != null %}
+															<input class="btn btn-lg logInButton" type="submit" value="Book This Resort">
+														{% else %}
+															<p>
+																To book this fabulous trip...
+																<button type="btn logInButtonBox" class="btn btn-info">
+																	<a href="https://travel.fsd01.ca/login">Sign in</a>
+																</button>
+															</p>
+														{% endif %}
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+									<!-- Modal END-->
+								</div>
+							</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div class="parallax-1">
+		<div class="caption">
+			<span class="border">...Escape</span>
+		</div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 {% endblock content %}

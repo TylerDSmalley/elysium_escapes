@@ -9,66 +9,69 @@
 
 {% block content %}
 
-<div class="parallax-1">
-	<div class="caption">
-		<span class="border">Are You Ready To..</span>
-	</div>
-</div>
-
-<main></main>
-<section id="confirmed_container">
-	<form id="booking-form" name="booking-form" method="POST" autocomplete="on">
-		<div class="grid-container">
-			<div class="full-width">
-				<h1>Take Your Dream Vacation</h1>
-			<div class="full-width">
-				<h3>Booking Details</h3>
-				Choose Your Destination:
-			</div>
-			<div class="full-width">
-			{% for destination in d %}
-				<h3>{{destination.destination_name}}</h3>
-				<input type="radio" id="{{destination.destination_name}}" name="location" value="{{destination.destination_name}}" required/>
-				<label for="{{destination.destination_name}}"><img src="../{{destination.destination_imagepath}}" height="170" width="307" alt="{{destination.destination_name}} image" title="{{destination.destination_name}} image"/></label>
-			{% endfor %}	
-				<br/>
-			</div>
-			<div class="col2">
-				<br/><br/>
-				<label for="adults">Adults&ast;</label>
-				<br/>
-				<input type="number" id="adults" name="adults" value="1" required/>
-			</div>
-			<div class="col3">
-				<br/><br/>
-				<label for="children">Children</label>
-				<br/>
-				<input type="number" id="children" name="children" value="0"/>
-			</div>
-			<div class="col2">
-				<label for="arrival">Arrival Date&ast;</label>
-				<br/>
-				<input type="date" id="arrival" name="arrival" required/>
-			</div>
-			<div class="col3">
-				<label for="departure">Departure Date&ast;</label>
-				<br/>
-				<input type="date" id="departure" name="departure" required/>
-			</div>
-			<div class="full-width">
-				<br/>
-				<input type="submit" class="submit" value="Send"/>
-				<p>Required Field*</p>
-			</div>
+	<div class="parallax-1">
+		<div class="caption">
+			<span class="border">Are You Ready To..</span>
 		</div>
-	</form>
-</section>
-
-<div class="parallax-1">
-	<div class="caption">
-		<span class="border">...Travel Right</span>
 	</div>
-</div>
 
+	<section class="section p-5">
 
+		<div class="container  mt-5 mb-5 bg-light rounded">
+			<form id="booking-form" name="booking-form" method="POST" class="">
+				<div class="d-flex justify-content-center row g-3 align-items-center text-center  mt-5 mb-5">
+					<div class="col-auto">
+						<div class="input-group">
+							{% for destination in d %}
+								<div class="col-auto mx-auto">
+									<h3 class="text-center">{{destination.destination_name}}</h3>
+									<input type="radio" id="{{destination.destination_name}}" name="location" value="{{destination.destination_name}}" required/>
+									<label for="{{destination.destination_name}}"><img class="imgButton" src="../{{destination.destination_imagepath}}" height="200" width="200" alt="{{destination.destination_name}} image" title="{{destination.destination_name}} image"/></label>
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+				<div class="d-flex justify-content-center row g-3 align-items-center  mb-2">
+					<div class="col-auto mb-2">
+						<div class="input-group">
+							<div class="input-group-text date">Departure Date</div>
+							<input type="date" class="form-control" id="autoSizingInputGroup" name="arrival" required/>
+						</div>
+					</div>
+					<div class="col-auto  mb-2">
+						<div class="input-group">
+							<div class="input-group-text date">Return Date</div>
+							<input type="date" class="form-control" id="autoSizingInputGroup" name="departure" required/>
+						</div>
+					</div>
+					<div class="d-flex justify-content-center row g-3 align-items-center  mb-2">
+						<div class="col-auto  mb-2">
+							<div class="input-group">
+								<div class="input-group-text">Adults</div>
+								<input type="number" id="form-control" name="adults" value="1" required/>
+							</div>
+						</div>
+						<div class="col-auto  mb-2">
+							<div class="input-group">
+								<div class="input-group-text">children</div>
+								<input type="number" id="form-control" name="children" value="0"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="d-flex justify-content-center row g-3 align-items-center  mb-2">
+					<div class="col-auto  mb-2">
+						<button type="submit" class="btn logInButton">Search Hotels</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</section>
+
+	<div class="parallax-1">
+		<div class="caption">
+			<span class="border">...Escape</span>
+		</div>
+	</div>
 {% endblock %}

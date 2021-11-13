@@ -39,6 +39,31 @@ input[type='radio'] {
     opacity: 0;
 }
 
+.imgButton {
+    border-radius: 50%;
+    flex: auto;
+    align-content: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: 16pt;
+    letter-spacing: 2px;
+    margin: 5px 3px;
+    padding: 5px;
+    background-color: #f1dbc7;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    color: #000;
+    font-size: 11px;
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+}
+
+.imgButton:hover {
+    background-color: #3ddf9e;
+    box-shadow: 0px 15px 20px rgba(47, 211, 145, 0.4);
+    color: #fff;
+    transform: translateY(-5px);
+}
+
 input[type='radio']+label {
     cursor: pointer;
 }
