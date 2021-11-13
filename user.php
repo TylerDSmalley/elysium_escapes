@@ -27,6 +27,8 @@ $app->get('/testbooking', function ($request, $response, $args) {
 $app->get('/bookingConfirm', function ($request, $response, $args) {
     $userId = $_SESSION['user']['id'];
     $bookingConfirm = DB::queryFirstRow("SELECT b.*, h.*, d.* FROM booking_history AS b  LEFT JOIN hotel AS h ON b.hotel_id = h.id LEFT JOIN destinations AS d ON b.destination_id = d.id WHERE b.user_id = %s ORDER BY b.paymentTS DESC", $userId);
+
+    //INSERT EMAIL CONFIRM!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     return $this->view->render($response, 'testBookingConfirm.html.twig', ['bookingConfirm' => $bookingConfirm]);
 });
 //BOOKING HANDLERS END
