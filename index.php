@@ -109,12 +109,7 @@ $app->post('/testbooking', function ($request, $response, $args) {
         $departure = $request->getParam('departure');
         $destType = "";
         $locationId = searchLocation($location, $destType);
-        $hotelPhotos = [];
         $hotelList = searchHotels($locationId, $destType, $adults, $children, $arrival, $departure);
-        foreach ($hotelList->result as $hotel) {
-            $currentPhotoSet = getHotelPhotos($hotel->hotel_id);
-            $hotelPhotos = [$currentPhotoSet];
-        }
         
         return $this->view->render($response, 'apitestbooking.html.twig', ['options' => ['location' => $location, 'adults' => $adults, 'children' => $children, 'arrival' => $arrival, 'departure' => $departure], 'h' => $hotelList->result]);
     }
@@ -204,7 +199,7 @@ function callAPI($url, $bookingApi = false) {
 
     if ($bookingApi === true) {
         curl_setopt($curl,CURLOPT_HTTPHEADER , ["x-rapidapi-host: booking-com.p.rapidapi.com",
-		"x-rapidapi-key: 7d6764c891msha4b0b6f7972be57p12b9e6jsn6d0bf458ee7e"]);// testkeytwo2@gmail.com // ApiTestingKey#2
+		"x-rapidapi-key: 78d052d8bdmsh0c0c5ff77ea5b65p178eb7jsnd806e39afcb0"]);// project.test.resources@gmail.com // Password#1
     }
 	
 	$response = curl_exec($curl);
@@ -262,11 +257,6 @@ function searchHotels($location, $destType, $adults, $children, $arrival, $depar
     
 }
 
-function getHotelPhotos($hotelId) {
-    $apiUrl = "https://booking-com.p.rapidapi.com/v1/hotels/photos?hotel_id=" . $hotelId ."&locale=en-us";
-    $photos = callAPI($apiUrl, true);
-    return $photos;
-}
 
 function convertCurrencyToCAD($sourceCurrencyCode, $convertAmount) {
     $apiUrl = "https://free.currconv.com/api/v7/convert?q=" . $sourceCurrencyCode . "_CAD&compact=ultra&apiKey=05d742f1f2b8ff8dd8c3";
