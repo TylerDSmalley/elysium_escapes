@@ -32,30 +32,34 @@
 						</div>
 					</div>
 				</div>
+				<div class="redText">{{errorList.location}}</div>
 				<div class="d-flex justify-content-center row g-3 align-items-center  mb-2">
 					<div class="col-auto mb-2">
 						<div class="input-group">
 							<div class="input-group-text date">Departure Date</div>
-							<input type="date" class="form-control" id="autoSizingInputGroup" name="arrival" required/>
+							<input type="date" class="form-control" id="autoSizingInputGroup" name="arrival" value="{{v.arrival}}" required/>
 						</div>
 					</div>
 					<div class="col-auto  mb-2">
 						<div class="input-group">
 							<div class="input-group-text date">Return Date</div>
-							<input type="date" class="form-control" id="autoSizingInputGroup" name="departure" required/>
+							<input type="date" class="form-control" id="autoSizingInputGroup" name="departure" value="{{v.departure}}" required/>
 						</div>
 					</div>
+					<br><div class="redText">{{errorList.date}}</div>
 					<div class="d-flex justify-content-center row g-3 align-items-center  mb-2">
 						<div class="col-auto  mb-2">
 							<div class="input-group">
 								<div class="input-group-text">Adults</div>
-								<input type="number" id="form-control" name="adults" value="1" required/>
+								<input type="number" id="form-control" name="adults" value="{{v.adults}}" required/>
+								<div class="redText">{{errorList.adults}}</div>
 							</div>
 						</div>
 						<div class="col-auto  mb-2">
 							<div class="input-group">
 								<div class="input-group-text">children</div>
-								<input type="number" id="form-control" name="children" value="0"/>
+								<input type="number" id="form-control" name="children" value="{{v.children}}"/>
+								<div class="redText">{{errorList.children}}</div>
 							</div>
 						</div>
 					</div>
