@@ -4,18 +4,18 @@
 </head>
 <body>
 <h3>Order Details</h3>
-<p>Your confirmation number is: CONFIRM_NUMBER</p>
-<p>Your total amount paid is: $TOTAL_PAID CAD</p>
-<p>Your departure date is: DEPARTURE_DATE</p>
-<p>Your return date is: RETURN_DATE</p>
-<p>Number of Adults: NUM_ADULTS</p>
-<p>Number of Children: NUM_CHILDREN</p>
-<p>Your trip was booked on: BOOKING_DATE</p>
+<p>Your confirmation number is: <b>CONFIRM_NUMBER</b></p>
+<p>Your total amount paid is: <b>$TOTAL_PAID CAD</b></p>
+<p>Your departure date is: <b>DEPARTURE_DATE</b></p>
+<p>Your return date is: <b>RETURN_DATE</b></p>
+<p>Number of Adults: <b>NUM_ADULTS</b></p>
+<p>Number of Children: <b>NUM_CHILDREN</b></p>
+<p>Your trip was booked on: <b>BOOKING_DATE</b></p>
 <h4>Location Details</h4>
-<p>Your chosen destination is: CHOSEN_DEST</p>
-<p>Your hotel name is: HOTEL_NAME</p>
-<p>Your hotel city is: HOTEL_CITY</p>
-<p>Your hotel address is: HOTEL_ADDRESS</p>
+<p>Your chosen destination is: <b>CHOSEN_DEST</b></p>
+<p>Your hotel name is: <b>HOTEL_NAME</b></p>
+<p>Your hotel city is: <b>HOTEL_CITY</b></p>
+<p>Your hotel address is: <b>HOTEL_ADDRESS</b></p>
 
 
 <br/>
