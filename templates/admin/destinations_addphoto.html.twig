@@ -22,20 +22,29 @@
 	<section class="section p-5">
 		<div class="container">
 
-			<form class="form" method="post" enctype="multipart/form-data">
-				<h3>Add Destination Photo</h3>
-				<div class="formContainer">
-					<label>Destination ID: {{ destinationId }}</label><br/>
+			<div class="row g-2 mt-5">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h3 class="h3 card-title" id="exampleModalNavLabel">Add Destination Photos</h3>
+						</div>
+						<div class="modal-body text-center">
+							<h5>Destination ID:<strong>{{ destinationId }}</strong></h5>
+							<form class="form" method="post" enctype="multipart/form-data">
+									
+									<input type="file" name="photo[]" multiple >
+									<div class="redText">{{errors.photo}}</div>
 
-					<label>Add Photo:</label>
-					<input type="file" name="photo">
-					<div class="redText">{{errors.photo}}</div>
+									<div class="submitButtonBox">
+										<input class="submitButton" type="submit" name="submit" value="Submit">
+									</div>
+							</form>
 
-					<div class="submitButtonBox">
-						<input class="submitButton" type="submit" name="submit" value="Submit">
+						</div>
+						<div class="modal-footer"></div>
 					</div>
 				</div>
-			</form>
+			</div>
 		</div>
 	</section>
 
