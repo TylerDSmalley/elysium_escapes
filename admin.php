@@ -8,7 +8,7 @@ require_once 'init.php';
 $app->get('/admin/{op:users|destinations|contactus|bookings|testimonials}/list', function ($request, $response, $args) {
    if (!isset($_SESSION['user']) || $_SESSION['user']['account_type'] != 'admin') {
       return $this->view->render($response, 'admin/not_found.html.twig');
-  }
+   }
    if ($args['op'] == 'users') {
       $userList = DB::query("SELECT * FROM users WHERE status='active'");
       return $this->view->render($response, 'admin/users_list.html.twig', ['usersList' => $userList]);
@@ -40,7 +40,7 @@ $app->get('/admin/{op:users|destinations|contactus|bookings|testimonials}/list',
 $app->get('/admin/users/inactive', function ($request, $response, $args) {
    if (!isset($_SESSION['user']) || $_SESSION['user']['account_type'] != 'admin') {
       return $this->view->render($response, 'admin/not_found.html.twig');
-  }
+   }
    $userList = DB::query("SELECT * FROM users WHERE status='inactive'");
    return $this->view->render($response, 'admin/inactive_users.html.twig', ['usersList' => $userList]);
 });
@@ -52,7 +52,7 @@ $app->get('/admin/users/inactive', function ($request, $response, $args) {
 $app->get('/admin/users/{op:edit|add}[/{id:[0-9]+}]', function ($request, $response, $args) {
    if (!isset($_SESSION['user']) || $_SESSION['user']['account_type'] != 'admin') {
       return $this->view->render($response, 'admin/not_found.html.twig');
-  }
+   }
 
    if ($args['op'] !== null) {
       $op =  $args['op'];
@@ -140,7 +140,7 @@ $app->post('/admin/users/{op:edit|add}[/{id:[0-9]+}]', function ($request, $resp
    if ($result !== true) {
       $errorList[] = $result;
    }
-  
+
    if ($errorList) {
       return $this->view->render(
          $response,
@@ -168,7 +168,7 @@ $app->post('/admin/users/{op:edit|add}[/{id:[0-9]+}]', function ($request, $resp
 $app->get('/admin/users/delete[/{id:[0-9]+}]', function ($request, $response, $args) {
    if (!isset($_SESSION['user']) || $_SESSION['user']['account_type'] != 'admin') {
       return $this->view->render($response, 'admin/not_found.html.twig');
-  }
+   }
 
    $user = DB::queryFirstRow("SELECT * FROM users WHERE id=%d", $args['id']);
    if (!$user) {
@@ -190,7 +190,7 @@ $app->post('/admin/users/delete[/{id:[0-9]+}]', function ($request, $response, $
 $app->get('/admin/destinations/delete[/{id:[0-9]+}]', function ($request, $response, $args) {
    if (!isset($_SESSION['user']) || $_SESSION['user']['account_type'] != 'admin') {
       return $this->view->render($response, 'admin/not_found.html.twig');
-  }
+   }
 
    $destination = DB::queryFirstRow("SELECT * FROM destinations WHERE id=%d", $args['id']);
    if (!$destination) {
@@ -210,7 +210,7 @@ $app->post('/admin/destinations/delete[/{id:[0-9]+}]', function ($request, $resp
 $app->get('/admin/testimonials/delete[/{id:[0-9]+}]', function ($request, $response, $args) {
    if (!isset($_SESSION['user']) || $_SESSION['user']['account_type'] != 'admin') {
       return $this->view->render($response, 'admin/not_found.html.twig');
-  }
+   }
 
    $testimonial = DB::queryFirstRow("SELECT * FROM testimonials WHERE id=%d", $args['id']);
    if (!$testimonial) {
@@ -232,8 +232,8 @@ $app->get('/admin/destinations/addimage[/{id:[0-9]+}]', function ($request, $res
    $destinationId = $args['id'];
    if (!isset($_SESSION['user']) || $_SESSION['user']['account_type'] != 'admin') {
       return $this->view->render($response, 'admin/not_found.html.twig');
-  }
-   return $this->view->render($response, 'admin/destinations_addphoto.html.twig',['destinationId' => $destinationId]);
+   }
+   return $this->view->render($response, 'admin/destinations_addphoto.html.twig', ['destinationId' => $destinationId]);
 });
 
 $app->post('/admin/destinations/addimage[/{id:[0-9]+}]', function ($request, $response, $args) {
@@ -242,26 +242,26 @@ $app->post('/admin/destinations/addimage[/{id:[0-9]+}]', function ($request, $re
 
    $photo = $_FILES['photo'];
    $isPhoto = TRUE;
-      $photoFilePath = "";
-      $retval = verifyUploadedPhoto($photoFilePath, $photo);
-      if ($retval !== TRUE) {
-         $errorList['photo'] = $retval; 
-      }
+   $photoFilePath = "";
+   $retval = verifyUploadedPhoto($photoFilePath, $photo);
+   if ($retval !== TRUE) {
+      $errorList['photo'] = $retval;
+   }
 
-      if($errorList){
-         return $this->view->render($response, 'admin/destinations_addphoto.html.twig', ['errorsList' => $errorList]);
-      }
-      if (!move_uploaded_file($_FILES['photo']['tmp_name'], $photoFilePath)) {
-         die("Error moving the uploaded file. Action aborted.");
-      }
-      $finalFilePath = htmlentities($photoFilePath);
+   if ($errorList) {
+      return $this->view->render($response, 'admin/destinations_addphoto.html.twig', ['errorsList' => $errorList]);
+   }
+   if (!move_uploaded_file($_FILES['photo']['tmp_name'], $photoFilePath)) {
+      die("Error moving the uploaded file. Action aborted.");
+   }
+   $finalFilePath = htmlentities($photoFilePath);
 
-      DB::insert('images', [
-         'destination_id' => $destinationId,
-         'collage_imagepath' => $finalFilePath
-      ]);
-      setFlashMessage("Photo successfully added!");
-      return $response->withRedirect("/admin/destinations/list");
+   DB::insert('images', [
+      'destination_id' => $destinationId,
+      'collage_imagepath' => $finalFilePath
+   ]);
+   setFlashMessage("Photo successfully added!");
+   return $response->withRedirect("/admin/destinations/list");
 });
 
 
@@ -272,7 +272,7 @@ $app->post('/admin/destinations/addimage[/{id:[0-9]+}]', function ($request, $re
 $app->get('/admin/destinations/{op:edit|add}[/{id:[0-9]+}]', function ($request, $response, $args) {
    if (!isset($_SESSION['user']) || $_SESSION['user']['account_type'] != 'admin') {
       return $this->view->render($response, 'admin/not_found.html.twig');
-  }
+   }
 
    if (($args['op'] == 'add' && !empty($args['id']) || $args['op'] == 'edit' && empty($args['id']))) {
       $response = $response->withStatus(404);
@@ -329,20 +329,20 @@ $app->post('/admin/destinations/{op:edit|add}[/{id:[0-9]+}]', function ($request
       $photoFilePath = "";
       $retval = verifyUploadedPhoto($photoFilePath, $photo);
       if ($retval !== TRUE) {
-         $errors['photo'] = $retval; 
+         $errors['photo'] = $retval;
       }
    } elseif ($op == 'edit' && $photo['error'] != UPLOAD_ERR_NO_FILE) {
       $photoFilePath = "";
       $retval = verifyUploadedPhoto($photoFilePath, $photo);
       if ($retval !== TRUE) {
-         $errors['photo'] = $retval; 
+         $errors['photo'] = $retval;
       }
    } else {
       $isPhoto = FALSE;
    }
 
 
-   if (array_filter($errors)) { 
+   if (array_filter($errors)) {
       $valuesList = ['destination_name' => $destination_name, 'destination_description' => $destination_description, 'photo' => $photoFilePath];
       return $this->view->render($response, 'admin/destinations_add.html.twig', ['errors' => $errors, 'v' => $valuesList]);
    } else { //This is an add operation
@@ -363,13 +363,12 @@ $app->post('/admin/destinations/{op:edit|add}[/{id:[0-9]+}]', function ($request
             'destination_imagepath' => $finalFilePath,
          ]);
          setFlashMessage("Destination successfully added!");
-        
       } else { //This is an edit operation
          if ($isPhoto == TRUE) {
             if (!move_uploaded_file($_FILES['photo']['tmp_name'], $photoFilePath)) {
                die("Error moving the uploaded file. Action aborted.");
             }
-            
+
             $finalFilePath = htmlentities($photoFilePath);
             $data = ['destination_name' => $finaldestination_name, 'destination_description' => $final_destination_description, 'destination_imagepath' => $finalFilePath];
             DB::update('destinations', $data, "id=%d", $args['id']);
@@ -381,8 +380,7 @@ $app->post('/admin/destinations/{op:edit|add}[/{id:[0-9]+}]', function ($request
          }
       }
       return $response->withRedirect("/admin/destinations/list");
-   } 
-
+   }
 });
 
 $app->patch('/isMessageRead/{id:[0-9]+}/{checkVal}', function ($request, $response, $args) {
