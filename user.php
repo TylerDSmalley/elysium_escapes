@@ -406,7 +406,7 @@ $app->post('/users/edit', function ($request, $response, $args) {
 
     //validate
 
-    $errors = array('firstName' => '', 'lastName' => '', 'email' => '', 'phone' => '');
+    $errors = [];
 
     if (preg_match('/^[\.a-zA-Z0-9,!? ]*$/', $firstName) != 1 || strlen($firstName) < 2 || strlen($firstName) > 100) {
         $errors['firstName'] = "Name must be between 2 and 100 characters and include only letters, numbers, space, dash, dot or comma";
@@ -524,7 +524,7 @@ $app->post('/testbooking', function ($request, $response, $args) {
         $locationId = searchLocation($location, $destType);
         $hotelList = searchHotels($locationId, $destType, $adults, $children, $arrival, $departure);
         
-        $errorList = array('location' => '', 'adults' => '', 'children' => '', 'date' => '');
+        $errorList = [];
 
         if (!$location) {
             $errorList['location'] = "You must select a location";
@@ -550,7 +550,8 @@ $app->post('/testbooking', function ($request, $response, $args) {
             $arrival = "";
             $departure = "";
         }
-        if ($errorList['adults'] || $errorList['children'] || $errorList['date']) {
+        
+        if (array_filter($errorList)) {
             $destinations = DB::query("SELECT destination_name, destination_imagepath FROM destinations");
             $valuesList = ['adults' => $adults, 'children' => $children, 'arrival' => $arrival, 'departure' => $departure];
             return $this->view->render($response, 'testbooking.html.twig', ['d' => $destinations, 'errorList' => $errorList, 'v' => $valuesList]);

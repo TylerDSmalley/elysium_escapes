@@ -3,11 +3,31 @@
 {% endblock %}
 {% block head %}
 	<link rel="stylesheet" href="styles/book.css"/>
-	<script src="scripts/booking.js" defer></script>
 	{{ parent() }}
 {% endblock %}
 
 {% block content %}
+
+	{% if errorList %}
+		<div class="position-fixed top-0 end-0 p-3" style="z-index: 1000">
+			<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+				<div class="toast-header">
+					<img src="../images/Logo.png" class="rounded me-5" alt="logo">
+					<button type="button" class="btn-close  ms-5" data-bs-dismiss="toast" aria-label="Close"></button>
+				</div>
+				<div class="toast-body">
+					<strong class="me-auto">There was a problem...</strong>
+					<ul>
+						{% for error in errorList %}
+							<li>
+								{{error}}
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+		</div>
+	{% endif %}
 
 	<div class="parallax-1">
 		<div class="caption">
@@ -32,7 +52,6 @@
 						</div>
 					</div>
 				</div>
-				<div class="redText">{{errorList.location}}</div>
 				<div class="d-flex justify-content-center row g-3 align-items-center  mb-2">
 					<div class="col-auto mb-2">
 						<div class="input-group">
@@ -44,22 +63,22 @@
 						<div class="input-group">
 							<div class="input-group-text date">Return Date</div>
 							<input type="date" class="form-control" id="autoSizingInputGroup" name="departure" value="{{v.departure}}" required/>
+
 						</div>
 					</div>
-					<br><div class="redText">{{errorList.date}}</div>
 					<div class="d-flex justify-content-center row g-3 align-items-center  mb-2">
 						<div class="col-auto  mb-2">
 							<div class="input-group">
 								<div class="input-group-text">Adults</div>
 								<input type="number" id="form-control" name="adults" value="{{v.adults}}" required/>
-								<div class="redText">{{errorList.adults}}</div>
+
 							</div>
 						</div>
 						<div class="col-auto  mb-2">
 							<div class="input-group">
 								<div class="input-group-text">children</div>
 								<input type="number" id="form-control" name="children" value="{{v.children}}"/>
-								<div class="redText">{{errorList.children}}</div>
+
 							</div>
 						</div>
 					</div>
@@ -78,4 +97,12 @@
 			<span class="border">...Escape</span>
 		</div>
 	</div>
+
+	<script>
+        window.onload = (event) => {
+            let myAlert = document.querySelector('.toast');
+            let bsAlert = new bootstrap.Toast(myAlert);
+            bsAlert.show();
+        }
+    </script>
 {% endblock %}
