@@ -33,7 +33,7 @@
 					User Email:
 					<input class="title" type="text" name="email" value="{{ use.email }}"/><br>
 					User Phone:
-					<input class="title" type="text" name="phone" value="{{use.phone_number}}"/><br/>
+					<input class="title" type="tel" name="phone" value="{{use.phone_number}}" placeholder="555-555-5555"/><br/>
                     User Type:<br/>
                     <select name="type" id="type">
 					 {% if use.account_type == "customer" or op == 'add' or errorList %}
