@@ -21,7 +21,8 @@ $app->get('/blog', function ($request, $response, $args) {
 
 //BOOKING HANDLERS
 $app->get('/testbooking', function ($request, $response, $args) {
-    $destinations = DB::query("SELECT destination_name, destination_imagepath FROM destinations");
+    
+    $destinations = DB::query("SELECT * FROM destinations WHERE `status`=%s", "active");
     return $this->view->render($response, 'testbooking.html.twig', ['d' => $destinations]);
 });
 
@@ -157,7 +158,7 @@ $app->get('/trcalendar', function ($request, $response, $args) {
 
 // DESTINATIONS HANDLERS
 $app->get('/destinations', function ($request, $response, $args) {
-    $destinations = DB::query("SELECT * FROM destinations");
+    $destinations = DB::query("SELECT * FROM destinations WHERE `status`=%s", "active");
     $images = DB::query("SELECT * FROM images");
     return $this->view->render($response, 'destinations.html.twig', ['destinations' => $destinations, 'images' => $images]);
 });
@@ -552,7 +553,7 @@ $app->post('/testbooking', function ($request, $response, $args) {
         }
         
         if (array_filter($errorList)) {
-            $destinations = DB::query("SELECT destination_name, destination_imagepath FROM destinations");
+            $destinations = DB::query("SELECT * FROM destinations WHERE `status`=%s", "active");
             $valuesList = ['adults' => $adults, 'children' => $children, 'arrival' => $arrival, 'departure' => $departure];
             return $this->view->render($response, 'testbooking.html.twig', ['d' => $destinations, 'errorList' => $errorList, 'v' => $valuesList]);
         }
