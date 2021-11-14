@@ -224,9 +224,10 @@ $app->post('/register', function ($request, $response, $args) {
         $valuesList = ['firstName' => $firstName, 'lastName' => $lastName, 'email' => $email, 'phone' => $phoneNumber];
         return $this->view->render($response, 'register.html.twig', ['errorList' => $errorList, 'v' => $valuesList]);
     } else {
+        $success = "Registration successful! You may now sign in";
         $hash = password_hash($password1, PASSWORD_DEFAULT);
         DB::insert('users', ['first_name' => $firstName, 'last_name' => $lastName, 'email' => $email, 'phone_number' => $phoneNumber, 'password' => $hash]);
-        return $this->view->render($response, 'index.html.twig');
+        return $this->view->render($response, 'index.html.twig', ['success' => $success]);
     }
 });
 
@@ -365,7 +366,7 @@ $app->post('/users/trips', function ($request, $response, $args) use ($log) {
             'image_filepath' => $finalFilePath
         ]);
 
-        $log->debug(sprintf("new auction created with id=%s", $_SERVER['REMOTE_ADDR'], DB::insertId())); //needs test
+        $log->debug(sprintf("new testimonial created id=%s", $_SERVER['REMOTE_ADDR'], DB::insertId())); //needs test
         $thanks = "Thank you for your story!";
         return $this->view->render($response, 'userProfileTrips.html.twig', ['booking_history' => $booking_history, 'thanks' => $thanks]); //needs confirmation signal
     } // end POST check
@@ -443,7 +444,7 @@ $app->post('/users/edit', function ($request, $response, $args) {
     } else {
         if (!$email) {
             DB::query("UPDATE users SET first_name=%s, last_name=%s, phone_number=%s WHERE id=%s", $firstName, $lastName, $phoneNumber, $userId);
-            $success = "1";
+            $success = "Profile updated";;
             printf($phoneNumber);
             unset($_SESSION['user']);
             $userCheck = DB::queryFirstRow("SELECT * FROM users WHERE id=%s", $userId);
@@ -451,7 +452,7 @@ $app->post('/users/edit', function ($request, $response, $args) {
             return $this->view->render($response, 'userProfileEdit.html.twig', ['success' => $success]);
         } else {
             DB::query("UPDATE users SET first_name=%s, last_name=%s, email=%s, phone_number=%s WHERE id=%s", $firstName, $lastName, $email, $phoneNumber, $userId);
-            $success = "1";
+            $success = "Profile updated";
             unset($_SESSION['user']);
             $userCheck = DB::queryFirstRow("SELECT * FROM users WHERE id=%s", $userId);
             $_SESSION['user'] = $userCheck;
