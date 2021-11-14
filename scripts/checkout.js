@@ -20,7 +20,7 @@ async function initialize() {
     const { clientSecret } = await fetch("/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ price }),
+        body: JSON.stringify({ price,  booking_id}),
     }).then((r) => r.json());
 
     elements = stripe.elements({ clientSecret });

@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>Enjoy Your Trip! - Elysian Escapes</title>
+</head>
+<body>
+<h3>Order Details</h3>
+<p>Your confirmation number is: CONFIRM_NUMBER</p>
+<p>Your total amount paid is: $TOTAL_PAID CAD</p>
+<p>Your departure date is: DEPARTURE_DATE</p>
+<p>Your return date is: RETURN_DATE</p>
+<p>Number of Adults: NUM_ADULTS</p>
+<p>Number of Children: NUM_CHILDREN</p>
+<p>Your trip was booked on: BOOKING_DATE</p>
+<h4>Location Details</h4>
+<p>Your chosen destination is: CHOSEN_DEST</p>
+<p>Your hotel name is: HOTEL_NAME</p>
+<p>Your hotel city is: HOTEL_CITY</p>
+<p>Your hotel address is: HOTEL_ADDRESS</p>
+
+
+<br/>
+<p>Please keep this email for your records.</p>
+</body>
+</html>

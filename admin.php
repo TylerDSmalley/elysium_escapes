@@ -6,6 +6,9 @@ require_once 'init.php';
 
 // LIST USERS/DESTINATION/CONTACTUS/BOOKINGS/TESTIMONIALS HANDLER
 $app->get('/admin/{op:users|destinations|contactus|bookings|testimonials}/list', function ($request, $response, $args) {
+   if (!isset($_SESSION['user']) || $_SESSION['user']['account_type'] != 'admin') {
+      return $this->view->render($response, 'admin/not_found.html.twig');
+  }
    if ($args['op'] == 'users') {
       $userList = DB::query("SELECT * FROM users WHERE status='active'");
       return $this->view->render($response, 'admin/users_list.html.twig', ['usersList' => $userList]);

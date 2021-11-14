@@ -25,10 +25,44 @@ $app->get('/testbooking', function ($request, $response, $args) {
     return $this->view->render($response, 'testbooking.html.twig', ['d' => $destinations]);
 });
 
-$app->get('/bookingConfirm', function ($request, $response, $args) {
+$app->get('/bookingConfirm', function ($request, $response, $args) use ($log) {
     $userId = $_SESSION['user']['id'];
     $bookingConfirm = DB::queryFirstRow("SELECT b.*, h.*, d.* FROM booking_history AS b  LEFT JOIN hotel AS h ON b.hotel_id = h.id LEFT JOIN destinations AS d ON b.destination_id = d.id WHERE b.user_id = %s ORDER BY b.paymentTS DESC", $userId);
+    $email = DB::queryFirstRow("SELECT email FROM users WHERE id=%i",$userId);
+    if($email){
+        $departureDate = date('M j Y', strtotime($bookingConfirm['departure_date']));
+        $returnDate = date('M j Y', strtotime($bookingConfirm['return_date']));
+        $bookingDate = date('M j Y', strtotime($bookingConfirm['paymentTS']));
+        $totalPrice = number_format($bookingConfirm['total_price'], 2, '.', '');
 
+    $emailBody = file_get_contents('templates/confirmation_email.html.strsub');
+        $emailBody = str_replace('CONFIRM_NUMBER', $bookingConfirm['booking_confirm'], $emailBody);
+        $emailBody = str_replace('TOTAL_PAID', $totalPrice, $emailBody);
+        $emailBody = str_replace('DEPARTURE_DATE', $departureDate, $emailBody);
+        $emailBody = str_replace('RETURN_DATE', $returnDate, $emailBody);
+        $emailBody = str_replace('NUM_ADULTS', $bookingConfirm['number_adults'], $emailBody);
+        $emailBody = str_replace('NUM_CHILDREN', $bookingConfirm['number_children'], $emailBody);
+        $emailBody = str_replace('BOOKING_DATE', $bookingDate, $emailBody);
+        $emailBody = str_replace('CHOSEN_DEST', $bookingConfirm['destination_name'], $emailBody);
+        $emailBody = str_replace('HOTEL_NAME', $bookingConfirm['hotel_name'], $emailBody);
+        $emailBody = str_replace('HOTEL_CITY', $bookingConfirm['hotel_city'], $emailBody);
+        $emailBody = str_replace('HOTEL_ADDRESS', $bookingConfirm['hotel_address'], $emailBody);
+        /* // OPTION 1: PURE PHP EMAIL SENDING - most likely will end up in Spam / Junk folder */
+        $to = $email['email'];
+        $subject = "Elysian Escapes - Trip Confirmation";
+        // Always set content-type when sending HTML email
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        // More headers
+        $headers .= 'From: No Reply <noreply@travel.fsd01.ca>' . "\r\n";
+        // finally send the email
+        $result = mail($to, $subject, $emailBody, $headers);
+        if ($result) {
+            $log->debug(sprintf("Booking confirmation sent to %s", $email));
+        } else {
+            $log->error(sprintf("Error sending booking confirmation email to %s\n:%s", $email));
+        } 
+    }
     //INSERT EMAIL CONFIRM!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     return $this->view->render($response, 'testBookingConfirm.html.twig', ['bookingConfirm' => $bookingConfirm]);
 });
@@ -510,6 +544,7 @@ $app->post('/create', function ($request, $response, $args) {
         $jsonStr = file_get_contents('php://input');
         $jsonObj = json_decode($jsonStr, true);
         $totalCost = $jsonObj['price'];
+        $bookingId = $jsonObj['booking_id'];
         $totalCost = number_format($totalCost, 2, '.', '');
         $costAsCents = $totalCost * 100;
         
@@ -518,6 +553,8 @@ $app->post('/create', function ($request, $response, $args) {
             'amount' => $costAsCents,
             'currency' => 'CAD',
             'payment_method_types' => ['card'],
+            'description' => $bookingId,
+            'metadata' => ['testId' => $bookingId],
         ]);
 
         $output = [
