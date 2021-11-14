@@ -224,10 +224,10 @@ $app->post('/register', function ($request, $response, $args) {
         $valuesList = ['firstName' => $firstName, 'lastName' => $lastName, 'email' => $email, 'phone' => $phoneNumber];
         return $this->view->render($response, 'register.html.twig', ['errorList' => $errorList, 'v' => $valuesList]);
     } else {
-        $success = "Registration successful! You may now sign in";
+        setFlashMessage("Registration successful! You may now sign in");
         $hash = password_hash($password1, PASSWORD_DEFAULT);
         DB::insert('users', ['first_name' => $firstName, 'last_name' => $lastName, 'email' => $email, 'phone_number' => $phoneNumber, 'password' => $hash]);
-        return $this->view->render($response, 'index.html.twig', ['success' => $success]);
+        return $response->withRedirect('/login');
     }
 });
 
@@ -273,7 +273,7 @@ $app->post('/login', function ($request, $response, $args) {
         // STATE 3: login successful
         unset($userCheck['password']); // for safety reasons remove the password
         $_SESSION['user'] = $userCheck;
-        return $this->view->render($response, 'index.html.twig');
+        return $response->withRedirect('/');
     }
 
     // end POST check   

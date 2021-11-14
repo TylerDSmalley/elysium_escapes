@@ -5,6 +5,11 @@
 
 {% block head %}
 	<style>
+		.table {
+			width: 100%;
+			height:auto;
+		}
+
 		.table,
 		th,
 		td {
@@ -21,12 +26,13 @@
 			caption-side: top;
 			text-align: left;
 		}
+
 	</style>
 {% endblock %}
 
 {% block content %}
 	<br/><br/>
-	<table class="center">
+	<table class="center mb-5 table">
 		<caption><a href="/admin/destinations/add">Add a New Destination</a></caption>
 		<tr>
 			<th>ID</th>
