@@ -41,8 +41,8 @@ $app->post('/webhook', function ($request, $response, $args) {
     switch ($event->type) {
     case 'payment_intent.succeeded':
         $paymentIntent = $event->data->object;
-        DB::update('booking_history', ['payment_status' => "paid"], "id=%i", $paymentIntent->description);
-        echo 'Received payment of ' . $paymentIntent->amount . ' Booking Id: ' . $paymentIntent->description;
+        DB::update('booking_history', ['payment_status' => "paid"], "id=%i", $paymentIntent->metadata->testId);
+        echo 'Received payment of ' . $paymentIntent->amount . ' Booking Id: ' . $paymentIntent->metadata->testId;
         break;
         
     case 'payment_intent.payment_failed':
@@ -76,7 +76,7 @@ $app->post('/webhook', function ($request, $response, $args) {
         $emailBody = str_replace('EMAIL', $email, $emailBody);
         $emailBody = str_replace('SECRET', $secret, $emailBody);
         /* // OPTION 1: PURE PHP EMAIL SENDING - most likely will end up in Spam / Junk folder */
-        $to = $email['email'];
+        $to = $email;
         $subject = "Password reset";
         // Always set content-type when sending HTML email
         $headers = "MIME-Version: 1.0" . "\r\n";
