@@ -3,9 +3,9 @@
 <title>Enjoy Your Trip! - Elysian Escapes</title>
 </head>
 <body>
-<h3>Order Details(EMAIL).</h3>
+<h3>Order Details</h3>
 <p>Your confirmation number is: CONFIRM_NUMBER</p>
-<p>Your total amount paid is: TOTAL_PAID</p>
+<p>Your total amount paid is: $TOTAL_PAID</p>
 <p>Your departure date is: DEPARTURE_DATE</p>
 <p>Your return date is: RETURN_DATE</p>
 <p>Number of Adults: NUM_ADULTS</p>
