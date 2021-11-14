@@ -25,7 +25,7 @@
 {% endblock %}
 
 {% block content %}
-	<br/><br/><br/><br/><br/>
+	<br/><br/>
 	<table class="center">
 		<caption><a href="/admin/destinations/add">Add a New Destination</a></caption>
 		<tr>
@@ -44,6 +44,7 @@
 				<td>
 					<a href="/admin/destinations/edit/{{d.id}}">Edit</a>&nbsp;
 					<a href="/admin/destinations/delete/{{d.id}}">Delete</a>
+					<a href="/admin/destinations/addimage/{{d.id}}">Add Photo</a>
 				</td>
 			</tr>
 		{% endfor %}

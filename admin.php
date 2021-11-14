@@ -227,6 +227,23 @@ $app->post('/admin/testimonials/delete[/{id:[0-9]+}]', function ($request, $resp
 });
 
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+$app->get('/admin/destinations/addimage[/{id:[0-9]+}]', function ($request, $response, $args) {
+   $destinationId = $args['id'];
+   if (!isset($_SESSION['user']) || $_SESSION['user']['account_type'] != 'admin') {
+      return $this->view->render($response, 'admin/not_found.html.twig');
+  }
+   return $this->view->render($response, 'admin/destinations_addphoto.html.twig',['destinationId' => $destinationId]);
+});
+
+$app->post('/admin/destinations/addimage[/{id:[0-9]+}]', function ($request, $response, $args) {
+  
+   //return $this->view->render($response, 'admin/destinations_addphoto.html.twig', ['destinationID' => $destinationId]);
+});
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 // ADD AND EDIT DESTINATION HANDLER
 $app->get('/admin/destinations/{op:edit|add}[/{id:[0-9]+}]', function ($request, $response, $args) {
@@ -291,7 +308,6 @@ $app->post('/admin/destinations/{op:edit|add}[/{id:[0-9]+}]', function ($request
       if ($retval !== TRUE) {
          $errors['photo'] = $retval; 
       }
-
    } elseif ($op == 'edit' && $photo['error'] != UPLOAD_ERR_NO_FILE) {
       $photoFilePath = "";
       $retval = verifyUploadedPhoto($photoFilePath, $photo);
