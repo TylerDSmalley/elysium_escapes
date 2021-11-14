@@ -531,15 +531,6 @@ $app->post('/testbooking', function ($request, $response, $args) {
 $app->post('/create', function ($request, $response, $args) {
     \Stripe\Stripe::setApiKey('sk_test_51JuPDTKzuA9IpUUKot3YMvv0KCWLD5GXtkRASmhqQ96VrLzHufknH8XmZzTexDcaIiOcmcuGfQpHMQQ5jY6nd0da007T6z1Bi9');
 
-    function calculateOrderAmount(array $items): int {
-        $totalCost = $items['price'];
-        $totalCost = number_format($totalCost, 2, '.', '');
-        $costAsCents = $totalCost * 100;
-        printf($totalCost);
-        // return 1400;
-        return $costAsCents;
-    }
-
     try {
         // retrieve JSON from POST body
         $jsonStr = file_get_contents('php://input');
@@ -554,8 +545,7 @@ $app->post('/create', function ($request, $response, $args) {
             'amount' => $costAsCents,
             'currency' => 'CAD',
             'payment_method_types' => ['card'],
-            'description' => $bookingId,
-            'metadata' => ['testId' => $bookingId],
+            'metadata' => ['bookingId' => $bookingId],
         ]);
 
         $output = [

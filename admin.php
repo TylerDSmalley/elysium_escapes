@@ -15,7 +15,7 @@ $app->get('/admin/{op:users|destinations|contactus|bookings|testimonials}/list',
    }
 
    if ($args['op'] == 'destinations') {
-      $destinationsList = DB::query("SELECT * FROM  destinations");
+      $destinationsList = DB::query("SELECT * FROM  destinations WHERE status='active'");
       return $this->view->render($response, 'admin/destinations_list.html.twig', ['destinationsList' => $destinationsList]);
    }
 
@@ -48,13 +48,6 @@ $app->get('/admin/users/inactive', function ($request, $response, $args) {
 
 
 // ADD AND EDIT USERS HANDLER
-
-/*
-if (!isset($_SESSION['user']) || $_SESSION['user']['account_type'] != 'admin') {
-        $app->redirect('/forbidden');
-        return;
-    }
-*/
 
 $app->get('/admin/users/{op:edit|add}[/{id:[0-9]+}]', function ($request, $response, $args) {
    if (!isset($_SESSION['user']) || $_SESSION['user']['account_type'] != 'admin') {
@@ -147,7 +140,7 @@ $app->post('/admin/users/{op:edit|add}[/{id:[0-9]+}]', function ($request, $resp
    if ($result !== true) {
       $errorList[] = $result;
    }
-   //Problem with page reloading with errors.. changes add to edit and doesn't populate dropdown list
+  
    if ($errorList) {
       return $this->view->render(
          $response,
@@ -189,7 +182,6 @@ $app->post('/admin/users/delete[/{id:[0-9]+}]', function ($request, $response, $
    DB::query("UPDATE users SET status='inactive' WHERE id=%i", $args['id']);
    setFlashMessage("User successfully deleted!");
    return $response->withRedirect("/admin/users/list");
-   //return $this->view->render($response, 'admin/users_delete.html_success.twig');
 });
 
 
@@ -212,7 +204,6 @@ $app->post('/admin/destinations/delete[/{id:[0-9]+}]', function ($request, $resp
    DB::query("UPDATE destinations SET status = 'inactive' WHERE id=%i", $args['id']);
    setFlashMessage("Destination successfully deleted!");
    return $response->withRedirect("/admin/destinations/list");
-   //return $this->view->render($response, 'admin/destinations_delete_success.html.twig');
 });
 
 //DELETE TESTIMONIAL HANDLER
@@ -233,7 +224,6 @@ $app->post('/admin/testimonials/delete[/{id:[0-9]+}]', function ($request, $resp
    DB::query("DELETE FROM testimonials WHERE id=%i", $args['id']);
    setFlashMessage("Testimonial successfully deleted!");
    return $response->withRedirect("/admin/testimonials/list");
-   //return $this->view->render($response, 'admin/testimonials_delete_success.html.twig');
 });
 
 
@@ -243,7 +233,7 @@ $app->get('/admin/destinations/{op:edit|add}[/{id:[0-9]+}]', function ($request,
    if (!isset($_SESSION['user']) || $_SESSION['user']['account_type'] != 'admin') {
       return $this->view->render($response, 'admin/not_found.html.twig');
   }
-  
+
    if (($args['op'] == 'add' && !empty($args['id']) || $args['op'] == 'edit' && empty($args['id']))) {
       $response = $response->withStatus(404);
       return $this->view->render($response, 'admin/not_found.html.twig');
@@ -261,9 +251,7 @@ $app->get('/admin/destinations/{op:edit|add}[/{id:[0-9]+}]', function ($request,
    return $this->view->render($response, 'admin/destinations_addedit.html.twig', ['destination' => $destination, 'op' => $args['op']]);
 });
 
-//Need to fix up POST edit / add on destination
 
-//STATE 2 & 3 = recieving submission
 $app->post('/admin/destinations/{op:edit|add}[/{id:[0-9]+}]', function ($request, $response, $args) use ($log) {
 
    $op = $args['op'];
@@ -271,7 +259,6 @@ $app->post('/admin/destinations/{op:edit|add}[/{id:[0-9]+}]', function ($request
    $destination_description = $destination_name = $photo =  "";
    $errors = array('destination_name' => '', 'destination_description' => '', 'photo' => '');
 
-   // check destination_name
    if (empty($request->getParam('destination_name'))) {
       $errors['destination_name'] = 'A Destination name is required';
    } else {
@@ -283,7 +270,6 @@ $app->post('/admin/destinations/{op:edit|add}[/{id:[0-9]+}]', function ($request
       }
    }
 
-   // check destination_description
    if (empty($request->getParam('destination_description'))) {
       $errors['destination_description'] = 'A Destination description is required';
    } else {
@@ -296,7 +282,6 @@ $app->post('/admin/destinations/{op:edit|add}[/{id:[0-9]+}]', function ($request
       }
    }
 
-   // check photo
 
    $photo = $_FILES['photo'];
    $isPhoto = TRUE;
@@ -304,23 +289,21 @@ $app->post('/admin/destinations/{op:edit|add}[/{id:[0-9]+}]', function ($request
       $photoFilePath = "";
       $retval = verifyUploadedPhoto($photoFilePath, $photo);
       if ($retval !== TRUE) {
-         $errors['photo'] = $retval; // string with error was returned, add it to error list
+         $errors['photo'] = $retval; 
       }
-      //adding a new destination sent to validatePhoto
 
    } elseif ($op == 'edit' && $photo['error'] != UPLOAD_ERR_NO_FILE) {
       $photoFilePath = "";
       $retval = verifyUploadedPhoto($photoFilePath, $photo);
       if ($retval !== TRUE) {
-         $errors['photo'] = $retval; // string with error was returned, add it to error list
+         $errors['photo'] = $retval; 
       }
-      //there is a photo for edit so send to validatePhoto
    } else {
       $isPhoto = FALSE;
    }
 
 
-   if (array_filter($errors)) { //STATE 2 = errors
+   if (array_filter($errors)) { 
       $valuesList = ['destination_name' => $destination_name, 'destination_description' => $destination_description, 'photo' => $photoFilePath];
       return $this->view->render($response, 'admin/destinations_add.html.twig', ['errors' => $errors, 'v' => $valuesList]);
    } else { //This is an add operation
@@ -333,7 +316,6 @@ $app->post('/admin/destinations/{op:edit|add}[/{id:[0-9]+}]', function ($request
 
             die("Error moving the uploaded file. Action aborted.");
          }
-         // 2. insert a new record with file path
          $finalFilePath = htmlentities($photoFilePath);
 
          DB::insert('destinations', [
@@ -348,7 +330,7 @@ $app->post('/admin/destinations/{op:edit|add}[/{id:[0-9]+}]', function ($request
             if (!move_uploaded_file($_FILES['photo']['tmp_name'], $photoFilePath)) {
                die("Error moving the uploaded file. Action aborted.");
             }
-            // 2. insert a new record with file path
+            
             $finalFilePath = htmlentities($photoFilePath);
             $data = ['destination_name' => $finaldestination_name, 'destination_description' => $final_destination_description, 'destination_imagepath' => $finalFilePath];
             DB::update('destinations', $data, "id=%d", $args['id']);
@@ -360,8 +342,7 @@ $app->post('/admin/destinations/{op:edit|add}[/{id:[0-9]+}]', function ($request
          }
       }
       return $response->withRedirect("/admin/destinations/list");
-     // return $this->view->render($response, '/admin/destinations_addedit_success.html.twig', ['op' => $args['op']]);
-   } // end POST check
+   } 
 
 });
 
