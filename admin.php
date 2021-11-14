@@ -237,8 +237,31 @@ $app->get('/admin/destinations/addimage[/{id:[0-9]+}]', function ($request, $res
 });
 
 $app->post('/admin/destinations/addimage[/{id:[0-9]+}]', function ($request, $response, $args) {
-  
-   //return $this->view->render($response, 'admin/destinations_addphoto.html.twig', ['destinationID' => $destinationId]);
+   $destinationId = $args['id'];
+   $errorList = [];
+
+   $photo = $_FILES['photo'];
+   $isPhoto = TRUE;
+      $photoFilePath = "";
+      $retval = verifyUploadedPhoto($photoFilePath, $photo);
+      if ($retval !== TRUE) {
+         $errorList['photo'] = $retval; 
+      }
+
+      if($errorList){
+         return $this->view->render($response, 'admin/destinations_addphoto.html.twig', ['errorsList' => $errorList]);
+      }
+      if (!move_uploaded_file($_FILES['photo']['tmp_name'], $photoFilePath)) {
+         die("Error moving the uploaded file. Action aborted.");
+      }
+      $finalFilePath = htmlentities($photoFilePath);
+
+      DB::insert('images', [
+         'destination_id' => $destinationId,
+         'collage_imagepath' => $finalFilePath
+      ]);
+      setFlashMessage("Photo successfully added!");
+      return $response->withRedirect("/admin/destinations/list");
 });
 
 
