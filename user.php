@@ -6,7 +6,8 @@ require_once 'init.php';
 
 //INDEX HANDLERS
 $app->get('/', function ($request, $response, $args) {
-    return $this->view->render($response, 'index.html.twig');
+    $images = DB::query("SELECT i.* FROM images AS i");
+    return $this->view->render($response, 'index.html.twig', ['images' => $images]);
 });
 //INDEX HANDLERS//
 
