@@ -41,8 +41,8 @@ $app->post('/webhook', function ($request, $response, $args) {
     switch ($event->type) {
     case 'payment_intent.succeeded':
         $paymentIntent = $event->data->object;
-        DB::update('booking_history', ['payment_status' => "paid"], "id=%i", $paymentIntent->description);
-        echo 'Received payment of ' . $paymentIntent->amount . ' Booking Id: ' . $paymentIntent->description;
+        DB::update('booking_history', ['payment_status' => "paid"], "id=%i", $paymentIntent->metadata->testId);
+        echo 'Received payment of ' . $paymentIntent->amount . ' Booking Id: ' . $paymentIntent->metadata->testId;
         break;
         
     case 'payment_intent.payment_failed':
