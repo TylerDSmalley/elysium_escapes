@@ -76,7 +76,7 @@ $app->post('/webhook', function ($request, $response, $args) {
         $emailBody = str_replace('EMAIL', $email, $emailBody);
         $emailBody = str_replace('SECRET', $secret, $emailBody);
         /* // OPTION 1: PURE PHP EMAIL SENDING - most likely will end up in Spam / Junk folder */
-        $to = $email['email'];
+        $to = $email;
         $subject = "Password reset";
         // Always set content-type when sending HTML email
         $headers = "MIME-Version: 1.0" . "\r\n";

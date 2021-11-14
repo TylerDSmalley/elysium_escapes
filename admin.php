@@ -38,6 +38,9 @@ $app->get('/admin/{op:users|destinations|contactus|bookings|testimonials}/list',
 
 // INACTIVE USERS HANDLER
 $app->get('/admin/users/inactive', function ($request, $response, $args) {
+   if (!isset($_SESSION['user']) || $_SESSION['user']['account_type'] != 'admin') {
+      return $this->view->render($response, 'admin/not_found.html.twig');
+  }
    $userList = DB::query("SELECT * FROM users WHERE status='inactive'");
    return $this->view->render($response, 'admin/inactive_users.html.twig', ['usersList' => $userList]);
 });
@@ -54,6 +57,10 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['account_type'] != 'admin') {
 */
 
 $app->get('/admin/users/{op:edit|add}[/{id:[0-9]+}]', function ($request, $response, $args) {
+   if (!isset($_SESSION['user']) || $_SESSION['user']['account_type'] != 'admin') {
+      return $this->view->render($response, 'admin/not_found.html.twig');
+  }
+
    if ($args['op'] !== null) {
       $op =  $args['op'];
    } else {
@@ -78,10 +85,6 @@ $app->get('/admin/users/{op:edit|add}[/{id:[0-9]+}]', function ($request, $respo
    return $this->view->render($response, 'admin/users_addedit.html.twig', ['use' => $use, 'op' => $op]);
 });
 
-$app->get('/flash', function ($request, $response, $args) {
-   print_r($_SESSION);
-   return $this->view->render($response, 'flash.html.twig');
-});
 
 $app->post('/admin/users/{op:edit|add}[/{id:[0-9]+}]', function ($request, $response, $args) {
    $use = DB::queryFirstRow("SELECT * FROM users WHERE id=%i", $args['id']);
@@ -170,6 +173,10 @@ $app->post('/admin/users/{op:edit|add}[/{id:[0-9]+}]', function ($request, $resp
 });
 //DELETE USERS HANDLER
 $app->get('/admin/users/delete[/{id:[0-9]+}]', function ($request, $response, $args) {
+   if (!isset($_SESSION['user']) || $_SESSION['user']['account_type'] != 'admin') {
+      return $this->view->render($response, 'admin/not_found.html.twig');
+  }
+
    $user = DB::queryFirstRow("SELECT * FROM users WHERE id=%d", $args['id']);
    if (!$user) {
       $response = $response->withStatus(404);
@@ -189,6 +196,10 @@ $app->post('/admin/users/delete[/{id:[0-9]+}]', function ($request, $response, $
 
 //DELETE DESTINATION HANDLER
 $app->get('/admin/destinations/delete[/{id:[0-9]+}]', function ($request, $response, $args) {
+   if (!isset($_SESSION['user']) || $_SESSION['user']['account_type'] != 'admin') {
+      return $this->view->render($response, 'admin/not_found.html.twig');
+  }
+
    $destination = DB::queryFirstRow("SELECT * FROM destinations WHERE id=%d", $args['id']);
    if (!$destination) {
       $response = $response->withStatus(404);
@@ -206,6 +217,10 @@ $app->post('/admin/destinations/delete[/{id:[0-9]+}]', function ($request, $resp
 
 //DELETE TESTIMONIAL HANDLER
 $app->get('/admin/testimonials/delete[/{id:[0-9]+}]', function ($request, $response, $args) {
+   if (!isset($_SESSION['user']) || $_SESSION['user']['account_type'] != 'admin') {
+      return $this->view->render($response, 'admin/not_found.html.twig');
+  }
+
    $testimonial = DB::queryFirstRow("SELECT * FROM testimonials WHERE id=%d", $args['id']);
    if (!$testimonial) {
       $response = $response->withStatus(404);
@@ -225,6 +240,10 @@ $app->post('/admin/testimonials/delete[/{id:[0-9]+}]', function ($request, $resp
 
 // ADD AND EDIT DESTINATION HANDLER
 $app->get('/admin/destinations/{op:edit|add}[/{id:[0-9]+}]', function ($request, $response, $args) {
+   if (!isset($_SESSION['user']) || $_SESSION['user']['account_type'] != 'admin') {
+      return $this->view->render($response, 'admin/not_found.html.twig');
+  }
+  
    if (($args['op'] == 'add' && !empty($args['id']) || $args['op'] == 'edit' && empty($args['id']))) {
       $response = $response->withStatus(404);
       return $this->view->render($response, 'admin/not_found.html.twig');
