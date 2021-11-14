@@ -2,8 +2,6 @@
 const stripe = Stripe("pk_test_51JuPDTKzuA9IpUUKvtSDUnM1jq05tc6FucLC552QRiK5uSCkg0EVoMAdYrAgggGMNkKdwbBZ9BPv1p5FjaQuSbDq00sGqRBzaH");
 const price = document.getElementById('price').value;
 const booking_id = document.getElementById('booking_id').value;
-// The items the customer wants to buy
-const items = [{ total: price }];
 
 let elements;
 
@@ -37,7 +35,6 @@ async function handleSubmit(e) {
         elements,
         confirmParams: {
             // Make sure to change this to your payment completion page
-            // return_url: "http://localhost:8888/fsd02/apitesting/",
             return_url: "https://travel.fsd01.ca/bookingConfirm",
         },
     });
