@@ -79,11 +79,9 @@ div#calendar {
 }
 
 .destination_image_box {
-    flex: auto;
+    display: flex;
+    justify-content: center;
     width: 100%;
-    max-width: 538px;
-    min-width: 80%;
-    max-width: 10800%;
     height: auto;
 }
 
@@ -91,22 +89,11 @@ div#calendar {
     border: thin solid #AB8A72;
     border-radius: 20px;
     flex: auto;
-    max-width: 538px;
-    min-width: 80%;
-    width: 100%;
+    max-width: 50%;
+    min-width: 40%;
     height: auto;
     object-fit: cover;
-    vertical-align: bottom;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07), 0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07), 0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
-}
-
-.destination_image:hover {
-    position: relative;
-    top: -15px;
-    height: auto;
-    display: block;
-    z-index: 999;
-    box-shadow: 0 2px 1px rgba(0, 0, 0, 0.09), 0 4px 2px rgba(0, 0, 0, 0.09), 0 8px 4px rgba(0, 0, 0, 0.09), 0 16px 8px rgba(0, 0, 0, 0.09), 0 32px 16px rgba(0, 0, 0, 0.09);
 }
 
 #consultation_container {
