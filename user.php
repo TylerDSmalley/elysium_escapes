@@ -553,8 +553,7 @@ $app->post('/create', function ($request, $response, $args) {
             'amount' => $costAsCents,
             'currency' => 'CAD',
             'payment_method_types' => ['card'],
-            'description' => $bookingId,
-            'metadata' => ['testId' => $bookingId],
+            'metadata' => ['bookingId' => $bookingId],
         ]);
 
         $output = [
