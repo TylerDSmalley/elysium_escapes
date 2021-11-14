@@ -2,7 +2,7 @@
 {% block title %}Home
 {% endblock %}
 {% block head %}
-<link rel="stylesheet" href="styles/travel_site.css">
+	<link rel="stylesheet" href="styles/travel_site.css">
 	{{ parent() }}
 {% endblock %}
 
@@ -15,73 +15,74 @@
 	</div>
 
 	<section id="choose_container">
-		<h2 id="h2_choose">Choose Us</h2>
+		<h2 id="h2_choose">About us</h2>
 		<div id="choose_text">
 			<p>
-				Travel Right was founded by a small group of avid nomads who wanted to share their love of travel by helping other would-be travelers plan experiences of a lifetime. For far too long, travel had been a reserved experience for the lucky or wealthy. Our
-				team strives to change that stygma. We believe that travel can be a life changing, perspective altering endeavor. We hope that those who partake in their travels will see the world from a new persective and come home with the knowledge
-				that we all have much more in common than you may have originally thought. To find out more and to hear accounts from our happy travelers, click:
+				Elysium Escapes was founded by a small group of avid travlers who found themselves always wanting a more refined experience. Sometimes, when we have the means, we just want to have the very best the world has to offer. Most travel sites cater to the cheapest option possible. At Elysium Escapes, we know you have resources to spare and we intend to deliver the most exclusive experience that your hard pillaged money can buy. To find out more and to hear accounts from our happy travelers, Check out our
+				<strong>Tales from Elysium</strong>
+				travel journals:
 			</p>
 		</div>
-		<div class="button_wrapper">
-			<a class="button" href="http://lifes_a_beach_team_sit:8888/blog">Why Travel Right</a>
+		<div class="logInButtonBox w-100 text-center">
+			<a class="btn logInButton" href="https://travel.fsd01.ca/blog">Tales from Elysium</a>
 		</div>
 	</section>
 
 	<div class="parallax-2"></div>
 
-	<section id="destination_container">
+	<section class="container">
 		<h2 id="h2_Destinations">Pick Your Destination</h2>
-		<ul id="destination_list_wrapper">
-			<li class="destinaton_flexbox">
-				<h3 class="destination_heading">Tropical Paradise</h3>
-				<p class="destination_description">
-					For those discerning travelers looking for tranquil beaches, endless sunshine, and unlimited relaxation cross this bridge to find your tropical paradise.
-				</p>
-				<a class="destination_image_box" href="http://lifes_a_beach_team_sit:8888/destinations">
-					<img class="destination_image" src="images/destination_tropical.jpg" alt="Bridge to Tropical" title="Bridge to Tropical">
-				</a>
-			</li>
-			<li class="destinaton_flexbox">
-				<h3 class="destination_heading">Jungle Adventure</h3>
-				<p class="destination_description">
-					For the nomads out there with a streak of adventure in their hearts who seek to fly above the canopy, explore untamed lands, and perhaps jump off of a waterfall or two, cross this bridge to find your jungle adventure.
-				</p>
-				<a class="destination_image_box" href="http://lifes_a_beach_team_sit:8888/destinations">
-					<img class="destination_image" src="images/destination_jungle.jpg" alt="Bridge to Jungle" title="Bridge to Jungle">
-				</a>
-
-			</li>
-			<li class="destinaton_flexbox">
-				<h3 class="destination_heading">Urban Playgrounds</h3>
-				<p class="destination_description">
-					For the socialites among us who want to explore world class dining, unique art, and vibrant city night life that only the world's greatest cities can offer, cross this bridge to find your urban playground.
-				</p>
-				<a class="destination_image_box" href="http://lifes_a_beach_team_sit:8888/destinations">
-					<img class="destination_image" src="images/destination_urban.jpg" alt="Bridge to Urban" title="Bridge to Urban">
-				</a>
-
-			</li>
-		</ul>
+		<!-- photo carousel -->
+		<div class=" d-flex justify-content-center text-center">
+			<div id="carouselIndex" class="carousel slide w-50 rounded" data-bs-ride="carousel">
+				<div class="carousel-inner">
+					<div class="carousel-item active">
+						<img src="../images/Logo.png" class="d-block w-75" alt="Logo image">
+					</div>
+					{% if images %}
+						{% for image in images %}
+							<div class="carousel-item">
+								<img src="../{{ image.collage_imagepath }}" class="d-block w-75" alt="destination">
+							</div>
+						{% endfor %}
+					{% endif %}
+				</div>
+				<button class="carousel-control-prev" type="button" data-bs-target="#carouselIndex" data-bs-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Previous</span>
+				</button>
+				<button class="carousel-control-next" type="button" data-bs-target="#carouselIndex" data-bs-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Next</span>
+				</button>
+			</div>
+			<!-- photo carousel END -->
+		</div>
+		<div class="logInButtonBox w-100 text-center">
+			<a class="btn logInButton" href="https://travel.fsd01.ca/destinations">Explore our Escapes!</a>
+		</div>
 	</section>
 
 	<div class="parallax-3"></div>
 
 	<section id="consultation_container">
-		<h2 id="h2_book">Book A Consultation</h2>
+		<h2>Book Your Experience</h2>
 		<div id="book_wrapper">
+			<div class="destination_image_box">
+				<img class="destination_image" src="images/destination_tropical.jpg" alt="Bridge to Tropical" title="Bridge to Tropical">
+			</div>
 			<p>
-				If you're ready to cross the bridge to your next adventure the Right way then click the link below to fill out a booking request and one of our passionate travelistas will reach out to you shortly!
+				If you're ready to escape, then click the link below start the process!
 			</p>
-		</div>
-		<div class="button_wrapper">
-			<a class="button" href="http://lifes_a_beach_team_sit:8888/booking">Book Now!</a>
+			<div class="logInButtonBox w-100 text-center">
+				<a class="btn logInButton" href="https://travel.fsd01.ca/destinations">Book Now!</a>
+			</div>
 		</div>
 	</section>
 
 	<div class="parallax-1">
 		<div class="caption">
-			<span class="border">...Travel Right</span>
+			<span class="border">...Escape</span>
 		</div>
 	</div>
 
