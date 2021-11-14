@@ -45,7 +45,7 @@
 							{% for destination in d %}
 								<div class="col-auto mx-auto">
 									<h3 class="text-center">{{destination.destination_name}}</h3>
-									<input type="radio" id="{{destination.destination_name}}" name="location" value="{{destination.destination_name}}" required/>
+									<input type="radio" id="{{destination.destination_name}}" name="location" value="{{destination.destination_name}}"/>
 									<label for="{{destination.destination_name}}"><img class="imgButton" src="../{{destination.destination_imagepath}}" height="200" width="200" alt="{{destination.destination_name}} image" title="{{destination.destination_name}} image"/></label>
 								</div>
 							{% endfor %}
@@ -56,13 +56,13 @@
 					<div class="col-auto mb-2">
 						<div class="input-group">
 							<div class="input-group-text date">Departure Date</div>
-							<input type="date" class="form-control" id="autoSizingInputGroup" name="arrival" value="{{v.arrival}}" required/>
+							<input type="date" class="form-control" id="autoSizingInputGroup" name="arrival" value="{{v.arrival}}"/>
 						</div>
 					</div>
 					<div class="col-auto  mb-2">
 						<div class="input-group">
 							<div class="input-group-text date">Return Date</div>
-							<input type="date" class="form-control" id="autoSizingInputGroup" name="departure" value="{{v.departure}}" required/>
+							<input type="date" class="form-control" id="autoSizingInputGroup" name="departure" value="{{v.departure}}"/>
 
 						</div>
 					</div>
@@ -70,7 +70,7 @@
 						<div class="col-auto  mb-2">
 							<div class="input-group">
 								<div class="input-group-text">Adults</div>
-								<input type="number" id="form-control" name="adults" value="{{v.adults}}" required/>
+								<input type="number" id="form-control" name="adults" value="{{v.adults}}" />
 
 							</div>
 						</div>
