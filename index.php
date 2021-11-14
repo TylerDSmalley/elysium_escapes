@@ -44,6 +44,12 @@ $app->post('/webhook', function ($request, $response, $args) {
         DB::update('booking_history', ['payment_status' => "paid"], "id=%i", $paymentIntent->description);
         echo 'Received payment of ' . $paymentIntent->amount . ' Booking Id: ' . $paymentIntent->description;
         break;
+        
+    case 'payment_intent.payment_failed':
+        $paymentIntent = $event->data->object;
+        DB::update('booking_history', ['payment_status' => "failed"], "id=%i", $paymentIntent->metadata->testId);
+        echo 'Failed payment' . ' Booking Id: ' . $paymentIntent->metadata->testId;
+        break;
     // ... handle other event types
     default:
         echo 'Received unknown event type ' . $event->type;
