@@ -520,10 +520,41 @@ $app->post('/testbooking', function ($request, $response, $args) {
         $children = $request->getParam('children');
         $arrival = $request->getParam('arrival');
         $departure = $request->getParam('departure');
+        
+        $errorList = array('location' => '', 'adults' => '', 'children' => '', 'date' => '');
+
+        if (!$location) {
+            $errorList['location'] = "You must select a location";
+        }
+        if ($adults < 1 || !$adults) {
+            $errorList['adults'] = "Number of adults must be at least 1";
+            $adults = "";
+        }
+        if ($children !== null && $children < 0 ) {
+            $errorList['children'] = "Number of children can not be a negative number";
+            $adults = "";
+        }
+        if ($arrival < date("Y-m-d") || $departure < date("Y-m-d")) {
+            $errorList['date'] = "You can not select a past date";
+            if ($arrival < date("Y-m-d")) {
+                $arrival = "";
+            }
+            if ($departure < date("Y-m-d")) {
+                $departure = "";
+            }
+        } else if ($arrival > $departure) {
+            $errorList['date'] = "Your departure date must be later than your arrival date";
+            $arrival = "";
+            $departure = "";
+        }
+        if ($errorList['adults'] || $errorList['children'] || $errorList['date']) {
+            $destinations = DB::query("SELECT destination_name, destination_imagepath FROM destinations");
+            $valuesList = ['adults' => $adults, 'children' => $children, 'arrival' => $arrival, 'departure' => $departure];
+            return $this->view->render($response, 'testbooking.html.twig', ['d' => $destinations, 'errorList' => $errorList, 'v' => $valuesList]);
+        }
         $destType = "";
         $locationId = searchLocation($location, $destType);
         $hotelList = searchHotels($locationId, $destType, $adults, $children, $arrival, $departure);
-        
         return $this->view->render($response, 'apitestbooking.html.twig', ['options' => ['location' => $location, 'adults' => $adults, 'children' => $children, 'arrival' => $arrival, 'departure' => $departure], 'h' => $hotelList->result]);
     }
 });
