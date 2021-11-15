@@ -681,10 +681,10 @@ Ileana
 
 
 2. What I plan to do from this scrum to the next
-- try to break site
-- give uniform look to 404 not found page on admin. (add guy chillin on a beach)
-- check breakpoint formatting on admin pages
-- Add no result message to hotel api page
+- DONE try to break site
+- DONE give uniform look to 404 not found page on admin. (add guy chillin on a beach)
+- DONE check breakpoint formatting on admin pages
+- DONE Add no result message to hotel api page
 - begin presentation
 
 
