@@ -65,7 +65,6 @@ $app->get('/bookingConfirm', function ($request, $response, $args) use ($log) {
             $log->error(sprintf("Error sending booking confirmation email to %s\n:%s", $email));
         } 
     }
-    //INSERT EMAIL CONFIRM!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     return $this->view->render($response, 'testBookingConfirm.html.twig', ['bookingConfirm' => $bookingConfirm]);
 });
 //BOOKING HANDLERS END

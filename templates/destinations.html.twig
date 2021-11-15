@@ -25,13 +25,13 @@
 					{% for destination in destinations %}
 						<!-- Destination Card -->
 						<div class="col-6-md" id="{{destination.id}}">
-							<div class="card .bg-light.bg-gradient text-dark">
+							<div class="card .bg-light.bg-gradient text-dark shadow-sm rounded-pill">
 								<div class="card-body text-center">
 									<div class="h1 mb-3">
 										<h2 class="h3 card-title">{{ destination.destination_name }}</h2>
 									</div>
 									
-										<button class="imgButton" data-bs-toggle="modal" data-bs-target="#exampleModal{{ destination.id }}"><img class="img-fluid destinationImage" src="{{ destination.destination_imagepath }}" alt="{{ destination.destination_name }} photo" title="{{ destination.destination_name }} title photo"></button>
+										<button class="imgButton rounded-pill" data-bs-toggle="modal" data-bs-target="#exampleModal{{ destination.id }}"><img class="img-fluid destinationImage rounded-pill" src="{{ destination.destination_imagepath }}" alt="{{ destination.destination_name }} photo" title="{{ destination.destination_name }} title photo"></button>
 									
 								</div>
 							</div>

@@ -33,7 +33,7 @@
 						<div class="modal-body">
 							<form method="post" enctype="multipart/form-data">
 								<div class="col-md">
-									<div class="form-floating mb-3">
+									<div class="form-floating mb-3 shadow-sm">
 										<input type="text" class="form-control" id="floatingInputNameF" name="firstName" placeholder="Jane" value = "{{ v.first_name }}">
 										<label for="floatingInputNameF">First Name:</label>
 										<div class="redText">{{errorList.firstName}}</div>
@@ -41,7 +41,7 @@
 								</div>
 
 								<div class="col-md">
-									<div class="form-floating mb-3">
+									<div class="form-floating mb-3 shadow-sm">
 										<input type="text" class="form-control" id="floatingInputNameL" name="lastName" placeholder="Doe" value = "{{ v.first_name }}">
 										<label for="floatingInputNameL">Last Name:</label>
 										<div class="redText">{{errorList.lastName}}</div>
@@ -49,7 +49,7 @@
 								</div>
 
 								<div class="col-md">
-									<div class="form-floating mb-3">
+									<div class="form-floating mb-3 shadow-sm">
 										<input type="email" class="form-control" id="floatingInputEmail" name="email" placeholder="name@example.com" value="{{ v.email }}">
 										<label for="floatingInputEmail">Email</label>
 										<div id="emailTaken" class="redText">{{errorList.email}}</div>
@@ -58,7 +58,7 @@
 								</div>
 
 								<div class="col-md">
-									<div class="form-floating mb-3">
+									<div class="form-floating mb-3 shadow-sm">
 										<input type="tel" class="form-control" id="floatingInputPhone" name="phone" placeholder="555-555-5555" value="{{ v.phone_number }}">
 										<label for="floatingInputPhone">Phone (555-555-5555)</label>
 										<div class="redText">{{errorList.phone}}</div>
@@ -66,7 +66,7 @@
 								</div>
 
 								<div class="col-md">
-									<div class="form-floating mb-3">
+									<div class="form-floating mb-3 shadow-sm">
 										<input type="password" class="form-control" id="floatingPassword1" name="password1" placeholder="Password">
 										<label for="floatingPassword1">Password</label>
 										<div class="redText">{{errorList.password1}}</div>
@@ -74,7 +74,7 @@
 								</div>
 
 								<div class="col-md">
-									<div class="form-floating mb-3">
+									<div class="form-floating mb-3 shadow-sm">
 										<input type="password" class="form-control" id="floatingPassword2" name="password2" placeholder="Password">
 										<label for="floatingPassword2">Password (Repeated):</label>
 									</div>
