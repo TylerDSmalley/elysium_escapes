@@ -6,6 +6,8 @@
 	{{ parent() }}
 {% endblock %}
 
+{% set i = 0 %}
+
 {% block content %}
 
 	<div class="parallax-1">
@@ -66,14 +68,15 @@
 														<!-- change images to whatever you called the array -->
 														{% if images %}
 															<!-- change images to whatever you called the array -->
-															{% for image in images %}
+															{% for image in images[i] %}
 																<div
 																	class="carousel-item">
 																	<!-- insert photo url here -->
-																	<img src="{{ image.collage_imagepath }}" class="d-block w-100" alt="{{ hotel.id }}">
+																	<img src="{{ image.url_max }}" class="d-block w-100" alt="{{ hotel.id }}">
 																</div>
 															{% endfor %}
 														{% endif %}
+														{% set i = i + 1 %}
 													</div>
 													<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls{{ hotel.id }}" data-bs-slide="prev">
 														<span class="carousel-control-prev-icon" aria-hidden="true"></span>
