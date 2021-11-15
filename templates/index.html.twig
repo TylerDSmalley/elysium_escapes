@@ -30,60 +30,48 @@
 
 	<div class="parallax-2"></div>
 
-	<section class="container">
-		<h2 id="h2_Destinations">Pick Your Destination</h2>
-		<!-- photo carousel -->
-		<div class=" d-flex justify-content-center text-center">
-			<div id="carouselIndex" class="carousel slide w-50 rounded" data-bs-ride="carousel">
-				<div class="carousel-inner">
-					<div class="carousel-item active">
-						<img src="../images/Logo.png" class="d-block w-75" alt="Logo image">
-					</div>
-					{% if images %}
-						{% for image in images %}
-							<div class="carousel-item">
-								<img src="../{{ image.collage_imagepath }}" class="d-block w-75" alt="destination">
+	<section class="section p-5">
+		<div class="container  mt-5 mb-5 bg-light rounded">
+			<div class="d-flex justify-content-center row g-3 align-items-center text-center  mt-5 mb-5">
+				<h2 id="h2_Destinations">Explore our Destination</h2>
+				<div class="col-auto">
+					<div class="input-group">
+						{% for destination in destinations %}
+							<div class="col-auto mx-auto mb-5">
+								<h3 class="text-center">{{destination.destination_name}}</h3>
+								<a class="btn" href="https://travel.fsd01.ca/destinations">
+									<img class="imgButton" src="{{destination.destination_imagepath}}" height="200" width="200" alt="{{destination.destination_name}} image" title="{{destination.destination_name}} image"/>
+								</a>
 							</div>
+
 						{% endfor %}
-					{% endif %}
+					</div>
 				</div>
-				<button class="carousel-control-prev" type="button" data-bs-target="#carouselIndex" data-bs-slide="prev">
-					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-					<span class="visually-hidden">Previous</span>
-				</button>
-				<button class="carousel-control-next" type="button" data-bs-target="#carouselIndex" data-bs-slide="next">
-					<span class="carousel-control-next-icon" aria-hidden="true"></span>
-					<span class="visually-hidden">Next</span>
-				</button>
 			</div>
-			<!-- photo carousel END -->
-		</div>
-		<div class="logInButtonBox w-100 text-center">
-			<a class="btn logInButton" href="https://travel.fsd01.ca/destinations">Explore our Escapes!</a>
-		</div>
-	</section>
 
-	<div class="parallax-3"></div>
-
-	<section id="consultation_container">
-		<h2>Book Your Experience</h2>
-		<div id="book_wrapper">
-			<div class="destination_image_box">
-				<img class="destination_image" src="images/destination_tropical.jpg" alt="Bridge to Tropical" title="Bridge to Tropical">
-			</div>
-			<p>
-				If you're ready to escape, then click the link below start the process!
-			</p>
-			<div class="logInButtonBox w-100 text-center">
-				<a class="btn logInButton" href="https://travel.fsd01.ca/destinations">Book Now!</a>
-			</div>
-		</div>
-	</section>
-
-	<div class="parallax-1">
-		<div class="caption">
-			<span class="border">...Escape</span>
 		</div>
 	</div>
+</section>
 
-{% endblock %}
+<div class="parallax-3"></div>
+
+<section id="consultation_container">
+	<h2>Book Your Experience</h2>
+	<div id="book_wrapper">
+		<div class="destination_image_box">
+			<img class="destination_image" src="images/destination_tropical.jpg" alt="Bridge to Tropical" title="Bridge to Tropical">
+		</div>
+		<p>
+			If you're ready to escape, then click the link below start the process!
+		</p>
+		<div class="logInButtonBox w-100 text-center">
+			<a class="btn logInButton" href="https://travel.fsd01.ca/destinations">Book Now!</a>
+		</div>
+	</div>
+</section>
+
+<div class="parallax-1">
+	<div class="caption">
+		<span class="border">...Escape</span>
+	</div>
+</div>{% endblock %}
