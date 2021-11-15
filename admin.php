@@ -4,8 +4,8 @@ require_once 'vendor/autoload.php';
 require_once 'utils.php';
 require_once 'init.php';
 
-// LIST USERS/DESTINATION/CONTACTUS/BOOKINGS/TESTIMONIALS HANDLER
-$app->get('/admin/{op:users|destinations|contactus|bookings|testimonials}/list', function ($request, $response, $args) {
+// LIST USERS/DESTINATION/CONTACTUS/BOOKINGS/TESTIMONIALS/HOTELS HANDLER
+$app->get('/admin/{op:users|destinations|contactus|bookings|testimonials|hotels}/list', function ($request, $response, $args) {
    if (!isset($_SESSION['user']) || $_SESSION['user']['account_type'] != 'admin') {
       return $this->view->render($response, 'not_found.html.twig');
    }
@@ -32,6 +32,11 @@ $app->get('/admin/{op:users|destinations|contactus|bookings|testimonials}/list',
    if ($args['op'] == 'testimonials') {
       $testimonialsList = DB::query("SELECT * FROM  testimonials ORDER BY createdTS DESC");
       return $this->view->render($response, 'admin/testimonials_list.html.twig', ['testimonialsList' => $testimonialsList]);
+   }
+
+   if ($args['op'] == 'hotels') {
+      $hotelsList = DB::query("SELECT * FROM  hotels");
+      return $this->view->render($response, 'admin/hotels_list.html.twig', ['hotelsList' => $hotelsList]);
    }
 });
 
@@ -241,7 +246,6 @@ $app->post('/admin/destinations/addimage[/{id:[0-9]+}]', function ($request, $re
    $errors = array('photo' => '');
 
    $photo = $_FILES['photo'];
-   $isPhoto = TRUE;
    $photoFilePath = "";
    $retval = verifyUploadedPhoto($photoFilePath, $photo);
    if ($retval !== TRUE) {
