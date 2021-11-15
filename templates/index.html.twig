@@ -39,7 +39,7 @@
 						{% for destination in destinations %}
 							<div class="col-auto mx-auto mb-5">
 								<h3 class="text-center">{{destination.destination_name}}</h3>
-								<a class="btn" href="https://travel.fsd01.ca/destinations">
+								<a class="btn" href="https://travel.fsd01.ca/destinations#{{destination.id}}">
 									<img class="imgButton" src="{{destination.destination_imagepath}}" height="200" width="200" alt="{{destination.destination_name}} image" title="{{destination.destination_name}} image"/>
 								</a>
 							</div>
