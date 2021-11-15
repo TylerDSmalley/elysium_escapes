@@ -119,7 +119,7 @@ $app->post('/contactus', function ($request, $response, $args) {
 
     // check message_body
     if (empty($request->getParam('message_body'))) {
-        $errors['message_body'] = 'An message is required';
+        $errors['message_body'] = 'A message is required';
     } else {
         $message_body = $request->getParam('message_body');
         if (strlen($message_body) < 2 || strlen($message_body) > 5000) {
