@@ -63,7 +63,7 @@
 												<div id="carouselExampleControls{{ hotel.id }}" class="carousel slide" data-bs-ride="carousel{{ hotel.id }}">
 													<div class="carousel-inner">
 														<div class="carousel-item active">
-															<img src="{{hotel.max_photo_url}}" class="d-block w-100" alt="{{ hotel.id }}">
+															<img src="{{hotel.max_photo_url}}" class="d-block w-100" alt="{{ hotel.id }}" style="object-fit: cover;object-position: center;height: 50vh;overflow: hidden;">
 														</div>
 														<!-- change images to whatever you called the array -->
 														{% if images %}
@@ -72,7 +72,7 @@
 																<div
 																	class="carousel-item">
 																	<!-- insert photo url here -->
-																	<img src="{{ image.url_max }}" class="d-block w-100" alt="{{ hotel.id }}">
+																	<img src="{{ image.url_max }}" class="d-block w-100" alt="{{ hotel.id }}" style="object-fit: cover;object-position: center;height: 50vh;overflow: hidden;">
 																</div>
 															{% endfor %}
 														{% endif %}
