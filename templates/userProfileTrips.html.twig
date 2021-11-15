@@ -8,7 +8,6 @@
 {% endblock %}
 
 {% block content %}
-
 	{% if thanks %}
 		<div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
 			<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
@@ -17,13 +16,12 @@
 					<button type="button" class="btn-close  ms-5" data-bs-dismiss="toast" aria-label="Close"></button>
 				</div>
 				<div class="toast-body">
-					<strong class="me-auto">Story Recieved</strong>
+					<strong class="me-auto"> {{ thanks }}</strong>
 					Thanks for sharing your travel story with the world!
 				</div>
 			</div>
 		</div>
 	{% endif %}
-
 	{% if errors %}
 		<div class="position-fixed top-0 end-0 p-3" style="z-index: 1000">
 			<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
@@ -35,7 +33,7 @@
 					<strong class="me-auto">There was a problem...</strong>
 					<ul>
 						{% for error in errors %}
-							<li>
+							<li style="list-style-type:none">
 								{{error}}
 							</li>
 						{% endfor %}
@@ -70,17 +68,17 @@
 											{{ trip.booking_confirm }}</p>
 									</div>
 									<div class="destinationImageBox">
-										<button class="btn btn-lg submitButton" data-bs-toggle="modal" data-bs-target="#exampleModal{{ trip.id }}">Trip Details</button>
-									</div>
+										<button class="btn btn-lg submitButton" data-bs-toggle="modal" data-bs-target="#destinationModal{{ trip.id }}">Trip Details</button>
+									</div>										
 								</div>
 							</div>
 						</div>
 						<!-- Modal -->
-						<div class="modal fade" id="exampleModal{{ trip.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal fade" id="destinationModal{{ trip.id }}" tabindex="-1" aria-labelledby="destinationModalLabel" aria-hidden="true">
 							<div class="modal-dialog modal-md">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h1 class="text-center card-title text-nowrap" id="exampleModalLabel">Order Summary</h1>
+										<h1 class="text-center card-title text-nowrap" id="destinationModalLabel">Order Summary</h1>
 										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
 									<div class="modal-body">
@@ -251,10 +249,10 @@
 
 	<script>
 		window.onload = (event) => {
-let myAlert = document.querySelector('.toast');
-let bsAlert = new bootstrap.Toast(myAlert);
-bsAlert.show();
-}
+			let myAlert = document.querySelector('.toast');
+			let bsAlert = new bootstrap.Toast(myAlert);
+			bsAlert.show();
+		}
 	</script>
 
 {% endblock %}

@@ -13,7 +13,7 @@ $app->get('/', function ($request, $response, $args) {
 
 //BLOG HANDLERS
 $app->get('/blog', function ($request, $response, $args) {
-    $testimonials = DB::query("SELECT t.*, u.first_name, d.destination_name FROM testimonials AS t LEFT JOIN users AS u ON t.user_id = u.id LEFT JOIN destinations AS d ON t.destination_id = d.id ORDER BY t.createdTS DESC");
+    $testimonials = DB::query("SELECT t.*, u.first_name, d.* FROM testimonials AS t LEFT JOIN users AS u ON t.user_id = u.id LEFT JOIN destinations AS d ON t.destination_id = d.id ORDER BY t.createdTS DESC");
     $images = DB::query("SELECT * FROM images");
     return $this->view->render($response, 'blog.html.twig', ['testimonials' => $testimonials, 'images' => $images]);
 });
@@ -21,7 +21,7 @@ $app->get('/blog', function ($request, $response, $args) {
 
 //BOOKING HANDLERS
 $app->get('/testbooking', function ($request, $response, $args) {
-    
+
     $destinations = DB::query("SELECT * FROM destinations WHERE `status`=%s", "active");
     return $this->view->render($response, 'testbooking.html.twig', ['d' => $destinations]);
 });
@@ -29,15 +29,15 @@ $app->get('/testbooking', function ($request, $response, $args) {
 $app->get('/bookingConfirm', function ($request, $response, $args) use ($log) {
     $userId = $_SESSION['user']['id'];
     $bookingConfirm = DB::queryFirstRow("SELECT b.*, h.*, d.* FROM booking_history AS b  LEFT JOIN hotel AS h ON b.hotel_id = h.id LEFT JOIN destinations AS d ON b.destination_id = d.id WHERE b.user_id = %s ORDER BY b.paymentTS DESC", $userId);
-    $email = DB::queryFirstRow("SELECT email FROM users WHERE id=%i",$userId);
-    
-    if($email){
+    $email = DB::queryFirstRow("SELECT email FROM users WHERE id=%i", $userId);
+
+    if ($email) {
         $departureDate = date('M j Y', strtotime($bookingConfirm['departure_date']));
         $returnDate = date('M j Y', strtotime($bookingConfirm['return_date']));
         $bookingDate = date('M j Y', strtotime($bookingConfirm['paymentTS']));
         $totalPrice = number_format($bookingConfirm['total_price'], 2, '.', '');
 
-    $emailBody = file_get_contents('templates/confirmation_email.html.strsub');
+        $emailBody = file_get_contents('templates/confirmation_email.html.strsub');
         $emailBody = str_replace('CONFIRM_NUMBER', $bookingConfirm['booking_confirm'], $emailBody);
         $emailBody = str_replace('TOTAL_PAID', $totalPrice, $emailBody);
         $emailBody = str_replace('DEPARTURE_DATE', $departureDate, $emailBody);
@@ -63,7 +63,7 @@ $app->get('/bookingConfirm', function ($request, $response, $args) use ($log) {
             $log->debug(sprintf("Booking confirmation sent to %s", $email));
         } else {
             $log->error(sprintf("Error sending booking confirmation email to %s\n:%s", $email));
-        } 
+        }
     }
     return $this->view->render($response, 'testBookingConfirm.html.twig', ['bookingConfirm' => $bookingConfirm]);
 });
@@ -292,13 +292,13 @@ $app->get('/logout', function ($request, $response, $args) {
 //USER PROFILE HANDLERS
 $app->get('/users/trips', function ($request, $response, $args) {
     $userId = $_SESSION['user']['id'];
-    $booking_history = DB::query("SELECT b.*, h.*, d.destination_name, d.destination_imagepath FROM booking_history AS b LEFT JOIN hotel AS h ON b.hotel_id = h.id LEFT JOIN destinations AS d ON b.destination_id = d.id WHERE user_id=%s AND b.payment_status=%s ", $userId, "paid");
+    $booking_history = DB::query("SELECT b.*, h.*, d.destination_name, d.destination_imagepath FROM booking_history AS b LEFT JOIN hotel AS h ON b.hotel_id = h.id LEFT JOIN destinations AS d ON b.destination_id = d.id WHERE user_id=%s AND b.payment_status=%s ORDER BY paymentTS DESC", $userId, "paid");
     return $this->view->render($response, 'userProfileTrips.html.twig', ['booking_history' => $booking_history]);
 });
 
 $app->post('/users/trips', function ($request, $response, $args) use ($log) {
     $userId = $_SESSION['user']['id'];
-    $booking_history = DB::query("SELECT b.*, d.destination_name, d.destination_imagepath FROM booking_history AS b LEFT JOIN destinations AS d ON b.destination_id = d.id WHERE user_id=%s AND b.payment_status=%s ", $userId, "paid");
+    $booking_history = DB::query("SELECT b.*, h.*, d.destination_name, d.destination_imagepath FROM booking_history AS b LEFT JOIN hotel AS h ON b.hotel_id = h.id LEFT JOIN destinations AS d ON b.destination_id = d.id WHERE user_id=%s AND b.payment_status=%s ORDER BY paymentTS DESC", $userId, "paid");
 
     $comment_body = $comment_title = $photo =  "";
     $errors = array('comment_title' => '', 'comment_body' => '', 'photo' => '');
@@ -330,21 +330,22 @@ $app->post('/users/trips', function ($request, $response, $args) use ($log) {
 
     // check photo
     $photo = $_FILES['photo'];
-    if (empty($photo)) { // error not caught
-        $errors['photo'] = 'A photo is required';
-    } else {
+    $isPhoto = TRUE;
+    if ($photo['error'] != UPLOAD_ERR_NO_FILE) {
         $photoFilePath = "";
         $retval = verifyUploadedPhoto($photoFilePath, $photo);
         if ($retval !== TRUE) {
             $errors['photo'] = $retval; // string with error was returned, add it to error list
         }
+    } else {
+        $isPhoto = FALSE;
     }
 
 
     if (array_filter($errors)) { //STATE 2 = errors
         $valuesList = ['comment_title' => $comment_title, 'comment_body' => $comment_body, 'image_filepath' => $photoFilePath];
         return $this->view->render($response, 'userProfileTrips.html.twig', ['errors' => $errors, 'v' => $valuesList, 'booking_history' => $booking_history]);
-    } else {
+    } elseif ($isPhoto) {
         // STATE 3: submission successful
         // insert the record and inform user
 
@@ -367,7 +368,21 @@ $app->post('/users/trips', function ($request, $response, $args) use ($log) {
         ]);
 
         $log->debug(sprintf("new testimonial created id=%s", $_SERVER['REMOTE_ADDR'], DB::insertId())); //needs test
-        $thanks = "Thank you for your story!";
+        $thanks = "Submission Received!";
+        return $this->view->render($response, 'userProfileTrips.html.twig', ['booking_history' => $booking_history, 'thanks' => $thanks]); //needs confirmation signal
+    } else {
+        $destination_id = $request->getParam('destination_id');
+
+        //save to db and check
+        DB::insert('testimonials', [
+            'user_id' => $userId,
+            'destination_id' => $destination_id,
+            'comment_title' => $finalComment_title,
+            'comment_body' => $final_comment_body,
+        ]);
+
+        $log->debug(sprintf("new testimonial created id=%s", $_SERVER['REMOTE_ADDR'], DB::insertId())); //needs test
+        $thanks = "Submission Received!";
         return $this->view->render($response, 'userProfileTrips.html.twig', ['booking_history' => $booking_history, 'thanks' => $thanks]); //needs confirmation signal
     } // end POST check
 
@@ -471,7 +486,7 @@ $app->get('/session', function ($request, $response, $args) {
 });
 
 $app->post('/testbooking', function ($request, $response, $args) {
-    if ($request->getParam('hotel') !== null){
+    if ($request->getParam('hotel') !== null) {
         $hotel = json_decode($request->getParam('hotel'));
         $options = json_decode($request->getParam('options'));
 
@@ -488,7 +503,7 @@ $app->post('/testbooking', function ($request, $response, $args) {
         $rand = random_int($min, $max); // Consider improved approach - check db for match
         $destinationId = DB::queryFirstField("SELECT id FROM destinations WHERE destination_name=%s", $options->location);
         $hotelData = ['destination_id' => $destinationId, 'hotel_name' => $hotelName, 'hotel_city' => $hotelCity, 'hotel_address' => $hotelAddress, 'hotel_currency' => $hotelCurrencyCode, 'price_hotel_currency' => $hotelPrice, 'price_cad' => $cadPrice, 'confirmation' => $rand];
-        
+
         DB::insert('hotel', $hotelData);
         $hotelId = DB::insertId();
 
@@ -512,7 +527,7 @@ $app->post('/testbooking', function ($request, $response, $args) {
         DB::insert('booking_history', $valuesList);
 
         $bookingId = DB::insertId();
-        
+
         return $this->view->render($response, 'checkout.html.twig', ['hotel' => $hotel, 'options' => $options, 'cad_price' => $cadPrice, 'booking_id' => $bookingId]);
     } else {
         $location = $request->getParam('location');
@@ -534,7 +549,7 @@ $app->post('/testbooking', function ($request, $response, $args) {
             $currentPhotoSet = getHotelPhotos($hotel->hotel_id);
             $hotelPhotos[] = $currentPhotoSet;
         }
-        
+
         $errorList = [];
 
         if (!$location) {
@@ -547,7 +562,7 @@ $app->post('/testbooking', function ($request, $response, $args) {
         if (!$children) {
             $children = 0;
         }
-        if ($children < 0 ) {
+        if ($children < 0) {
             $errorList['children'] = "Number of children can not be a negative number";
             $adults = "";
         }
@@ -564,7 +579,7 @@ $app->post('/testbooking', function ($request, $response, $args) {
             $arrival = "";
             $departure = "";
         }
-        
+
         if (array_filter($errorList)) {
             $destinations = DB::query("SELECT * FROM destinations WHERE `status`=%s", "active");
             $valuesList = ['adults' => $adults, 'children' => $children, 'arrival' => $arrival, 'departure' => $departure];
@@ -585,9 +600,9 @@ $app->post('/create', function ($request, $response, $args) {
         $bookingId = $jsonObj['booking_id'];
         $totalCost = number_format($totalCost, 2, '.', '');
         $costAsCents = $totalCost * 100;
-        
+
         // Create a PaymentIntent with amount and currency
-         $paymentIntent = \Stripe\PaymentIntent::create([
+        $paymentIntent = \Stripe\PaymentIntent::create([
             'amount' => $costAsCents,
             'currency' => 'CAD',
             'payment_method_types' => ['card'],
@@ -597,7 +612,7 @@ $app->post('/create', function ($request, $response, $args) {
         $output = [
             'clientSecret' => $paymentIntent->client_secret,
         ];
-        return $response->write(json_encode($output)); 
+        return $response->write(json_encode($output));
     } catch (Error $e) {
         http_response_code(500);
         echo json_encode(['error' => $e->getMessage()]);
