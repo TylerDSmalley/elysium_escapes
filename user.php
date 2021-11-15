@@ -534,7 +534,10 @@ $app->post('/testbooking', function ($request, $response, $args) {
             $errorList['adults'] = "Number of adults must be at least 1";
             $adults = "";
         }
-        if ($children !== null && $children < 0 ) {
+        if (!$children) {
+            $children = 0;
+        }
+        if ($children < 0 ) {
             $errorList['children'] = "Number of children can not be a negative number";
             $adults = "";
         }
