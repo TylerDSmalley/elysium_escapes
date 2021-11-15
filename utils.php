@@ -41,7 +41,6 @@ function validatePassword($password1, $password2)
 }
 
 
-// $app->get('/admin/user/list', function .....);
 function verifyUploadedPhoto(&$newFilePath, $photo)
 {
     $photo = $_FILES['photo'];
