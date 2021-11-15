@@ -35,7 +35,7 @@ $app->get('/admin/{op:users|destinations|contactus|bookings|testimonials|hotels}
    }
 
    if ($args['op'] == 'hotels') {
-      $hotelsList = DB::query("SELECT * FROM  hotels");
+      $hotelsList = DB::query("SELECT * FROM  hotel");
       return $this->view->render($response, 'admin/hotels_list.html.twig', ['hotelsList' => $hotelsList]);
    }
 });

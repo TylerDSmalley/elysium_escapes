@@ -1,3 +1,6 @@
+{% extends "admin/master.html.twig" %}
+
+{% block title %}Hotels List
 {% endblock %}
 
 {% block head %}
@@ -21,10 +24,10 @@
 	</style>
 {% endblock %}
 
-{% hlock content %}
-	<hr/><hr/><hr/><hr/><hr/>
+{% block content %}
+	<br/><br/>
 	<table class="center">
-		<caption>hooking History</caption>
+		<caption>Hotel Bookings Details</caption>
 		<tr>
 			<th>ID</th>
             <th>Destination ID</th>
@@ -33,8 +36,8 @@
 			<th>Hotel Address</th>
             <th>Hotel Currency</th>
 			<th>Hotel Currency Price</th>
-			<th>Canandian Currency Price</th>
-            <th>Confirmation Numher</th>
+			<th>Canadian Currency Price</th>
+            <th>Confirmation Number</th>
             
 		</tr>
 		{% for h in hotelsList %}
