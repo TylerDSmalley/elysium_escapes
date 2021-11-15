@@ -88,25 +88,23 @@
 
 					<div class="col-md">
 						<div class="form-floating mb-3">
-							<input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com" value="{{ v.email }}">
-							<label for="floatingInput">Email</label>
-							<div class="redText">{{errors.email}}</div>
+							<input type="email" class="form-control" id="floatingInputEmail" name="email" placeholder="name@example.com" value="{{ v.email }}">
+							<label for="floatingInputEmail">Email</label>
+							<div class="redText" id="confirmMessage">{{errors.email}}</div>
 						</div>
 					</div>
 
 					<div class="col-md">
 						<div class="form-floating mb-3">
-							<textarea class="form-control" id="floatingInputGrid" name="message_body" placeholder="Write something.." style="height:200px" value="{{v.itemDescription}}" required></textarea>
+							<textarea class="form-control" id="floatingInputGrid" name="message_body" placeholder="Write something.." style="height:200px" value="{{v.itemDescription}}"></textarea>
 							<label for="floatingInputGrid" class="col-form-label">Message:</label>
 							<div class="redText">{{errors.message_body}}</div>
 						</div>
 					</div>
 
 					<div class="submitButtonBox">
-						<input class="submitButton" type="submit" name="submit" value="Submit" onclick="confirmContact()">
+						<input class="submitButton" type="submit" name="submit" value="Submit">
 					</div>
-					<br/><br/>
-					<div id="confirmMessage"></div>
 				</form>
 			</div>
 
@@ -121,43 +119,8 @@
 	</div>
 </div>
 
+
 {% endblock %}
 
-{% block scripts %}
 
-<script>
-	async function validateEmail() {
-var emailAddress = document.getElementById('email');
-var settings = {
-"url": "https://api.eva.pingutil.com/email?email=" + emailAddress.value,
-"method": "GET",
-"timeout": 0
-};
-let verified = false;
-await $.ajax(settings).done(function (response) {
-if (response.data.deliverable === false) {
-emailAddress.focus();
-} else 
-verified = true;
-});
-return verified;
-}
 
-async function confirmContact() {
-if (document.getElementById('fullname').value === "" || document.getElementById('subject').value === "" || document.getElementById('email').value === "") { // alert("You must enter your Name and a Message");
-document.getElementById('confirmMessage').innerHTML = "Please Fill out all fields.";
-return false
-}
-var realEmail = await validateEmail();
-console.log(realEmail);
-if (! realEmail) {
-document.getElementById('confirmMessage').innerHTML = "Invalid Email.";
-return false
-} else {
-document.getElementById('confirmMessage').innerHTML = "Thank you for contacting us.<br/> We will get back to you shortly!";
-document.getElementById('fullname').value = "";
-document.getElementById('email').value = "";
-document.getElementById('subject').value = "";
-}
-}
-</script>{% endblock %}
