@@ -11,15 +11,15 @@
                 var checkVal = $(this).prop('checked') ? 'Yes' : 'No';
                 var checkId = $(this).attr("name");
              
-                var todoObj = { replied: checkVal, id: checkId};
-                var jsonString = JSON.stringify(todoObj);
+                var readObj = { replied: checkVal, id: checkId};
+                var jsonString = JSON.stringify(readObj);
                 $.ajax({
                     url: '/isMessageRead/' + checkId + "/" + checkVal,
                     type: 'PATCH',
                     data: jsonString,
                     dataType: 'json'
                 })
-        });
+			});
         });
     </script>
 	<style>

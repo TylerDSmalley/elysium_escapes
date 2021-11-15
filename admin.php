@@ -25,7 +25,7 @@ $app->get('/admin/{op:users|destinations|contactus|bookings|testimonials|hotels}
    }
 
    if ($args['op'] == 'bookings') {
-      $bookingsList = DB::query("SELECT * FROM  booking_history");
+      $bookingsList = DB::query("SELECT * FROM  booking_history ORDER BY paymentTS DESC");
       return $this->view->render($response, 'admin/bookings_list.html.twig', ['bookingsList' => $bookingsList]);
    }
 
@@ -35,7 +35,7 @@ $app->get('/admin/{op:users|destinations|contactus|bookings|testimonials|hotels}
    }
 
    if ($args['op'] == 'hotels') {
-      $hotelsList = DB::query("SELECT * FROM  hotel");
+      $hotelsList = DB::query("SELECT * FROM  hotel ORDER BY id DESC");
       return $this->view->render($response, 'admin/hotels_list.html.twig', ['hotelsList' => $hotelsList]);
    }
 });

@@ -46,7 +46,11 @@
 				<td>{{t.user_id}}</td>
 				<td>{% autoescape %}{{t.comment_title|raw}}{% endautoescape %}</td>
 				<td>{% autoescape %}{{t.comment_body|raw}}{% endautoescape %}</td>
-                <td><img src ="/../{{t.image_filepath}}" width="250"/></td>
+				{% if t.image_filepath is null %}
+				<td>No Photo</td>
+				{% else %}
+				 <td><img src ="/../{{t.image_filepath}}" width="250"/></td>
+				{% endif %}
                 <td>{{t.destination_rating}}</td>
                 <td>{{t.createdTS}}</td>
 				<td>
