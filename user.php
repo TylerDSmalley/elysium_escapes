@@ -523,7 +523,18 @@ $app->post('/testbooking', function ($request, $response, $args) {
         $departure = $request->getParam('departure');
         $destType = "";
         $locationId = searchLocation($location, $destType);
-        $hotelList = searchHotels($locationId, $destType, $adults, $children, $arrival, $departure);
+        $hotelData = searchHotels($locationId, $destType, $adults, $children, $arrival, $departure);
+        $hotelList = [];
+        foreach ($hotelData->result as $hotel) {
+            if ($hotel->accommodation_type_name == "Resort") {
+                $hotelList[] = $hotel;
+            }
+        }
+        $hotelPhotos = [];
+        foreach ($hotelList as $hotel) {
+            $currentPhotoSet = getHotelPhotos($hotel->hotel_id);
+            $hotelPhotos[] = $currentPhotoSet;
+        }
         
         $errorList = [];
 
@@ -560,7 +571,7 @@ $app->post('/testbooking', function ($request, $response, $args) {
             $valuesList = ['adults' => $adults, 'children' => $children, 'arrival' => $arrival, 'departure' => $departure];
             return $this->view->render($response, 'testbooking.html.twig', ['d' => $destinations, 'errorList' => $errorList, 'v' => $valuesList]);
         }
-        return $this->view->render($response, 'apitestbooking.html.twig', ['options' => ['location' => $location, 'adults' => $adults, 'children' => $children, 'arrival' => $arrival, 'departure' => $departure], 'h' => $hotelList->result]);
+        return $this->view->render($response, 'apitestbooking.html.twig', ['options' => ['location' => $location, 'adults' => $adults, 'children' => $children, 'arrival' => $arrival, 'departure' => $departure], 'h' => $hotelList, 'images' => $hotelPhotos]);
     }
 });
 
