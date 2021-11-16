@@ -232,7 +232,6 @@ $app->post('/admin/testimonials/delete[/{id:[0-9]+}]', function ($request, $resp
 });
 
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////
 $app->get('/admin/destinations/addimage[/{id:[0-9]+}]', function ($request, $response, $args) {
    $destinationId = $args['id'];
    if (!isset($_SESSION['user']) || $_SESSION['user']['account_type'] != 'admin') {
@@ -268,8 +267,6 @@ $app->post('/admin/destinations/addimage[/{id:[0-9]+}]', function ($request, $re
    return $response->withRedirect("/admin/destinations/list");
 });
 
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 // ADD AND EDIT DESTINATION HANDLER
