@@ -115,7 +115,7 @@ function callAPI($url, $bookingApi = false) {
 
     if ($bookingApi === true) {
         curl_setopt($curl,CURLOPT_HTTPHEADER , ["x-rapidapi-host: booking-com.p.rapidapi.com",
-        "x-rapidapi-key: adf4d61bfbmshc1238790d0580b6p17236ajsn8ba6cb2c559f"]);
+        "x-rapidapi-key: 00212bd341mshd388f431c6d4eb7p18dfd6jsned63fb89e251"]);
     }
 	
 	$response = curl_exec($curl);
